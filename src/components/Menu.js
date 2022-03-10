@@ -11,12 +11,6 @@ const Menu = () => {
                 <li className="me-4">
                     <NavLink className="text-white" to="/cong-thuc">Công thức</NavLink>
                 </li>
-                <li className="me-4">
-                    <NavLink className="text-white" to="/lien-he">Liên hệ</NavLink>
-                </li>
-                <li className="me-4">
-                    <NavLink className="text-white" to="/gioi-thieu">Giới thiệu</NavLink>
-                </li>
             </ul>
             <div className="position-absolute top-50 start-50 translate-middle">
                 <h1 className="text-white">LOGO</h1>
