@@ -17,12 +17,13 @@ ul {
   margin-bottom: 0;
 }
 .active {
-  color: #e2ffcd!important;
+  background-color: #92AD95!important;
   font-weight: 700;
 }
 .bg-92AD95 {
   background-color: #92AD95;
 }
+
 .bg-5A5A5A {
   background-color: #5A5A5A;
 }
@@ -38,4 +39,10 @@ ul {
   background-image: url('');
   height: 1.5rem;
   width: 1.5rem;
+}
+.user-menu{
+  display: none;
+}
+.user-nav:hover .user-menu{
+  display: block;
 }
