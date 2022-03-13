@@ -2,12 +2,21 @@ import {useState, useEffect} from "react";
 
 const Recipes = () => {
   const [list, setList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    // fetch("https://randomuser.me/api/?results=" + size)
+    //   .then((res) => res.json())
+    //   .then((resJson) => {
+    //     setUsers(resJson.results);
+    //     setIdLoading(false);
+    //   });
+  }, [list]);
 
   return <div className="container py-5">
     <h3 className="text-center">Công thức cho bạn</h3>
-    <div className="list-recipes row mt-4">
-      <div className="post-loading row">
+    {
+      isLoading ? <div className="post-loading row mt-4">
         <Skeleton />
         <Skeleton />
         <Skeleton />
@@ -20,8 +29,9 @@ const Recipes = () => {
         <Skeleton />
         <Skeleton />
         <Skeleton />
-      </div>
-    </div>
+      </div> : null
+    }
+    <div className="list-recipes row mt-4"></div>
   </div>
 }
 
