@@ -37,14 +37,9 @@ function Users() {
     <div>
       {
         <>
-          <Button
-            variant="contained"
-            style={{ borderRadius: 30 }}
-            onClick={handleClick}
-          >
-            <AccountCircle style={{ fontSize: 35 }} />
-            <Dehaze style={{ fontSize: 30 }} />
+          <Button style={{ borderRadius: 50 }} onClick={handleClick}>
           </Button>
+            <AccountCircle onClick={handleClick} style={{ fontSize: 40,color:'#fff' }} />
           <Menu open={!!anchorEl} anchorEl={anchorEl} onClose={handleClose}>
             {options.map((value) => (
               <MenuItem key={value} onClick={() => handleClickMenuItem(value)}>
