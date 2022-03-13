@@ -1,5 +1,5 @@
 import notfound from "../assets/404.jpg";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 
 const NotFound = () => {
   return <div className="container py-5">
