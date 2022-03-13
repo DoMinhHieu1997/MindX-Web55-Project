@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import Users from "./profile/Users";
 import { Search } from "@mui/icons-material";
 
 const Menu = () => {
@@ -27,7 +26,7 @@ const Menu = () => {
                 <input type="text" placeholder="Tìm kiếm..."  className="rounded border py-1 px-2"/>
                 <Search />
             </div>
-            <Users />
+
         </div>
     </div>
 }
