@@ -25,7 +25,7 @@ const Menu = () => {
             <div className="d-flex align-items-center">
                 <div className="position-relative me-3">
                     <input type="text" placeholder="Tìm kiếm..."  className="rounded-pill border py-1 px-2"/>
-                    <SearchIcon className="position-absolute top-50 end-0 translate-middle-y" style={{ color: '#939393'}}/>
+                    <SearchIcon className="position-absolute top-50 end-0 translate-middle-y me-2" style={{ color: '#939393'}}/>
                 </div>
                 <div>
                     <Users/>
