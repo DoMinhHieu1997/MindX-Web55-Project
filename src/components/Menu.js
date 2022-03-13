@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
-import SearchIcon from '@material-ui/icons/Search';
-import AccountIcon from '@material-ui/icons/AccountCircleOutlined';
+import SearchIcon from '@mui/icons-material/Search';
+import AccountIcon from '@mui/icons-material/AccountCircleOutlined';
 
 const Menu = () => {
     return <div className="bg-92AD95 py-3">
@@ -13,13 +13,13 @@ const Menu = () => {
                     <NavLink className="text-white" to="/cong-thuc">Công thức</NavLink>
                 </li>
             </ul>
-            <div className="position-absolute top-50 start-50 translate-middle-y">
+            <div className="position-absolute top-50 start-50 translate-middle">
                 <h1 className="text-white">LOGO</h1>
             </div>
             <div className="d-flex align-items-center">
                 <div className="position-relative me-3">
                     <input type="text" placeholder="Tìm kiếm..."  className="rounded-pill border py-1 px-2"/>
-                    <SearchIcon className="position-absolute top-50 end-0 translate-middle" style={{ color: '#939393'}}/>
+                    <SearchIcon className="position-absolute top-50 end-0 translate-middle-y" style={{ color: '#939393'}}/>
                 </div>
                 <div>
                     <AccountIcon style={{ color: 'white' }} fontSize="large"/>
