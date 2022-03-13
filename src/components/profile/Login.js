@@ -11,17 +11,17 @@ import { styled } from "@mui/system";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { Logo } from "./config";
+import {  loginUser, Logo } from "./config";
 function Login() {
   const {
     formState: { errors },
     handleSubmit,
     register,
   } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async(data) => {
+    await loginUser(data)
   };
-  console.log("render",{...register('username')});
+
   return (
     <Container maxWidth="sm">
       <form onSubmit={handleSubmit(onSubmit)}>

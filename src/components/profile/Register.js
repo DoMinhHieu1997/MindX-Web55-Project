@@ -1,5 +1,5 @@
 import { Button, Container, Paper, TextField } from "@mui/material";
-import { checkEmail, checkUser, Logo } from "./config";
+import { checkEmail, checkUser, Logo, registerUser } from "./config";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { styled } from "@mui/system";
@@ -20,8 +20,8 @@ const Register = () => {
   const handleClick = () => { 
     setShow((prev) => !prev);
   };
-  const onSubmit = (data) => {
-    !!Object.keys(errors).length || console.log(data);
+  const onSubmit = async(data) => {
+    await registerUser(data)
   };
   const validateEmail =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

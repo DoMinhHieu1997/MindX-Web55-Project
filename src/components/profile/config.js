@@ -30,3 +30,10 @@ export const checkEmail = async (email) => {
   }
   return false;
 };
+
+export const loginUser=async(data)=>{
+  console.log(data);
+}
+export const registerUser=async(data)=>{
+  console.log(data);
+}
