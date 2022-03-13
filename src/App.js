@@ -2,10 +2,10 @@ import Menu from "./components/Menu";
 import {Routes, Route} from "react-router-dom";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import NotFound from "./components/NotFound";
-import Recipes from "./components/Recipes";
+import Login from "./components/profile/Login";
+import Register from "./components//profile/Register";
+import NewPosts from "./components/posts/NewPosts";
+
 
 function App() {
   return (
@@ -13,10 +13,12 @@ function App() {
       <Menu />
       <Routes>
         <Route path="/" element={<Home />}/>
-        <Route path="/cong-thuc" element={<Recipes />}/>
+        <Route path="/cong-thuc" element={<Home />}/>
+        <Route path="/lien-he" element={<Home />}/>
+        <Route path="/gioi-thieu" element={<Home />}/>
         <Route path="/dang-nhap" element={<Login />}/>
         <Route path="/dang-ky" element={<Register />}/>
-        <Route path="*" element={<NotFound />}/>
+        <Route path="/tao-bai-viet" element={<NewPosts />}/>
       </Routes>
       <Footer />
     </div>
