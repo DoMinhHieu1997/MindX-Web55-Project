@@ -1,11 +1,5 @@
-import {
-  AccountCircle,
-  AppRegistration,
-  Dehaze,
-  Login,
-  Logout,
-} from "@mui/icons-material";
-import { Button, Menu, MenuItem } from "@mui/material";
+import { AccountCircleOutlined, Logout } from "@mui/icons-material";
+import {  Menu, MenuItem } from "@mui/material";
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -37,7 +31,10 @@ function Users() {
     <div>
       {
         <>
-            <AccountCircle onClick={handleClick} style={{ fontSize: 40,color:'#fff' }} />
+          <AccountCircleOutlined
+            onClick={handleClick}
+            style={{ fontSize: 40, color: "#fff" }}
+          />
           <Menu open={!!anchorEl} anchorEl={anchorEl} onClose={handleClose}>
             {options.map((value) => (
               <MenuItem key={value} onClick={() => handleClickMenuItem(value)}>
