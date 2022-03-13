@@ -1,7 +1,7 @@
 export const isLogged = () => {
   return false;
 };
-
+console.log('s');
 export const Logo = () => {
   return (
     <div
