@@ -37,8 +37,6 @@ function Users() {
     <div>
       {
         <>
-          <Button style={{ borderRadius: 50 }} onClick={handleClick}>
-          </Button>
             <AccountCircle onClick={handleClick} style={{ fontSize: 40,color:'#fff' }} />
           <Menu open={!!anchorEl} anchorEl={anchorEl} onClose={handleClose}>
             {options.map((value) => (
