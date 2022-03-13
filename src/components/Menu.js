@@ -4,8 +4,7 @@ import AccountIcon from '@mui/icons-material/AccountCircleOutlined';
 import Users from "./profile/Users";
 
 const Menu = () => {
-    
-    return <div className="bg-92AD95 py-3">
+    return <div className="bg-primary py-3">
         <div className="container d-flex align-items-center justify-content-between position-relative">
             <ul className="list-unstyled d-flex">
                 <li className="me-4">
