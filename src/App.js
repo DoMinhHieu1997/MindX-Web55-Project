@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import NotFound from "./components/NotFound";
+import Recipes from "./components/Recipes";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Menu />
       <Routes>
         <Route path="/" element={<Home />}/>
-        <Route path="/cong-thuc" element={<Home />}/>
+        <Route path="/cong-thuc" element={<Recipes />}/>
         <Route path="/dang-nhap" element={<Login />}/>
         <Route path="/dang-ky" element={<Register />}/>
         <Route path="*" element={<NotFound />}/>
