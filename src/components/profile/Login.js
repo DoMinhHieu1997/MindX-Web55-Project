@@ -83,7 +83,7 @@ function Login() {
               {errors.password && <Myp>{errors.password.message}</Myp>}
             </MyDiv>
             <FormGroup>
-              <FormControlLabel 
+              <FormControlLabel {...register('keepLogin')}
                 control={<Checkbox />}
                 label="Duy trì đăng nhập"
               />
