@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import AccountIcon from '@mui/icons-material/AccountCircleOutlined';
+import Users from "./profile/Users";
 
 const Menu = () => {
     return <div className="bg-primary py-3">
@@ -12,6 +13,12 @@ const Menu = () => {
                 <li className="me-4">
                     <NavLink className="text-white" to="/cong-thuc">Công thức</NavLink>
                 </li>
+                <li className="me-4">
+                    <NavLink className="text-white" to="/lien-he">Liên hệ</NavLink>
+                </li>
+                <li className="me-4">
+                    <NavLink className="text-white" to="/gioi-thieu">Giới thiệu</NavLink>
+                </li>
             </ul>
             <div className="position-absolute top-50 start-50 translate-middle">
                 <h1 className="text-white">LOGO</h1>
@@ -22,9 +29,10 @@ const Menu = () => {
                     <SearchIcon className="position-absolute top-50 end-0 translate-middle-y" style={{ color: '#939393'}}/>
                 </div>
                 <div>
-                    <AccountIcon style={{ color: 'white' }} fontSize="large"/>
+                    <Users/>
                 </div>
             </div>
+
         </div>
     </div>
 }
