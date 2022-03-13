@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
-    return <div className="fixed-bottom">
+    return <div >
         <div className="bg-5A5A5A py-5 " >
             <div className="container d-flex align-items-center justify-content-between">
                 <div className="">

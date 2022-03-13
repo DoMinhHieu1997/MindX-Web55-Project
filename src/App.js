@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Login from "./components/profile/Login";
 import Register from "./components//profile/Register";
+import NewPosts from "./components/posts/NewPosts";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/gioi-thieu" element={<Home />}/>
         <Route path="/dang-nhap" element={<Login />}/>
         <Route path="/dang-ky" element={<Register />}/>
+        <Route path="/tao-bai-viet" element={<NewPosts />}/>
       </Routes>
       <Footer />
     </div>
