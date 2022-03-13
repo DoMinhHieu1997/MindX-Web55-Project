@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
-import AccountIcon from '@mui/icons-material/AccountCircleOutlined';
-import Users from "./profile/Users";
+import Users from "../components/profile/Users";
 
 const Menu = () => {
     return <div className="bg-primary py-3">
