@@ -4,16 +4,18 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Login from "./components/profile/Login";
 import Register from "./components//profile/Register";
+import Recipes from "./components/Recipes";
 import NewPosts from "./components/posts/NewPosts";
-
+import FloatingAction from "./components/shared/FloatingAction";
 
 function App() {
   return (
     <div className="App">
       <Menu />
+      <FloatingAction />
       <Routes>
         <Route path="/" element={<Home />}/>
-        <Route path="/cong-thuc" element={<Home />}/>
+        <Route path="/cong-thuc" element={<Recipes />}/>
         <Route path="/lien-he" element={<Home />}/>
         <Route path="/gioi-thieu" element={<Home />}/>
         <Route path="/dang-nhap" element={<Login />}/>

@@ -33,7 +33,7 @@ function Users() {
         <>
           <AccountCircleOutlined
             onClick={handleClick}
-            style={{ fontSize: 40, color: "#fff" }}
+            style={{ fontSize: 30, color: "#fff" }}
           />
           <Menu open={!!anchorEl} anchorEl={anchorEl} onClose={handleClose}>
             {options.map((value) => (
