@@ -128,21 +128,6 @@ const Recipes = () => {
       ingredients:{},
       countLike:5,
       usersLike:[1,2,3,4,5]
-    },
-    {
-      id:1,
-      userid:1,
-      authorName:'minhhieu',
-      title:'công thức 1',
-      description:'đây là công thức 1',
-      content:'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-      avatar:'https://yt3.ggpht.com/ytc/AKedOLRnTRRXf6mT_gGQUTaCCZeLLc2FUB8lJOFq7CElow=s88-c-k-c0x00ffffff-no-rj',
-      type:2,
-      totalcalories:'300kcal',
-      createdAt:'13/3/2022',
-      ingredients:{},
-      countLike:5,
-      usersLike:[1,2,3,4,5]
     }
   ];
 
@@ -186,7 +171,9 @@ const Recipes = () => {
     </div>
     <div className="text-center">
       {
-        !isLoading && <Button className="return-to-home-btn" variant="outlined" color="primary" onClick={handleLoadMoreClick}>Hiển thị thêm công thức</Button>
+        !isLoading && <Button className="return-to-home-btn" variant="outlined" color="primary" onClick={handleLoadMoreClick}>
+          <div className="fw-bold">Hiển thị thêm công thức</div>
+        </Button>
       }
     </div>
   </div>
