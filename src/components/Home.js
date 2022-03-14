@@ -1,3 +1,5 @@
+import MostFavorite from "./shared/MostFavorite";
+
 const Home = () => {
     return <div className="container py-5">
         <h3>Công thức mới - thử ngay</h3>
@@ -135,19 +137,7 @@ const Home = () => {
                 
             </div>
             <div className="most-favourite-post col-md-3">
-                <h3 className="mb-4 text-center">Ưa thích nhất</h3>
-                <div>
-                    <div className="border rounded ratio ratio-4x3"></div>
-                    <div className="h5 mt-3">Tiêu đề bài viết</div>
-                </div>
-                <div>
-                    <div className="border rounded ratio ratio-4x3"></div>
-                    <div className="h5 mt-3">Tiêu đề bài viết</div>
-                </div>
-                <div>
-                    <div className="border rounded ratio ratio-4x3"></div>
-                    <div className="h5 mt-3">Tiêu đề bài viết</div>
-                </div>
+                <MostFavorite />
             </div>
         </div>
     </div>
