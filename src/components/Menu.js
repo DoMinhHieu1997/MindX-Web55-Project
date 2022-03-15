@@ -4,7 +4,7 @@ import Users from "../components/profile/Users";
 import Logo from "../assets/Group 72.png";
 
 const Menu = () => {
-    return <div className="bg-3771c7 py-3">
+    return <div className="bg-345354 py-3">
 
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">

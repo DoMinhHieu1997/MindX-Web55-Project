@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
 body {
   margin: 0;
@@ -14,17 +14,20 @@ a {
   text-decoration: none;
 }
 hr {
-  height:2px !important;
+  height: 2px !important;
 }
 ul {
   margin-bottom: 0;
 }
 .logo {
-  font-family: 'Lobster', cursive !important;
+  font-family: "Lobster", cursive !important;
   border: 2px solid white;
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.font-family-lobster {
+  font-family: "Lobster", cursive !important;
 }
 .z-index-3 {
   z-index: 3;
@@ -34,6 +37,9 @@ ul {
 }
 .bg-3771c7 {
   background-color: #3771c7;
+}
+.bg-345354 {
+  background: #345354;
 }
 .bg-5A5A5A {
   background-color: #5a5a5a;
