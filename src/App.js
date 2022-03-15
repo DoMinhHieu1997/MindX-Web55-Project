@@ -7,12 +7,16 @@ import Register from "./components//profile/Register";
 import Recipes from "./components/Recipes";
 import NewPosts from "./components/posts/NewPosts";
 import FloatingAction from "./components/shared/FloatingAction";
+import NotFound from "./components/NotFound";
+import Detail from "./components/Detail";
+import FoodRecommendation from "./components/shared/FoodRecommendation";
 
 function App() {
   return (
     <div className="App">
       <Menu />
       <FloatingAction />
+      {/* <FoodRecommendation /> */}
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/cong-thuc" element={<Recipes />}/>
@@ -21,6 +25,8 @@ function App() {
         <Route path="/dang-nhap" element={<Login />}/>
         <Route path="/dang-ky" element={<Register />}/>
         <Route path="/tao-bai-viet" element={<NewPosts />}/>
+        <Route path="/chi-tiet/:id" element={<Detail />}/>
+        <Route path="*" element={<NotFound />}/>
       </Routes>
       <Footer />
     </div>

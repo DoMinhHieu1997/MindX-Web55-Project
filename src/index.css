@@ -17,6 +17,12 @@ hr {
 ul {
   margin-bottom: 0;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
+.z-index-3 {
+  z-index: 3;
+}
 .active {
   font-weight: 700;
 }
@@ -25,9 +31,6 @@ ul {
 }
 .bg-5A5A5A {
   background-color: #5a5a5a;
-}
-.c-92AD95 {
-  color: #92ad95;
 }
 .icon {
   background-position: center;
