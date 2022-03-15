@@ -10,13 +10,15 @@ import FloatingAction from "./components/shared/FloatingAction";
 import NotFound from "./components/NotFound";
 import Detail from "./components/Detail";
 import FoodRecommendation from "./components/shared/FoodRecommendation";
+import TimeTable from "./components/shared/TimeTable";
 
 function App() {
   return (
     <div className="App">
       <Menu />
       <FloatingAction />
-      {/* <FoodRecommendation /> */}
+      {/* <FoodRecommendation />
+      <TimeTable /> */}
       <Routes>
         <Route path="/" element={<Home />}/>
         <Route path="/cong-thuc" element={<Recipes />}/>

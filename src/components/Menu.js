@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import Users from "../components/profile/Users";
+import Logo from "../assets/Group 72.png";
 
 const Menu = () => {
-    return <div className="bg-3771c7 py-2">
+    return <div className="bg-3771c7 py-3">
 
         <nav class="navbar navbar-expand-lg navbar-dark">
             <div class="container">
@@ -20,8 +21,8 @@ const Menu = () => {
                             <NavLink className="text-white" to="/cong-thuc">Công thức</NavLink>
                         </li>
                     </ul>
-                    <div className="position-absolute top-50 d-none d-md-block start-50 translate-middle">
-                        <h1 className="text-white">LOGO</h1>
+                    <div className="logo position-absolute top-50 bg-dark d-none d-md-block start-50 translate-middle p-2 rounded">
+                        <h2 className="text-white mb-0">COOKING HOLICS</h2>
                     </div>
                     <div className="d-flex align-items-center mt-4 mt-sm-0">
                         <div className="position-relative me-3">

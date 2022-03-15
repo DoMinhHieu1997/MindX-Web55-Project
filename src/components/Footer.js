@@ -4,8 +4,8 @@ const Footer = () => {
     return <div>
         <div className="bg-3771c7 py-5">
             <div className="container d-flex align-items-center justify-content-between">
-                <div className="">
-                    <h1 className="text-white">LOGO</h1>
+                <div className="logo rounded p-2 bg-dark">
+                    <h2 className="text-white mb-0">COOKING HOLICS</h2>
                 </div>
                 <ul className="list-unstyled d-flex">
                     <li className="me-4">
