@@ -1,63 +1,42 @@
-import { Link, NavLink } from "react-router-dom";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import { NavLink } from "react-router-dom";
+import SearchIcon from '@mui/icons-material/Search';
+import Users from "../components/profile/Users";
+import Logo from "../assets/Group 72.png";
 
 const Menu = () => {
-    return (
-        <div className="bg-92AD95 py-3">
-            <div className="container d-flex align-items-center justify-content-between position-relative">
-                <ul className="list-unstyled d-flex">
-                    <li className="me-4">
-                        <NavLink className="text-white" to="/">
-                            Trang chủ
-                        </NavLink>
-                    </li>
-                    <li className="me-4">
-                        <NavLink className="text-white" to="/cong-thuc">
-                            Công thức
-                        </NavLink>
-                    </li>
-                    <li className="me-4">
-                        <NavLink className="text-white" to="/lien-he">
-                            Liên hệ
-                        </NavLink>
-                    </li>
-                    <li className="me-4">
-                        <NavLink className="text-white" to="/gioi-thieu">
-                            Giới thiệu
-                        </NavLink>
-                    </li>
-                </ul>
-                <div className="position-absolute top-50 start-50 translate-middle">
-                    <h1 className="text-white">LOGO</h1>
-                </div>
-                <div className="row align-items-center">
-                    <div className="col-auto">
-                        <div className="bg-white rounded-pill overflow-hidden px-2 py-1">
-                            <div className="row gx-1">
-                                <div className="col-auto">
-                                    <input type="text" placeholder="Tìm kiếm..." className="border-0" />
-                                </div>
-                                <div className="col-auto">
-                                    <SearchOutlinedIcon />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    return <div className="bg-3771c7 py-3">
 
-                    <div className="user-nav col-auto">
-                        <Link className="text-white" to="/ho-so">
-                            <AccountCircleOutlinedIcon />
-                        </Link>
-                        <div className="user-menu row flex-column position-absolute end-0 bg-white shadow rounded">
-                            <div className="col-auto text-nowrap px-2 py-1 border-bottom ">Đăng nhập</div>
-                            <div className="col-auto text-nowrap px-2 py-1">Đăng xuất</div>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand d-sm-none d-block" href="#">LOGO</a>
+                <div class="collapse navbar-collapse mt-4 mt-sm-0" id="navbarTogglerDemo03">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item me-4">
+                            <NavLink className="text-white" to="/">Trang chủ</NavLink>
+                        </li>
+                        <li class="nav-item mt-3 mt-sm-0">
+                            <NavLink className="text-white" to="/cong-thuc">Công thức</NavLink>
+                        </li>
+                    </ul>
+                    <div className="logo position-absolute top-50 bg-dark d-none d-md-block start-50 translate-middle p-2 rounded">
+                        <h2 className="text-white mb-0">COOKING HOLICS</h2>
+                    </div>
+                    <div className="d-flex align-items-center mt-4 mt-sm-0">
+                        <div className="position-relative me-3">
+                            <input type="text" placeholder="Tìm kiếm..."  className="rounded-pill border py-1 px-2"/>
+                            <SearchIcon className="position-absolute top-50 end-0 translate-middle-y me-2" style={{ color: '#939393'}}/>
+                        </div>
+                        <div className="d-none d-sm-block">
+                            <Users/>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
-};
+        </nav>
+    </div>
+}
 
 export default Menu;
