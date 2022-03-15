@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 
 const PostContent = (props) => {
     const [isLove, setIsLove] = useState(false);
+    const [countLike, setCountLike] = useState(props.postContent.countLike);
 
     const handleLike = () => {
         setIsLove(true);
@@ -42,7 +43,7 @@ const PostContent = (props) => {
                     ? <FavoriteBorderOutlinedIcon className="d-inline-block" onClick={handleLike}/>
                     : <FavoriteIcon className="d-inline-block" style={{color: "#d83737"}}/> 
                 }
-                <div className="ms-2 d-inline-block h6 mb-0">{props.postContent.countLike} Lượt thích</div>
+                <div className="ms-2 d-inline-block h6 mb-0">{countLike} Lượt thích</div>
             </div>
             <div className="d-flex align-items-top">
                 <TextareaAutosize aria-label="minimum height" minRows={3} placeholder="Ý kiến của bạn..." className="w-75"/>
