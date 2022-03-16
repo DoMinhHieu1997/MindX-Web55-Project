@@ -11,6 +11,7 @@ import NotFound from "./components/NotFound";
 import Detail from "./components/Detail";
 import FoodRecommendation from "./components/shared/FoodRecommendation";
 import TimeTable from "./components/shared/TimeTable";
+import Search from "./components/Search";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/dang-ky" element={<Register />}/>
         <Route path="/tao-bai-viet" element={<NewPosts />}/>
         <Route path="/chi-tiet/:id" element={<Detail />}/>
+        <Route path="/tim-kiem/:keyword" element={<Search />}/>
         <Route path="*" element={<NotFound />}/>
       </Routes>
       <Footer />

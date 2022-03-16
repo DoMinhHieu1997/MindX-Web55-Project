@@ -1,20 +1,23 @@
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react';
+import COMMON from '../Common';
 
 const PostItem = (props) => {
   const [isLove, setIsLove] = useState(false);
-  const [totalLike, setTotalLike] = useState(10);
+  const [totalLike, setTotalLike] = useState(props.data.countLike ? props.data.countLike : 0);
 
   const handleLike = (event) => {
     setTotalLike(prev => prev + 1);
     setIsLove(true);
   }
 
-  return <div className='card mb-3'>
-    <div className="ratio ratio-4x3 rounded oveflow-hidden">
-      <div className="bg-light"></div>
-      <div className="mt-2 ms-2">
+  return <div className='card mb-3 overflow-hidden'>
+    <div className="position-relative rounded oveflow-hidden">
+      <a href={COMMON.DOMAIN+"post/detail?id="+props.data._id}>
+        <div className="ratio ratio-4x3" style={{backgroundImage:`url(${props.data.avatar})`}}></div>
+      </a>
+      <div className="pb-2 pt-1 ps-2 position-absolute top-0 start-0 end-0 bg-linear">
         {
           !isLove 
             ? <FavoriteBorderOutlinedIcon className="d-inline-block" onClick={handleLike}/>
@@ -24,8 +27,10 @@ const PostItem = (props) => {
       </div>
     </div>
     <div className="card-body">
-      <h5 className="card-title">Card title</h5>
-      <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <a href={"/chi-tiet/"+props.data._id}>
+        <h5 className="card-title">{props.data.title}</h5>
+      </a>
+      <p className="card-text">{props.data.description}</p>
     </div>
   </div>
 }
