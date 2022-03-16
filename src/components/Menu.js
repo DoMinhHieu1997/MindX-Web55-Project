@@ -2,8 +2,10 @@ import { NavLink } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import Users from "../components/profile/Users";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Menu = () => {
+    let navigate = useNavigate();
     const [searchValue, setSearchValue] = useState("");
 
     const handleInputChange = (event) => {
@@ -11,7 +13,7 @@ const Menu = () => {
     }
 
     const handleSearch = () => {
-        console.log(searchValue);
+        navigate("/tim-kiem/searchValue");
     }
 
     return <div className="bg-3e9294 py-3">
