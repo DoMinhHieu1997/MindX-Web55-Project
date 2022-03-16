@@ -7,8 +7,9 @@ import SendIcon from '@mui/icons-material/Send';
 import { useState } from 'react';
 
 const PostContent = (props) => {
+    const data = props.postContent.data;
     const [isLove, setIsLove] = useState(false);
-    const [countLike, setCountLike] = useState(props.postContent.countLike);
+    const [countLike, setCountLike] = useState(data.countLike);
 
     const handleLike = () => {
         setIsLove(true);
@@ -16,28 +17,29 @@ const PostContent = (props) => {
 
     return <>
         <div>
-            <h1>{props.postContent.title}</h1>
+            <h1>{data.title}</h1>
             <div className="d-flex align-items-center flex-start mt-3">
                 <AccessAlarmsOutlinedIcon style={{color:"#6c757d"}} fontSize="sm"/>
-                <div className="ms-2 text-secondary fs-6">{props.postContent.createdAt}</div>
+                <div className="ms-2 text-secondary fs-6">{data.createdAt}</div>
             </div>
             {
-                props.postContent.description && <div className="mt-4 mb-3 fs-4">{props.postContent.description}</div>
+                data.description && <div className="mt-4 mb-3 fs-4">{data.description}</div>
             }
             {
-                props.postContent.type == 1
+                data.type == 1
                     && <div className="mt-4">
+                        <h4>Chuẩn bị nguyên liệu cho món ăn</h4>
                         <ul>
                             {
-                                props.postContent.ingredients.map((item) => {
+                                data.ingredients.map((item) => {
                                     return <li>{item.nameIngredient}</li>
                                 })
                             }
                         </ul>
                     </div>
             }
-            <div className="mt-4 fs-4">{props.postContent.content}</div>
-            <div className="fs-5 mt-3 fw-bold">{props.postContent.authorName}</div>
+            <div className="mt-4 fs-4">{data.content}</div>
+            <div className="fs-5 mt-3 fw-bold">{data.authorName}</div>
         </div>
         <div className="mt-4">
             <div className="mb-3">
