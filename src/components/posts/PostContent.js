@@ -29,10 +29,15 @@ const PostContent = (props) => {
                 data.type == 1
                     && <div className="mt-4">
                         <h4>Chuẩn bị nguyên liệu cho món ăn</h4>
-                        <ul>
+                        <ul className="dishes-ingredients">
                             {
                                 data.ingredients.map((item) => {
-                                    return <li>{item.nameIngredient}</li>
+                                    return <li>
+                                        <div className="d-flex">
+                                            <div className="h5">{item.nameIngredient}</div>
+                                            <div>- {item.total+" "+item.unit}</div>
+                                        </div>
+                                    </li>
                                 })
                             }
                         </ul>
