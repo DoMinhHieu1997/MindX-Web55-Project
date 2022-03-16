@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
 body {
   margin: 0;
@@ -14,17 +14,20 @@ a {
   text-decoration: none;
 }
 hr {
-  height:2px !important;
+  height: 2px !important;
 }
 ul {
   margin-bottom: 0;
 }
 .logo {
-  font-family: 'Lobster', cursive !important;
+  font-family: "Lobster", cursive !important;
   border: 2px solid white;
 }
 .cursor-pointer {
   cursor: pointer;
+}
+.font-family-lobster {
+  font-family: "Lobster", cursive !important;
 }
 .z-index-3 {
   z-index: 3;
@@ -32,11 +35,26 @@ ul {
 .active {
   font-weight: 700;
 }
+.card:hover {
+  border: 1px solid #adadad;
+}
+.card-title {
+  color: black;
+}
+.card-title:hover {
+  color: #3e9294 !important;
+}
 .bg-3771c7 {
   background-color: #3771c7;
 }
+.bg-3e9294 {
+  background-color: #3e9294 !important;
+}
 .bg-5A5A5A {
   background-color: #5a5a5a;
+}
+.bg-linear {
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8435749299719888) 43%, rgba(255,255,255,0) 100%);
 }
 .icon {
   background-position: center;

@@ -8,7 +8,7 @@ const FoodRecommendation = () => {
             <div className="col-6 col-sm-9 col-md-5 mx-auto bg-light p-3 mt-5 border rounded">
                 <div className="d-flex align-items-center">
                     <ContentPasteSearchIcon/>
-                    <h5 class="mb-0 ms-2">Gợi ý món ăn</h5>
+                    <h5 className="mb-0 ms-2">Gợi ý món ăn</h5>
                 </div>
                 <div className="mt-4">
                     <div className="position-relative">
