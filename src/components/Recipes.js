@@ -17,7 +17,7 @@ const Recipes = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`${COMMON.DOMAIN}posts?s=8&t=1&p=`+page)
+    fetch(`${COMMON.DOMAIN}posts?s=8&t=1&p=${page}`)
       .then((res) => res.json())
       .then((resJson) => {
         if (resJson.data.length < 8) setDisplayLoadMore(false);

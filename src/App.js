@@ -1,4 +1,5 @@
 import {Routes, Route} from "react-router-dom";
+import { useState } from "react";
 import Menu from "./components/Menu";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
@@ -15,10 +16,11 @@ import Search from "./components/Search";
 import SearchCtx from "./appContext";
 
 function App() {
+  const [searchValue, setSearchValue] = useState("");
 
   return (
     <div className="App">
-      <SearchCtx.Provider value={{searchkey:"sdhfjdfh"}}>
+      <SearchCtx.Provider value={{searchValue, setSearchValue}}>
         <Menu />
         <FloatingAction />
         {/* <FoodRecommendation />
@@ -32,7 +34,7 @@ function App() {
           <Route path="/dang-ky" element={<Register />}/>
           <Route path="/tao-bai-viet" element={<NewPosts />}/>
           <Route path="/chi-tiet/:id" element={<Detail />}/>
-          <Route path="/tim-kiem/:keyword" element={<Search />}/>
+          <Route path="/tim-kiem" element={<Search />}/>
           <Route path="*" element={<NotFound />}/>
         </Routes>
         <Footer />
