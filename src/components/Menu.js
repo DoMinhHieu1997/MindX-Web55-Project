@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import Users from "../components/profile/Users";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import SearchCtx from "../appContext";
 
 const Menu = () => {
     let navigate = useNavigate();
@@ -52,6 +53,7 @@ const Menu = () => {
         </nav>
 
     </div>
+    
 }
 
 export default Menu;
