@@ -9,21 +9,15 @@ const Footer = () => {
                 </div>
                 <ul className="list-unstyled d-flex">
                     <li className="me-4">
-                        <NavLink className="text-white" to="/">Trang chủ</NavLink>
+                        <NavLink className="text-white fs-5" to="/">Trang chủ</NavLink>
                     </li>
                     <li className="me-4">
-                        <NavLink className="text-white" to="/cong-thuc">Công thức</NavLink>
-                    </li>
-                    <li className="me-4">
-                        <NavLink className="text-white" to="/lien-he">Liên hệ</NavLink>
-                    </li>
-                    <li className="me-4">
-                        <NavLink className="text-white" to="/gioi-thieu">Giới thiệu</NavLink>
+                        <NavLink className="text-white fs-5" to="/cong-thuc">Công thức</NavLink>
                     </li>
                 </ul>
             </div>
         </div>
-        <div className="text-center py-2 bg-dark text-white">Copyright © 2022 Web55-Group3. All rights reserved.</div>
+        <div className="text-center py-2 bg-dark text-white" style={{borderTop:"2px solid white"}}>Copyright © 2022 Web55-Group3. All rights reserved.</div>
     </div>
 }
 
