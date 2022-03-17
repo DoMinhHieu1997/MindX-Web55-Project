@@ -19,6 +19,9 @@ hr {
 ul {
   margin-bottom: 0;
 }
+input:focus {
+  border: 1px solid #ddd !important;
+}
 .logo {
   font-family: "Lobster", cursive !important;
   border: 2px solid white;
@@ -52,6 +55,9 @@ ul {
 }
 .bg-5A5A5A {
   background-color: #5a5a5a;
+}
+.bg-f2 {
+  background-color: #f2f2f2;
 }
 .bg-linear {
   background: linear-gradient(

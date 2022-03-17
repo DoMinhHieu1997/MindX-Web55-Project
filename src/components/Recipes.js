@@ -36,7 +36,7 @@ const Recipes = () => {
     <div className="list-recipes row py-4">
       {
         list && list.map((item) => {
-          return <div className="col-2 col-md-3"><PostItem data={item}/></div>
+          return <div className="col-2 col-md-3 mb-3"><PostItem data={item}/></div>
         })
       }
     </div>
