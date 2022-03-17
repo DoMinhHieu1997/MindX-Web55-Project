@@ -1,8 +1,5 @@
 import { createContext } from "react";
 
-const SearchCtx = createContext({
-    searchkey:"",
-    changeSearchKey: ()=>{}
-});
+const SearchCtx = createContext(null);
 
 export default SearchCtx;

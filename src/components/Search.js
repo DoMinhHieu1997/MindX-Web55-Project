@@ -2,13 +2,12 @@ import { Button } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import { TextField } from "@mui/material";
 import SkeletonItem from "./shared/SkeletonItem";
-import { useContext } from "react";
-import SearchCtx from "../appContext";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const Search = () => {
-    const searchkey = useContext(SearchCtx);
-
-    console.log(searchkey);
+    const search = useLocation().search;
+    const searchKey = new URLSearchParams(search).get('p');
 
     return <div className="container py-5">
         <h3 className="text-center mb-4 text-uppercase fw-normal">Tìm kiếm</h3>
@@ -22,6 +21,7 @@ const Search = () => {
                 </Button>
             </div>
         </div>
+        <div className="text-center fs-4">Kết quả tìm kiếm cho từ khóa: {searchKey.replace("-"," ")}</div>
         <div className="row mt-5">
             <SkeletonItem />
             <SkeletonItem />

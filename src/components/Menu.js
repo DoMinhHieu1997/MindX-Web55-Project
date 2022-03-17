@@ -7,14 +7,17 @@ import SearchCtx from "../appContext";
 
 const Menu = () => {
     let navigate = useNavigate();
-    const [searchValue, setSearchValue] = useState("");
+    const [inputValue, setInputValue] = useState("");
+    const {searchValue, setSearchValue} = useContext(SearchCtx);
 
     const handleInputChange = (event) => {
-        setSearchValue(event.target.value);
+        setInputValue(event.target.value);
     }
 
     const handleSearch = () => {
-        navigate("/tim-kiem/searchValue");
+        setSearchValue(inputValue);
+        setInputValue("")
+        navigate(`/tim-kiem?p=${inputValue.replace(" ","-")}`);
     }
 
     return <div className="bg-3e9294 py-3">
@@ -41,7 +44,7 @@ const Menu = () => {
                     </div>
                     <div className="d-flex align-items-center mt-4 mt-sm-0">
                         <div className="position-relative me-3">
-                            <input type="text" placeholder="Tìm kiếm..."  className="rounded-pill border py-1 px-2" onChange={handleInputChange}/>
+                            <input type="text" placeholder="Tìm kiếm..." value={inputValue}  className="rounded-pill border py-1 px-2" onChange={handleInputChange}/>
                             <SearchIcon className="position-absolute top-50 end-0 translate-middle-y me-2" style={{ color: '#939393'}} onClick={handleSearch}/>
                         </div>
                         <div className="d-none d-sm-block">
