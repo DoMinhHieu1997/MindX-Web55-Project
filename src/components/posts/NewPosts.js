@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Container, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -15,15 +15,11 @@ const editorConfiguration = {
       "|",
       "bold",
       "italic",
-      "link",
+      "imageUpload",
       "bulletedList",
       "numberedList",
+      "link",
       "|",
-      "outdent",
-      "indent",
-      "|",
-      "imageUpload",
-      "resizeImage",
       "blockQuote",
       "insertTable",
       "undo",
@@ -52,27 +48,38 @@ function NewPosts() {
     trigger,
     handleSubmit,
     register,
+    setError,
+    clearErrors,
+    setValue,
   } = useForm();
 
   const uploadPosts = useRef({ featuredPhoto: "", description: "" });
+  const [photo, setPhoto] = useState("");
 
   const onSubmit = async (data) => {
-    uploadPosts.current = { ...uploadPosts.current, ...data };
+    console.log(data);
+    // !data.featuredPhoto
+    //   ? setError("featuredPhoto")
+    //   : clearErrors("featuredPhoto");
+    uploadPosts.current = { ...uploadPosts.current, photo };
     console.log(uploadPosts.current);
 
     test.innerHTML = uploadPosts.current.content;
   };
   const handlePhoto = (file) => {
-    const formData = new FormData();
-    formData.append("myFile", file);
-
-    http.post("/upload", formData).then((res) => {
-      uploadPosts.current = {
-        ...uploadPosts.current,
-        featuredPhoto: res.data[res.data.length - 1],
-      };
-    });
+    // setPhoto(file);
+    // file&&setValue('featuredPhoto',file)
+    // const formData = new FormData();
+    // formData.append("myFile", file);
+    // file&&setValue('featuredPhoto',file)
+    // http.post("/upload", formData).then((res) => {
+    //   uploadPosts.current = {
+    //     ...uploadPosts.current,
+    //     featuredPhoto: res.data[res.data.length - 1],
+    //   };
+    // });
   };
+  console.log(errors);
 
   return (
     <div>
@@ -109,9 +116,8 @@ function NewPosts() {
             })}
           />
           <FeaturedPhoto
-            onChange={handlePhoto}
-            label={errors.featuredPhoto?.message || "Tải ảnh đại diện cho bài viết"}
-            {...register("description", {
+            onChangeFile={handlePhoto}
+            {...register("featuredPhoto", {
               required: {
                 value: true,
                 message: "Vui lòng tải ảnh đại diện cho bài viết",
