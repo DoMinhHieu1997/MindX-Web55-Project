@@ -1,3 +1,4 @@
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
   Checkbox,
@@ -8,18 +9,25 @@ import {
   TextField,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import {  loginUser, Logo } from "./config";
+import { loginUser, Logo } from "./config";
 function Login() {
+  const [show, setShow] = useState(false);
   const {
     formState: { errors },
     handleSubmit,
     register,
   } = useForm();
-  const onSubmit = async(data) => {
-    await loginUser(data)
+  const validateEmail =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  const handleClick = () => {
+    setShow((prev) => !prev);
+  };
+  const onSubmit = async (data) => {
+    await loginUser(data);
   };
 
   return (
@@ -42,16 +50,20 @@ function Login() {
             <Logo />
             <MyDiv>
               <TextField
-                error={!!errors.username}
+                error={!!errors.email}
                 type="text"
-                name="username"
+                name="email"
                 fullWidth
                 size="small"
-                label="Tên tài khoản"
-                {...register("username", {
+                label="Email"
+                {...register("email", {
                   required: {
                     value: true,
-                    message: "Vui lòng điền tên đăng nhập",
+                    message: "Vui lòng điền Email",
+                  },
+                  pattern: {
+                    value: validateEmail,
+                    message: "Email không đúng định dạng",
                   },
                   minLength: {
                     value: 6,
@@ -59,16 +71,29 @@ function Login() {
                   },
                 })}
               />
-              {errors.username && <Myp>{errors.username.message}</Myp>}
+              {errors.email && <Myp>{errors.email.message}</Myp>}
             </MyDiv>
             <MyDiv>
               <TextField
-                error={!!errors.username}
-                type="text"
+                error={!!errors.password}
+                type={show ? "text" : "password"}
                 name="password"
                 fullWidth
                 size="small"
                 label="Mật khẩu"
+                InputProps={{
+                  endAdornment: !show ? (
+                    <Visibility
+                      onClick={handleClick}
+                      style={{ cursor: "pointer" }}
+                    />
+                  ) : (
+                    <VisibilityOff
+                      onClick={handleClick}
+                      style={{ cursor: "pointer" }}
+                    />
+                  ),
+                }}
                 {...register("password", {
                   required: {
                     value: true,
@@ -83,7 +108,8 @@ function Login() {
               {errors.password && <Myp>{errors.password.message}</Myp>}
             </MyDiv>
             <FormGroup>
-              <FormControlLabel {...register('keepLogin')}
+              <FormControlLabel
+                {...register("keepLogin")}
                 control={<Checkbox />}
                 label="Duy trì đăng nhập"
               />
@@ -92,7 +118,6 @@ function Login() {
               <Button
                 variant="contained"
                 fullWidth
-               
                 type="submit"
                 style={{ width: "100%", margin: " 20px 0 " }}
               >
@@ -128,6 +153,6 @@ const Myp = styled("p")({
   // lineHeight: "100%",
   fontSize: 13,
   color: "#dc3545",
-  margin:'6px 10px ',
+  margin: "6px 10px ",
   fontFamily: `Roboto ,sans-serif`,
 });
