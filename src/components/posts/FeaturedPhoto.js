@@ -1,5 +1,5 @@
 import { Add } from "@mui/icons-material";
-import { Box, Button, Fab, Paper } from "@mui/material";
+import { Box, Fab, Paper } from "@mui/material";
 import React, { useState } from "react";
 
 function FeaturedPhoto({ onChange }) {
