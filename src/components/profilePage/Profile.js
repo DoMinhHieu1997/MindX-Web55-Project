@@ -8,7 +8,7 @@ const Profile = () => {
     return (
         <div className="container py-5">
             <div className="position-fixed top-50 end-0">
-                <div className="row flex-column">
+                {/* <div className="row flex-column">
                     <div className="py-2">
                         <AddCircleOutlineIcon sx={{ fontSize: 40 }} />
                     </div>
@@ -18,7 +18,7 @@ const Profile = () => {
                     <div className="py-2">
                         <ColorLensOutlinedIcon sx={{ fontSize: 40 }} />
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className="row mt-5 gx-3">
                 <div className="col-md-4 rounded-2">

@@ -3,12 +3,16 @@ import {Routes, Route} from "react-router-dom";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Login from "./components/profile/Login";
-import Register from "./components//profile/Register";
+import Register from "./components/profile/Register";
 import Recipes from "./components/Recipes";
 import NewPosts from "./components/posts/NewPosts";
 import FloatingAction from "./components/shared/FloatingAction";
 import NotFound from "./components/NotFound";
 import Detail from "./components/Detail";
+import Profile from "./components/profilePage/Profile"
+import MyProfile from "./components/profilePage/MyProfile"
+import MyPost from "./components/profilePage/MyPost"
+import SavedPost from "./components/profilePage/SavedPost"
 import FoodRecommendation from "./components/shared/FoodRecommendation";
 import TimeTable from "./components/shared/TimeTable";
 
