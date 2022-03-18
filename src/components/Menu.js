@@ -8,14 +8,12 @@ import SearchCtx from "../appContext";
 const Menu = () => {
     let navigate = useNavigate();
     const [inputValue, setInputValue] = useState("");
-    const {searchValue, setSearchValue} = useContext(SearchCtx);
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
     }
 
     const handleSearch = () => {
-        setSearchValue(inputValue);
         setInputValue("")
         navigate(`/tim-kiem?p=${inputValue.replace(" ","-")}`);
     }
