@@ -1,4 +1,4 @@
-import React, {  useRef } from "react";
+import React, { useRef } from "react";
 import { Button, Container, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -6,7 +6,7 @@ import Editor from "ckeditor5-custom-build/build/ckeditor";
 import uploadImageSever from "./uploadImageSever";
 import FeaturedPhoto from "./FeaturedPhoto";
 import { http } from "../profile/config";
-import './posts.css'
+import "./posts.css";
 
 const editorConfiguration = {
   toolbar: {
@@ -43,12 +43,10 @@ const editorConfiguration = {
   table: {
     contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
   },
- 
 };
 
 function NewPosts() {
-
-  let test=document.getElementById('test')
+  let test = document.getElementById("test");
   const {
     formState: { errors },
     trigger,
@@ -56,23 +54,25 @@ function NewPosts() {
     register,
   } = useForm();
 
-  const uploadPosts = useRef({ featuredPhoto:'',description:''});
+  const uploadPosts = useRef({ featuredPhoto: "", description: "" });
 
   const onSubmit = async (data) => {
-    uploadPosts.current={...uploadPosts.current,...data}
+    uploadPosts.current = { ...uploadPosts.current, ...data };
     console.log(uploadPosts.current);
 
-    test.innerHTML=uploadPosts.current.content
+    test.innerHTML = uploadPosts.current.content;
   };
-  const handlePhoto=(file)=>{
+  const handlePhoto = (file) => {
     const formData = new FormData();
     formData.append("myFile", file);
 
-    http.post("/upload", formData)
-      .then((res) => {
-        uploadPosts.current={...uploadPosts.current,featuredPhoto:res.data[res.data.length-1]}
-      });
-  }
+    http.post("/upload", formData).then((res) => {
+      uploadPosts.current = {
+        ...uploadPosts.current,
+        featuredPhoto: res.data[res.data.length - 1],
+      };
+    });
+  };
 
   return (
     <div>
@@ -108,10 +108,18 @@ function NewPosts() {
               onBlur: () => trigger(),
             })}
           />
-          <FeaturedPhoto onChange={handlePhoto}/>
+          <FeaturedPhoto
+            onChange={handlePhoto}
+            label={errors.featuredPhoto?.message || "Tải ảnh đại diện cho bài viết"}
+            {...register("description", {
+              required: {
+                value: true,
+                message: "Vui lòng tải ảnh đại diện cho bài viết",
+              },
+            })}
+          />
           <CKEditor
             style={{ height: "100%" }}
-            // editor={ClassicEditor}
             editor={Editor}
             config={editorConfiguration}
             data=""
@@ -127,9 +135,7 @@ function NewPosts() {
               };
             }}
           />
-          <div id='test' className="ck-content">
-          
-          </div>
+          <div id="test" className="ck-content"></div>
           <Button type="submit" variant="contained">
             Tạo bài viết
           </Button>
