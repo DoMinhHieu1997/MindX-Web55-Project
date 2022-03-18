@@ -24,7 +24,7 @@ const PostItem = (props) => {
       body: JSON.stringify(data)
     }).then(res => {
       console.log(res);
-    })
+    });
   }
 
   return <div className='card overflow-hidden h-100'>
