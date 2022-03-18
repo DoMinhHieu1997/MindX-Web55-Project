@@ -1,4 +1,5 @@
-import { Box, Button, Paper } from "@mui/material";
+import { Add } from "@mui/icons-material";
+import { Box, Button, Fab, Paper } from "@mui/material";
 import React, { useState } from "react";
 
 function FeaturedPhoto({ onChange }) {
@@ -20,18 +21,27 @@ function FeaturedPhoto({ onChange }) {
           flexWrap: "wrap",
           "& > :not(style)": {
             m: 1,
-            width: 128,
             height: 128,
           },
         }}
       >
         <Paper elevation={3}>
-          <img src={imgPreview} alt="" width={128} />
+          <img src={imgPreview} alt="" width={imgPreview||128} height= {128}/>
         </Paper>
-        <div>
-          <input type="file" name="" id="" onChange={handleInputIMG} />
-          <label>Tải ảnh đại diện cho bài viết</label>
-        </div>
+        <label htmlFor="upload-photo">
+          <input
+            style={{ display: "none" }}
+            type="file"
+            name="upload-photo"
+            id="upload-photo"
+            onChange={handleInputIMG}
+    
+          />
+          <Fab color="primary" size="small" variant="extended" aria-label="add" component="span" sx={{m:'18px 0'}}>
+            <Add /> Chọn ảnh
+          </Fab>
+          <p>Tải ảnh đại diện cho bài viết</p>
+        </label>
       </Box>
     </div>
   );
