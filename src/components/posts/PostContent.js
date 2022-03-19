@@ -5,11 +5,16 @@ import TextareaAutosize from "@mui/base/TextareaAutosize";
 import { Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useState } from "react";
+import CommentList from "../comments/CommentList";
+import CommentIcon from '@mui/icons-material/Comment';
 
 const PostContent = (props) => {
   const data = props.postContent.data;
-  const [isLove, setIsLove] = useState(false);
-  const [countLike, setCountLike] = useState(data.countLike);
+  const userLikeArr = data.usersLike;
+  const userId = "62319470776f6cc9ca861ebd";
+  const [countLike,] = useState(userLikeArr.length ? userLikeArr.length : 0);
+  const [isLove, setIsLove] = useState(userLikeArr.indexOf(userId) ? true : false);
+  console.log(userLikeArr.indexOf(userId));
 
   const handleLike = () => {
     setIsLove(true);
@@ -29,13 +34,13 @@ const PostContent = (props) => {
         {data.description && (
           <div className="mt-4 mb-3 fs-4">{data.description}</div>
         )}
-        {data.type == 1 && (
+        {data.type === 1 && (
           <div className="mt-4">
             <h4>Chuẩn bị nguyên liệu cho món ăn</h4>
             <ul className="dishes-ingredients mt-4">
-              {data.ingredients.map((item) => {
+              {data.ingredients.map((item,index) => {
                 return (
-                  <li>
+                  <li key={index}>
                     <div className="">
                       <div className="h5 me-2">
                         <span>{item.nameIngredient}</span>
@@ -53,20 +58,26 @@ const PostContent = (props) => {
       </div>
       <div className="mt-4">
         <div className="mb-3">
-          {!isLove ? (
-            <FavoriteBorderOutlinedIcon
-              className="d-inline-block"
-              onClick={handleLike}
-            />
-          ) : (
-            <FavoriteIcon
-              className="d-inline-block"
-              style={{ color: "#d83737" }}
-            />
-          )}
+          {
+            isLove 
+            ? 
+              <FavoriteIcon
+                className="d-inline-block"
+                style={{ color: "#d83737" }}
+              />
+            : 
+              <FavoriteBorderOutlinedIcon
+                className="d-inline-block"
+                onClick={handleLike}
+              />
+            }
           <div className="ms-2 d-inline-block h6 mb-0">
             {countLike} Lượt thích
           </div>
+        </div>
+        <div className="mt-4 mb-2 d-flex align-items-center">
+          <CommentIcon style={{color:"#3e9294"}} fontSize="large"/>
+          <div className="fs-4 ms-2">Bình luận</div>
         </div>
         <div className="d-flex align-items-top">
           <TextareaAutosize
@@ -85,6 +96,7 @@ const PostContent = (props) => {
             </Button>
           </div>
         </div>
+        <CommentList/>
       </div>
     </>
   );
