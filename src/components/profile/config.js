@@ -6,6 +6,14 @@ const host = "https://cooking-holics-backend.herokuapp.com/";
 export const http = axios.create({
   baseURL: host,
 });
+http.interceptors.request.use((config) => {
+  const token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
+    if(token&&!config.headers.authorization){
+      config.headers.authorization='Bearer ' + token
+    }
+    return config
+});
 export const isLogged = () => {
   return false;
 };
@@ -29,12 +37,15 @@ export const checkUser = async (user) => {
 };
 
 export const checkEmail = async (email) => {
- 
   return false;
 };
 
 export const loginUser = async (data) => {
-  http.post('/auth/login',data).then((rej,res)=>console.log('res',res,rej))
+  console.log(data);
+  http.post("/auth/login", data).then((res) => {
+    data.keepLogin && localStorage.setItem("token", res.data.data.tocken);
+    sessionStorage.setItem("token", res.data.data.tocken);
+  });
 };
 export const registerUser = async (data) => {
   try {
@@ -42,5 +53,5 @@ export const registerUser = async (data) => {
     return result.data;
   } catch (error) {
     return error.response.data;
-  } 
+  }
 };
