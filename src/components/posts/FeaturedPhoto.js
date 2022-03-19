@@ -1,17 +1,26 @@
 import { Add } from "@mui/icons-material";
 import { Box, Fab, Paper } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 
-function FeaturedPhoto({ onChangeFile, ...props }, ref) {
-  const [imgPreview, setImgPreview] = useState(null);
+function FeaturedPhoto(
+  { onChangeFile, label, imgPreview, setImgPreview },
+  ref
+) {
   const handleInputIMG = (e) => {
     const file = e.target.files[0];
-    let reader = new FileReader();
-    reader.onloadend = () => {
-      setImgPreview(reader.result);
-    };
-    file && reader.readAsDataURL(file);
-    onChangeFile(e.target.files[0]);
+    console.log(file.type);
+    if (file.type === "image/png" || "image/gif" || "image/jpeg") {
+      let reader = new FileReader();
+      reader.onloadend = () => {
+        setImgPreview(reader.result);
+      };
+      file && reader.readAsDataURL(file);
+      onChangeFile(e.target.files[0]);
+    } else {
+      label = true;
+      setImgPreview(null);
+      console.log("no img");
+    }
   };
   return (
     <div>
@@ -33,6 +42,7 @@ function FeaturedPhoto({ onChangeFile, ...props }, ref) {
             ref={ref}
             style={{ display: "none" }}
             type="file"
+            accept="image/png, image/gif, image/jpeg"
             name="upload-photo"
             id="upload-photo"
             onChange={handleInputIMG}
@@ -47,7 +57,13 @@ function FeaturedPhoto({ onChangeFile, ...props }, ref) {
           >
             <Add /> Chọn ảnh
           </Fab>
-          <p>Tải ảnh đại diện cho bài viết</p>
+          {label ? (
+            <p style={{ color: "#dc3545" }}>
+              Vui lòng tải ảnh đại diện cho bài viết
+            </p>
+          ) : (
+            <p>Tải ảnh đại diện cho bài viết</p>
+          )}
         </label>
       </Box>
     </div>

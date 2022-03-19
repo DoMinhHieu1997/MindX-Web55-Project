@@ -32,7 +32,6 @@ function App() {
           <Route path="/gioi-thieu" element={<Home />}/>
           <Route path="/dang-nhap" element={<Login />}/>
           <Route path="/dang-ky" element={<Register />}/>
-          <Route path="/tao-bai-viet" element={<NewPosts />}/>
           <Route path="/chi-tiet/:id" element={<Detail />}/>
           <Route path="/tim-kiem" element={<Search />}/>
           <Route path="*" element={<NotFound />}/>
