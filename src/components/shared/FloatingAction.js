@@ -11,7 +11,7 @@ const FloatingAction = () => {
   const handleClose = () => setOpen(false);
   return (
     <>
-      <div className="position-fixed end-0 top-50 translate-middle-y me-3">
+      <div className="position-fixed end-0 top-50 translate-middle-y me-3 z-index-3">
         <div>
           <Tooltip title="Thêm bài viết / công thức">
             <LoupeIcon
