@@ -7,18 +7,34 @@ import SendIcon from "@mui/icons-material/Send";
 import { useState } from "react";
 import CommentList from "../comments/CommentList";
 import CommentIcon from '@mui/icons-material/Comment';
+import { transferDate } from "../Common";
 
 const PostContent = (props) => {
   const data = props.postContent.data;
   const userLikeArr = data.usersLike;
   const userId = "62319470776f6cc9ca861ebd";
   const [countLike,] = useState(userLikeArr.length ? userLikeArr.length : 0);
-  const [isLove, setIsLove] = useState(userLikeArr.indexOf(userId) ? true : false);
-  console.log(userLikeArr.indexOf(userId));
+  const [isLove, setIsLove] = useState(userLikeArr.indexOf(userId) > -1 ? true : false);
+  const [comment, setComment] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const handleLike = () => {
     setIsLove(true);
   };
+
+  const handleSendComment = () => {
+    if (comment) {
+
+    } else {
+      setIsError(true);
+    }
+  }
+
+  const handleTextFieldChange = (event) => {
+    if (event.target.value)
+      setIsError(false);
+    setComment(event.target.value);
+  }
 
   return (
     <>
@@ -29,7 +45,7 @@ const PostContent = (props) => {
             style={{ color: "#6c757d" }}
             fontSize="sm"
           />
-          <div className="ms-2 text-secondary fs-6">{data.createdAt}</div>
+          <div className="ms-2 text-secondary fs-6">{transferDate(data.createdAt)}</div>
         </div>
         {data.description && (
           <div className="mt-4 mb-3 fs-4">{data.description}</div>
@@ -81,22 +97,24 @@ const PostContent = (props) => {
         </div>
         <div className="d-flex align-items-top">
           <TextareaAutosize
+            placeholder="Ý kiến của bạn..."
             aria-label="minimum height"
             minRows={3}
-            placeholder="Ý kiến của bạn..."
-            className="w-75"
+            className={"w-75 border rounded " + (isError ? " border-danger" : "border-secondary")}
+            onChange={handleTextFieldChange}
           />
           <div className="ms-3">
             <Button
               variant="contained"
               endIcon={<SendIcon />}
               className="bg-3e9294"
+              onClick={handleSendComment}
             >
               Send
             </Button>
           </div>
         </div>
-        <CommentList/>
+        <CommentList postId={data._id}/>
       </div>
     </>
   );

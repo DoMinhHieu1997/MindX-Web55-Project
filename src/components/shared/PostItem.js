@@ -1,7 +1,7 @@
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react';
-import COMMON from '../Common';
+import {COMMON} from '../Common';
 
 const PostItem = (props) => {
   const [isLove, setIsLove] = useState(false);
@@ -29,7 +29,7 @@ const PostItem = (props) => {
 
   return <div className='card overflow-hidden h-100'>
     <div className="position-relative rounded oveflow-hidden">
-      <a href={COMMON.DOMAIN+"post/detail?id="+props.data._id}>
+      <a href={"/chi-tiet/"+props.data._id}>
         <div className="ratio ratio-4x3 image-background" style={{backgroundImage:`url(${props.data.avatar})`}}></div>
       </a>
       <div className="pb-2 pt-1 ps-2 position-absolute top-0 start-0 end-0 bg-linear">

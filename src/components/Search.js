@@ -4,7 +4,7 @@ import { TextField } from "@mui/material";
 import SkeletonItem from "./shared/SkeletonItem";
 import { useLocation } from "react-router-dom";
 import { useState,useEffect} from "react";
-import COMMON from "./Common";
+import {COMMON} from "./Common";
 import { useNavigate } from "react-router-dom";
 import PostItem from "./shared/PostItem";
 
