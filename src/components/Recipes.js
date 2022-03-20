@@ -35,8 +35,8 @@ const Recipes = () => {
     <div className="bg-secondary mx-auto mt-3" style={{ height:"3px",width:"5rem" }}></div>
     <div className="list-recipes row py-3">
       {
-        list && list.map((item) => {
-          return <div className="col-2 col-md-3 mb-3"><PostItem data={item}/></div>
+        list && list.map((item,index) => {
+          return <div key={index} className="col-2 col-md-3 mb-3"><PostItem data={item}/></div>
         })
       }
     </div>

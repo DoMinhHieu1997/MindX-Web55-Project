@@ -1,5 +1,9 @@
 import { createContext } from "react";
 
-const SearchCtx = createContext(null);
+const AppCtx = createContext({
+  userInfo:{},
+  userToken:null,
+  setUserInfo: () => {}
+});
 
-export default SearchCtx;
+export default AppCtx;

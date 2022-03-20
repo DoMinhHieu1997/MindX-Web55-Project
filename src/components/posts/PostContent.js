@@ -4,14 +4,17 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 import { Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import { useState } from "react";
+import { useState,useContext } from "react";
+import AppCtx from "../../appContext";
 import CommentList from "../comments/CommentList";
 import CommentIcon from '@mui/icons-material/Comment';
 import { COMMON,transferDate } from "../Common";
 
 const PostContent = (props) => {
-  const userId = "62319470776f6cc9ca861ebd";
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjMxOTQ3MDc3NmY2Y2M5Y2E4NjFlYmQiLCJpYXQiOjE2NDc3NDU2NDMsImV4cCI6MTY1MDMzNzY0M30.9Hb7h96Zfm0daSpjJc5t_2PQyPZGmTcgVRkvBtkCs84";
+  const appCtx = useContext(AppCtx);
+  const userId = appCtx.userInfo.userId;
+  const token = appCtx.userToken;
+  console.log(userId,token);
   const data = props.postContent.data;
   const userLikeArr = data.usersLike;
   const [countLike,setCountLike] = useState(userLikeArr.length ? userLikeArr.length : 0);
@@ -29,14 +32,32 @@ const PostContent = (props) => {
         'Authorization':"Bearer "+token
       },
       body: JSON.stringify(data)
-    }).then(res => {
-      console.log(res);
+    })
+    .then(res => res.json())
+    .then(resJson => {
+      console.log(resJson);
     });
   };
 
   const handleSendComment = () => {
     if (comment) {
+      const data = {
+        "postId":props.data.postId,
+        "content":comment
+      }
 
+      fetch(`${COMMON.DOMAIN}comments/create`,{
+        method: "PATCH",
+        headers: {
+          'Content-type':'application/json',
+          'Authorization':"Bearer "+token
+        },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(resJson => {
+        console.log(resJson);
+      });
     } else {
       setIsError(true);
     }

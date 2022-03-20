@@ -1,5 +1,5 @@
 import {Routes, Route} from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Menu from "./components/Menu";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
@@ -13,13 +13,34 @@ import FoodRecommendation from "./components/shared/FoodRecommendation";
 import TimeTable from "./components/shared/TimeTable";
 import Search from "./components/Search";
 import SearchCtx from "./appContext";
+import {COMMON} from "./components/Common";
 
 function App() {
-  const [searchValue, setSearchValue] = useState("");
+  const [userInfo, setUserInfo] = useState(null);
+  const [userToken, setUserToken] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setUserToken(token);
+      setUserInfo("Minh Hiếu");
+      fetch(`${COMMON.DOMAIN}user/info`,{
+        method: "GET",
+        headers: {
+          'Content-type':'application/json',
+          'Authorization':"Bearer "+token
+        }
+      })
+      .then(res => res.json())
+      .then(resJson => {
+        setUserInfo(resJson.data);
+      });
+    }
+  });
 
   return (
     <div className="App">
-      <SearchCtx.Provider value={{searchValue, setSearchValue}}>
+      <SearchCtx.Provider value={{userInfo:userInfo, setUserInfo:setUserInfo, userToken: userToken, setUserToken:setUserToken}}>
         <Menu />
         <FloatingAction />
         {/* <FoodRecommendation />
