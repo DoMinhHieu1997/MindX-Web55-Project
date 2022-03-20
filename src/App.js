@@ -6,7 +6,6 @@ import Home from "./components/Home";
 import Login from "./components/profile/Login";
 import Register from "./components//profile/Register";
 import Recipes from "./components/Recipes";
-import NewPosts from "./components/posts/NewPosts";
 import FloatingAction from "./components/shared/FloatingAction";
 import NotFound from "./components/NotFound";
 import Detail from "./components/Detail";
@@ -32,7 +31,6 @@ function App() {
           <Route path="/gioi-thieu" element={<Home />}/>
           <Route path="/dang-nhap" element={<Login />}/>
           <Route path="/dang-ky" element={<Register />}/>
-          <Route path="/tao-bai-viet" element={<NewPosts />}/>
           <Route path="/chi-tiet/:id" element={<Detail />}/>
           <Route path="/tim-kiem" element={<Search />}/>
           <Route path="*" element={<NotFound />}/>
