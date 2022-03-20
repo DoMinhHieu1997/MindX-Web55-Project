@@ -36,7 +36,7 @@ input:focus {
   z-index: 3;
 }
 .active {
-  background-color: #3771c7!important;
+  background-color: #3e9294!important;
   font-weight: 700;
 }
 .card:hover {
