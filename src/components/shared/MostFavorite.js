@@ -1,7 +1,7 @@
 import PostItem from "./PostItem";
 import { useState,useEffect } from "react";
 import SkeletonItem from "./SkeletonItem";
-import COMMON from "../Common";
+import {COMMON} from "../Common";
 
 const MostFavorite = () => {
     const [isLoading, setIsLoading] = useState(false);

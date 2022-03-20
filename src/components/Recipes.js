@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import PostItem from "./shared/PostItem";
 import SkeletonItem from "./shared/SkeletonItem";
 import RestaurantIcon from '@mui/icons-material/Restaurant';
-import COMMON from "./Common";
+import {COMMON} from "./Common";
 
 const Recipes = () => {
   const [list, setList] = useState("");
@@ -33,7 +33,7 @@ const Recipes = () => {
       <RestaurantIcon sx={{ fontSize: 40 }} style={{color:"#6c757d", transform: "rotateY(180deg)"}}/>
     </div>
     <div className="bg-secondary mx-auto mt-3" style={{ height:"3px",width:"5rem" }}></div>
-    <div className="list-recipes row py-4">
+    <div className="list-recipes row py-3">
       {
         list && list.map((item) => {
           return <div className="col-2 col-md-3 mb-3"><PostItem data={item}/></div>
@@ -41,7 +41,7 @@ const Recipes = () => {
       }
     </div>
     {
-      isLoading ? <div className="post-loading row mt-4">
+      isLoading ? <div className="post-loading row mt-3">
         <Skeleton />
       </div> : null
     }
