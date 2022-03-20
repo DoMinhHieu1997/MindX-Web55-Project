@@ -7,19 +7,31 @@ import SendIcon from "@mui/icons-material/Send";
 import { useState } from "react";
 import CommentList from "../comments/CommentList";
 import CommentIcon from '@mui/icons-material/Comment';
-import { transferDate } from "../Common";
+import { COMMON,transferDate } from "../Common";
 
 const PostContent = (props) => {
+  const userId = "62319470776f6cc9ca861ebd";
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjMxOTQ3MDc3NmY2Y2M5Y2E4NjFlYmQiLCJpYXQiOjE2NDc3NDU2NDMsImV4cCI6MTY1MDMzNzY0M30.9Hb7h96Zfm0daSpjJc5t_2PQyPZGmTcgVRkvBtkCs84";
   const data = props.postContent.data;
   const userLikeArr = data.usersLike;
-  const userId = "62319470776f6cc9ca861ebd";
-  const [countLike,] = useState(userLikeArr.length ? userLikeArr.length : 0);
+  const [countLike,setCountLike] = useState(userLikeArr.length ? userLikeArr.length : 0);
   const [isLove, setIsLove] = useState(userLikeArr.indexOf(userId) > -1 ? true : false);
   const [comment, setComment] = useState("");
   const [isError, setIsError] = useState(false);
 
   const handleLike = () => {
     setIsLove(true);
+    setCountLike(prev => prev + 1);
+    fetch(`${COMMON.DOMAIN}posts/like`,{
+      method: "PATCH",
+      headers: {
+        'Content-type':'application/json',
+        'Authorization':"Bearer "+token
+      },
+      body: JSON.stringify(data)
+    }).then(res => {
+      console.log(res);
+    });
   };
 
   const handleSendComment = () => {
