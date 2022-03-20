@@ -1,15 +1,14 @@
 import LoupeIcon from "@mui/icons-material/Loupe";
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoardOutlined";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
-import { Button, Modal, Tooltip } from "@mui/material";
-import NewPosts from "../posts/NewPosts";
+import {  Modal, Tooltip } from "@mui/material";
 import React from "react";
+import CreatePosts from "../posts/CreatePosts";
 
 const FloatingAction = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
   return (
     <>
       <div className="position-fixed end-0 top-50 translate-middle-y me-3">
@@ -41,16 +40,12 @@ const FloatingAction = () => {
 
       <Modal
         open={open}
-        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        sx={{ paddingTop: 16 }}
+        sx={{ paddingTop: 16 ,overflow:'scroll'}}
       >
         <>
-          <Button variant="contained" onClick={handleClose}>
-            Close
-          </Button>
-          <NewPosts />
+          <CreatePosts onClose={handleClose} />
         </>
       </Modal>
     </>

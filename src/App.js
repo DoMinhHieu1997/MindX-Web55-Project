@@ -6,7 +6,6 @@ import Home from "./components/Home";
 import Login from "./components/profile/Login";
 import Register from "./components//profile/Register";
 import Recipes from "./components/Recipes";
-import NewPosts from "./components/posts/NewPosts";
 import FloatingAction from "./components/shared/FloatingAction";
 import NotFound from "./components/NotFound";
 import Detail from "./components/Detail";
