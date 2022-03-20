@@ -37,7 +37,7 @@ function FeaturedPhoto(
         <Paper elevation={3}>
           <img src={imgPreview} alt="" width={imgPreview || 128} height={128} />
         </Paper>
-        <label htmlFor="upload-photo">
+        <Box>
           <input
             ref={ref}
             style={{ display: "none" }}
@@ -58,13 +58,15 @@ function FeaturedPhoto(
             <Add /> Chọn ảnh
           </Fab>
           {label ? (
-            <p style={{ color: "#dc3545" }}>
+            <Paper
+              sx={{ color: "#dc3545", boxShadow: "none", maxWidth: "180px" }}
+            >
               Vui lòng tải ảnh đại diện cho bài viết
-            </p>
+            </Paper>
           ) : (
             <p>Tải ảnh đại diện cho bài viết</p>
           )}
-        </label>
+        </Box>
       </Box>
     </div>
   );

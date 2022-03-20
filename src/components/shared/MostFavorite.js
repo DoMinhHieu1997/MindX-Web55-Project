@@ -22,8 +22,8 @@ const MostFavorite = () => {
         <div className="w-75 mx-auto mt-3" style={{height: "2px", backgroundColor:"black"}}></div>
         <div className="mt-4 row">
             {
-                topLike && topLike.map((item) => {
-                    return <div className="mb-3"><PostItem data={item} isTopLikeItem={true}/></div>
+                topLike && topLike.map((item,index) => {
+                    return <div key={index} className="mb-3"><PostItem data={item} isTopLikeItem={true}/></div>
                 })
             }
             {

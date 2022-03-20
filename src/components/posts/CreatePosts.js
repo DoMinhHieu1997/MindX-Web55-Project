@@ -7,6 +7,9 @@ import uploadImageSever from "./uploadImageSever";
 import FeaturedPhoto from "./FeaturedPhoto";
 import { http } from "../profile/config";
 import "./posts.css";
+import Toggle from "./Toggle";
+import { Box } from "@mui/system";
+import AddIngredients from "./AddIngredients";
 
 const editorConfiguration = {
   toolbar: {
@@ -41,7 +44,7 @@ const editorConfiguration = {
   },
 };
 
-function NewPosts() {
+function CreatePosts({ onClose }) {
   let test = document.getElementById("test");
   const {
     formState: { errors },
@@ -50,7 +53,10 @@ function NewPosts() {
     register,
     setValue,
   } = useForm();
-
+  const [toggle, setToggle] = useState(true);
+  const handleClick = (toggle) => {
+    setToggle(toggle);
+  };
   const uploadPosts = useRef({ avatar: "", content: "" });
   const [photo, setPhoto] = useState("");
   const [imgPreview, setImgPreview] = useState(null);
@@ -78,26 +84,30 @@ function NewPosts() {
     <div>
       <Container
         maxWidth="md"
-        sx={{ bgcolor: "white", width: "100%", height: "100%" }}
+        sx={{
+          bgcolor: "white",
+          width: "100%",
+          height: "100%",
+          borderRadius: 1.5,
+        }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h2>Tạo bài viết mới</h2>
+          <Toggle toggle={toggle} handleClick={handleClick} />
           <TextField
-            style={{ marginBottom: "10px" }}
+            sx={{ margin: "10px 0" }}
             error={!!errors.title?.message}
             fullWidth
+            size="small"
             label={errors.title?.message || "Tiêu đề"}
             {...register("title", {
               required: {
                 value: true,
-                message: "Vui lòng điền tiêu đề",
+                message: "Vui lòng viết tiêu đề",
               },
-
               onBlur: () => trigger(),
             })}
           />
           <TextField
-            style={{ margin: "10px 0" }}
             error={!!errors.description?.message}
             fullWidth
             multiline
@@ -105,9 +115,8 @@ function NewPosts() {
             {...register("description", {
               required: {
                 value: true,
-                message: "Vui lòng điền mô tả",
+                message: "Vui lòng viết mô tả",
               },
-
               onBlur: () => trigger(),
             })}
           />
@@ -123,8 +132,25 @@ function NewPosts() {
               },
             })}
           />
-
-          <div style={{ height: "100%", padding: "12px 0" }}>
+          {!toggle && <AddIngredients />}
+          {!toggle && (
+            <TextField
+              sx={{m:'10px 0'}}
+              error={!!errors.totalCalories?.message}
+              fullWidth
+              multiline
+              size="small"
+              label={errors.totalCalories?.message || "Tổng lượng Calo"}
+              {...register("totalCalories", {
+                required: {
+                  value: true,
+                  message: "Vui lòng viết tổng lượng Calo",
+                },
+                onBlur: () => trigger(),
+              })}
+            />
+          )}
+          <Box sx={{height:'100%',p:'10px 0'}}>
             <CKEditor
               editor={Editor}
               config={editorConfiguration}
@@ -142,18 +168,28 @@ function NewPosts() {
                 };
               }}
             />
-          </div>
+          </Box>
           {!uploadPosts.current.content && imgPreview && (
             <p style={{ color: "#dc3545" }}>Vui lòng viết nội dung bài viết</p>
           )}
           <div id="test" className="ck-content"></div>
-          <Button sx={{ margin: '10px 0' }} type="submit" variant="contained">
-            Tạo bài viết
-          </Button>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Button sx={{ margin: "10px 0" }} type="submit" variant="contained">
+              Tạo bài viết
+            </Button>
+            <Button
+              sx={{ margin: "10px 30px" }}
+              type="button"
+              variant="contained"
+              onClick={onClose}
+            >
+              hủy bỏ
+            </Button>
+          </Box>
         </form>
       </Container>
     </div>
   );
 }
 
-export default NewPosts;
+export default CreatePosts;
