@@ -204,7 +204,8 @@ const MyDiv = styled("div")({
   height: 76,
   width: "100%",
 });
-const Myp = styled("p")({
+
+export const Myp = styled("p")({
   lineHeight: "100%",
   fontSize: 13,
   color: "#dc3545",

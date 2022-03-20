@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Container, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -15,15 +15,11 @@ const editorConfiguration = {
       "|",
       "bold",
       "italic",
-      "link",
+      "imageUpload",
       "bulletedList",
       "numberedList",
+      "link",
       "|",
-      "outdent",
-      "indent",
-      "|",
-      "imageUpload",
-      "resizeImage",
       "blockQuote",
       "insertTable",
       "undo",
@@ -52,33 +48,40 @@ function NewPosts() {
     trigger,
     handleSubmit,
     register,
+    setValue,
   } = useForm();
 
-  const uploadPosts = useRef({ featuredPhoto: "", description: "" });
+  const uploadPosts = useRef({ avatar: "", content: "" });
+  const [photo, setPhoto] = useState("");
+  const [imgPreview, setImgPreview] = useState(null);
 
   const onSubmit = async (data) => {
     uploadPosts.current = { ...uploadPosts.current, ...data };
-    console.log(uploadPosts.current);
-
-    test.innerHTML = uploadPosts.current.content;
-  };
-  const handlePhoto = (file) => {
     const formData = new FormData();
-    formData.append("myFile", file);
-
+    formData.append("myFile", photo);
+    photo && setValue("avatar", photo);
     http.post("/upload", formData).then((res) => {
-      uploadPosts.current = {
-        ...uploadPosts.current,
-        featuredPhoto: res.data[res.data.length - 1],
-      };
+      uploadPosts.current.avatar = res.data[res.data.length - 1];
+      uploadPosts.current.type = 1;
+      http
+        .post("/posts/create", uploadPosts.current)
+        .then((res) => console.log(res));
+      test.innerHTML = uploadPosts.current.content;
     });
   };
-
+  const handlePhoto = (file) => {
+    setPhoto(file);
+    file && setValue("avatar", file);
+  };
+  console.log(errors);
   return (
     <div>
-      <Container maxWidth="lg">
+      <Container
+        maxWidth="md"
+        sx={{ bgcolor: "white", width: "100%", height: "100%" }}
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h3>Tạo bài viết mới</h3>
+          <h2>Tạo bài viết mới</h2>
           <TextField
             style={{ marginBottom: "10px" }}
             error={!!errors.title?.message}
@@ -109,34 +112,42 @@ function NewPosts() {
             })}
           />
           <FeaturedPhoto
-            onChange={handlePhoto}
-            label={errors.featuredPhoto?.message || "Tải ảnh đại diện cho bài viết"}
-            {...register("description", {
+            imgPreview={imgPreview}
+            setImgPreview={setImgPreview}
+            onChangeFile={handlePhoto}
+            label={errors.avatar?.message || false}
+            {...register("avatar", {
               required: {
-                value: true,
+                value: !imgPreview,
                 message: "Vui lòng tải ảnh đại diện cho bài viết",
               },
             })}
           />
-          <CKEditor
-            style={{ height: "100%" }}
-            editor={Editor}
-            config={editorConfiguration}
-            data=""
-            onChange={(event, editor) => {
-              const data = editor.getData();
-              uploadPosts.current.content = data;
-            }}
-            onReady={(editor) => {
-              editor.plugins.get("FileRepository").createUploadAdapter = (
-                loader
-              ) => {
-                return new uploadImageSever(loader);
-              };
-            }}
-          />
+
+          <div style={{ height: "100%", padding: "12px 0" }}>
+            <CKEditor
+              editor={Editor}
+              config={editorConfiguration}
+              data=""
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                uploadPosts.current.content = data;
+              }}
+              required={true}
+              onReady={(editor) => {
+                editor.plugins.get("FileRepository").createUploadAdapter = (
+                  loader
+                ) => {
+                  return new uploadImageSever(loader);
+                };
+              }}
+            />
+          </div>
+          {!uploadPosts.current.content && imgPreview && (
+            <p style={{ color: "#dc3545" }}>Vui lòng viết nội dung bài viết</p>
+          )}
           <div id="test" className="ck-content"></div>
-          <Button type="submit" variant="contained">
+          <Button sx={{ margin: '10px 0' }} type="submit" variant="contained">
             Tạo bài viết
           </Button>
         </form>

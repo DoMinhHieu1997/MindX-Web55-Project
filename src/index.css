@@ -87,6 +87,17 @@ input:focus {
 .dishes-ingredients > ul {
   list-style-type: circle;
 }
+.image-background {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.button:focus:not(:focus-visible) {
+  color: none !important;
+}
+.navbar-dark .navbar-toggler {
+  border-color: rgb(255 255 255) !important;
+}
 .skeleton {
   position: relative;
   background: #e2e2e2;

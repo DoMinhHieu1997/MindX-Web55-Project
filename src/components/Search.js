@@ -3,18 +3,20 @@ import SearchIcon from '@mui/icons-material/Search';
 import { TextField } from "@mui/material";
 import SkeletonItem from "./shared/SkeletonItem";
 import { useLocation } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState,useEffect} from "react";
 import COMMON from "./Common";
+import { useNavigate } from "react-router-dom";
 import PostItem from "./shared/PostItem";
 
 const Search = () => {
+    let navigate = useNavigate();
     const search = useLocation().search;
     const searchKey = new URLSearchParams(search).get('p');
     const [isError, setIsError] = useState(false);
     const [size, setSize] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
-    const [isTyping, setIsTyping] = useState(false);
-    const [searchValue, setSearchValue] = useState(searchKey);
+    const [isTyping, setIsTyping] = useState(true);
+    const [searchValue, setSearchValue] = useState(searchKey.replace("-"," "));
     const [searchResponse, setSearchResponse] = useState("");
 
     function removeAccents(str) {
@@ -43,10 +45,10 @@ const Search = () => {
     };
 
     const getSearchValue = () => {
-        fetch(`${COMMON.DOMAIN}posts/search?k=${removeAccents(searchValue)}&s=8&p=${size}`)
+        setIsTyping(true);
+        fetch(`${COMMON.DOMAIN}posts/search?k=${removeAccents(searchKey.replace("-"," "))}&s=8&p=${size}`)
         .then(res => res.json())
         .then(resJson => {
-            setIsTyping(false);
             if (resJson.message === "success") {
                 if (resJson.data.length) {
                     setSearchResponse(resJson.data);
@@ -57,6 +59,7 @@ const Search = () => {
             } else {
                 setSearchResponse("");
             }
+            setIsTyping(false);
         });
     }
 
@@ -66,19 +69,25 @@ const Search = () => {
     }
 
     const handleClick = () => {
-        console.log(searchValue);
         if (!searchValue) {
             setIsError(true);
         } else {
-            setIsError(false);
-            getSearchValue();
+            navigate(`/tim-kiem?p=${searchValue.replace(" ","-")}`);
         }
     }
 
     useEffect(() => {
+        setSearchResponse([]);
+        setSearchValue(searchKey.replace("-"," "));
         setIsLoading(true);
         getSearchValue();
-    },[size || searchValue]);
+    },[size,searchKey]);
+
+    // useEffect(() => {
+    //     setSearchValue(searchKey)
+    //     setIsLoading(true);
+    //     getSearchValue();
+    // },[size || searchKey]);
 
     return <div className="container py-5 position-relative">
         {
