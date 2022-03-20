@@ -42,7 +42,7 @@ const NewRecipe = ({ recipe }) => {
     };
     return (
         <div className="col-md-3 position-relative">
-            <a href={COMMON.DOMAIN + "post/detail?id=" + recipe._id} className="link-dark">
+            <a href={"/chi-tiet/"+recipe._id} className="link-dark">
                 <div className="border rounded h-100">
                     <div className="row">
                         <div className="col-12">

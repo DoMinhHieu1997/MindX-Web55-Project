@@ -1,5 +1,24 @@
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { useState, useEffect } from "react";
+import COMMON from "../Common";
+import {http} from '../profile/config'
 const MyProfile = () => {
+    const token = localStorage.getItem("token");
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [userData, setUserData] = useState("");
+
+    useEffect(() => {
+        http.get('user/info', {
+            headers: {
+                tocken: token
+            }
+        })
+        .then(res=>{
+            console.log(res);
+        })
+    }, [])
+    console.log(userData);
     return (
         <div className="my-profile col-md-8 border ml-2">
             <div className="row">
