@@ -24,8 +24,8 @@ function AddIngredients() {
         <Box sx={{ display: "flex", p: 2 }}>
           <Autocomplete
             disablePortal
-            value={value}
-            inputValue={inputValue}
+            // value={value}
+            // inputValue={inputValue}
             options={arrSearch}
             sx={{ width: 300 }}
             onChange={(e, newValue) => {
@@ -44,7 +44,7 @@ function AddIngredients() {
             size="small"
             onChange={() => {}}
             type="number"
-            value={refIng.current.AddIngredients}
+            // value={refIng.current.AddIngredients}
           />
         </Box>
         <Button
