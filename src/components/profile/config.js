@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 // const host = "http://localhost:5000";
 const host = "https://cooking-holics-backend.herokuapp.com/";
 
@@ -40,18 +41,3 @@ export const checkEmail = async (email) => {
   return false;
 };
 
-export const loginUser = async (data) => {
-  console.log(data);
-  http.post("/auth/login", data).then((res) => {
-    data.keepLogin && localStorage.setItem("token", res.data.data.tocken);
-    sessionStorage.setItem("token", res.data.data.tocken);
-  });
-};
-export const registerUser = async (data) => {
-  try {
-    const result = await http.post("/auth/register", data);
-    return result.data;
-  } catch (error) {
-    return error.response.data;
-  }
-};

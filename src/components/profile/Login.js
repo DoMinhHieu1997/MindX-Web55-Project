@@ -11,10 +11,11 @@ import {
 import { styled } from "@mui/system";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { loginUser, Logo } from "./config";
+import { Link, useNavigate } from "react-router-dom";
+import { http,  Logo } from "./config";
 function Login() {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
   const {
     formState: { errors },
     handleSubmit,
@@ -27,15 +28,18 @@ function Login() {
     setShow((prev) => !prev);
   };
   const onSubmit = async (data) => {
-    await loginUser(data);
+    http.post("/auth/login", data).then((res) => {
+      data.keepLogin && localStorage.setItem("token", res.data.data.tocken);
+      sessionStorage.setItem("token", res.data.data.tocken);
+      navigate("/");
+    });
   };
-
   return (
     <Container maxWidth="sm">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Paper
           elevation={12}
-          style={{
+          sx={{
             maxWidth: 400,
             minHeight: 500,
             margin: "40px auto 0",
