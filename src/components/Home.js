@@ -1,9 +1,7 @@
 import MostFavorite from "./shared/MostFavorite";
 import NewRecipe from "./shared/NewRecipe";
 import BlogList from "./shared/BlogList";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import SkeletonItem from "./shared/SkeletonItem";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import COMMON from "./Common";
 import { useState, useEffect } from "react";
 const Home = () => {
@@ -30,8 +28,6 @@ const Home = () => {
                 setIsloading(false);
             });
     }, [moreBlog]);
-    console.log(newRecipe.data);
-    console.log(blogs);
     return (
         <div className="container py-5">
             <h3>Công thức mới - thử ngay</h3>
@@ -80,12 +76,7 @@ const Home = () => {
                                 <div className="col-6">
                                     <SkeletonItem type="1" />
                                 </div>
-                                <div className="col-6">
-                                    <SkeletonItem type="1" />
-                                </div>
-                                <div className="col-6">
-                                    <SkeletonItem type="1" />
-                                </div>
+
                             </>
                         )}
                         {blogs &&
