@@ -1,23 +1,41 @@
 import AccessAlarmsOutlinedIcon from "@mui/icons-material/AccessAlarmsOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import TextareaAutosize from "@mui/base/TextareaAutosize";
-import { Button } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import { useState } from "react";
+import { useState,useContext,useEffect } from "react";
+import AppCtx from "../../appContext";
 import CommentList from "../comments/CommentList";
-import CommentIcon from '@mui/icons-material/Comment';
+import { COMMON,transferDate } from "../Common";
 
 const PostContent = (props) => {
+  const appCtx = useContext(AppCtx);
+  const userId = appCtx.userInfo?._id;
+  const token = appCtx.userToken;
   const data = props.postContent.data;
   const userLikeArr = data.usersLike;
-  const userId = "62319470776f6cc9ca861ebd";
-  const [countLike,] = useState(userLikeArr.length ? userLikeArr.length : 0);
-  const [isLove, setIsLove] = useState(userLikeArr.indexOf(userId) ? true : false);
-  console.log(userLikeArr.indexOf(userId));
+  const [countLike,setCountLike] = useState(userLikeArr.length ? userLikeArr.length : 0);
+  const [isLove, setIsLove] = useState(false);
+
+  useEffect(() => {
+    if (userLikeArr.indexOf(userId) > -1) setIsLove(true);
+  },[userId])
 
   const handleLike = () => {
-    setIsLove(true);
+    
+    fetch(`${COMMON.DOMAIN}posts/like`,{
+      method: "PATCH",
+      headers: {
+        'Content-type':'application/json',
+        'Authorization':"Bearer "+token
+      },
+      body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(resJson => {
+      if (resJson.message === "success") {
+        setIsLove(true);
+        setCountLike(prev => prev + 1);
+      }
+    });
   };
 
   return (
@@ -29,7 +47,7 @@ const PostContent = (props) => {
             style={{ color: "#6c757d" }}
             fontSize="sm"
           />
-          <div className="ms-2 text-secondary fs-6">{data.createdAt}</div>
+          <div className="ms-2 text-secondary fs-6">{transferDate(data.createdAt)}</div>
         </div>
         {data.description && (
           <div className="mt-4 mb-3 fs-4">{data.description}</div>
@@ -75,28 +93,7 @@ const PostContent = (props) => {
             {countLike} Lượt thích
           </div>
         </div>
-        <div className="mt-4 mb-2 d-flex align-items-center">
-          <CommentIcon style={{color:"#3e9294"}} fontSize="large"/>
-          <div className="fs-4 ms-2">Bình luận</div>
-        </div>
-        <div className="d-flex align-items-top">
-          <TextareaAutosize
-            aria-label="minimum height"
-            minRows={3}
-            placeholder="Ý kiến của bạn..."
-            className="w-75"
-          />
-          <div className="ms-3">
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              className="bg-3e9294"
-            >
-              Send
-            </Button>
-          </div>
-        </div>
-        <CommentList/>
+        <CommentList postId={data._id}/>
       </div>
     </>
   );

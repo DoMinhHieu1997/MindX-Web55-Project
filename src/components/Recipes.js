@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import PostItem from "./shared/PostItem";
 import SkeletonItem from "./shared/SkeletonItem";
 import RestaurantIcon from '@mui/icons-material/Restaurant';
-import COMMON from "./Common";
+import {COMMON} from "./Common";
 
 const Recipes = () => {
   const [list, setList] = useState("");
@@ -12,7 +12,7 @@ const Recipes = () => {
   const [page, setPage] = useState(1);
 
   const handleLoadMoreClick = () => {
-    console.log("loadmore");
+    setPage(prev => prev + 1);
   }
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Recipes = () => {
       .then((res) => res.json())
       .then((resJson) => {
         if (resJson.data.length < 8) setDisplayLoadMore(false);
-        setList(resJson.data);
+        setList(prev => [...prev,...resJson.data]);
         setIsLoading(false);
       });
   }, [page]);
@@ -33,15 +33,15 @@ const Recipes = () => {
       <RestaurantIcon sx={{ fontSize: 40 }} style={{color:"#6c757d", transform: "rotateY(180deg)"}}/>
     </div>
     <div className="bg-secondary mx-auto mt-3" style={{ height:"3px",width:"5rem" }}></div>
-    <div className="list-recipes row py-4">
+    <div className="list-recipes row py-3">
       {
-        list && list.map((item) => {
-          return <div className="col-2 col-md-3 mb-3"><PostItem data={item}/></div>
+        list && list.map((item,index) => {
+          return <div key={index} className="col-2 col-md-3 mb-3"><PostItem data={item}/></div>
         })
       }
     </div>
     {
-      isLoading ? <div className="post-loading row mt-4">
+      isLoading ? <div className="post-loading row mt-3">
         <Skeleton />
       </div> : null
     }
@@ -49,7 +49,7 @@ const Recipes = () => {
       displayLoadMore &&
       <div className="text-center">
         {
-          !isLoading && <Button className="return-to-home-btn" variant="outlined" color="primary" onClick={handleLoadMoreClick}>
+          !isLoading && <Button variant="outlined" color="primary" onClick={handleLoadMoreClick}>
             <div className="fw-bold">Hiển thị thêm công thức</div>
           </Button>
         }
