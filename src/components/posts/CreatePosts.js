@@ -110,6 +110,7 @@ function CreatePosts({ onClose }) {
     <div>
       <Container
         maxWidth="md"
+        className="pb-3"
         sx={{
           bgcolor: "white",
           width: "100%",
@@ -121,6 +122,7 @@ function CreatePosts({ onClose }) {
           <form onSubmit={handleSubmit(onSubmit)}>
             <Toggle toggle={toggle} handleClick={handleClick} />
             <TextField
+              className="mt-4"
               sx={{ margin: "10px 0" }}
               error={!!errors.title?.message}
               fullWidth
@@ -129,12 +131,13 @@ function CreatePosts({ onClose }) {
               {...register("title", {
                 required: {
                   value: true,
-                  message: "Vui lòng viết tiêu đề",
+                  message: "Nhập tiêu đề",
                 },
                 onBlur: () => trigger(),
               })}
             />
             <TextField
+              className="mt-3"
               error={!!errors.description?.message}
               fullWidth
               multiline
@@ -142,7 +145,7 @@ function CreatePosts({ onClose }) {
               {...register("description", {
                 required: {
                   value: true,
-                  message: "Vui lòng viết mô tả",
+                  message: "Nhập mô tả",
                 },
                 onBlur: () => trigger(),
               })}
@@ -155,7 +158,7 @@ function CreatePosts({ onClose }) {
               {...register("avatar", {
                 required: {
                   value: !imgPreview,
-                  message: "Vui lòng tải ảnh đại diện cho bài viết",
+                  message: "Tải ảnh đại diện cho bài viết",
                 },
               })}
             />
@@ -167,7 +170,7 @@ function CreatePosts({ onClose }) {
                 {...register("ingredients", {
                   required: {
                     value: !cardItem[0],
-                    message: "Vui lòng thêm nguyên liệu",
+                    message: "Nhập thêm nguyên liệu",
                   },
                 })}
               />
@@ -182,12 +185,13 @@ function CreatePosts({ onClose }) {
                 {...register("totalCalories", {
                   required: {
                     value: true,
-                    message: "Vui lòng viết tổng lượng Calo",
+                    message: "Nhập tổng lượng Calo",
                   },
                   onBlur: () => trigger(),
                 })}
               />
             )}
+            <h5 className="mt-4 mb-2 text-secondary">Nội dung bài viết</h5>
             <Box sx={{ height: "100%", p: "10px 0" }}>
               <CKEditor
                 editor={Editor}

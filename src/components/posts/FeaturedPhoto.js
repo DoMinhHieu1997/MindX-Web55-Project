@@ -22,7 +22,7 @@ function FeaturedPhoto(
   };
   
   return (
-    <div>
+    <div className="mt-4">
       <Box
         sx={{
           display: "flex",
@@ -37,8 +37,8 @@ function FeaturedPhoto(
           <img src={imgPreview} alt="" width={imgPreview || 128} height={128} />
         </Paper>
         <div>
-          <Button variant="contained" component="label">
-            <Add /> Chọn ảnh
+          <Button variant="contained" component="label" size="small">
+            <Add fontSize="small" className="mb-1"/> Chọn ảnh
             <input
               ref={ref}
               accept="image/png, image/gif, image/jpeg"
@@ -54,7 +54,7 @@ function FeaturedPhoto(
               Vui lòng tải ảnh đại diện cho bài viết
             </Paper>
           ) : (
-            <p>Tải ảnh đại diện cho bài viết</p>
+            <p className="mt-2 text-secondary">Tải ảnh đại diện cho bài viết</p>
           )}
         </div>
       </Box>
