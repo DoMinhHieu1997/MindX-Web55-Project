@@ -61,6 +61,7 @@ function CreatePosts({ onClose }) {
     handleSubmit,
     register,
     setValue,
+    clearErrors,
   } = useForm();
   const [toggle, setToggle] = useState(true);
   const uploadPosts = useRef({ avatar: "", content: "" });
@@ -70,6 +71,7 @@ function CreatePosts({ onClose }) {
 
   const handleClick = (toggle) => {
     setToggle(toggle);
+    clearErrors()
   };
   const onSubmit = (data) => {
     setLoading(true);
@@ -104,8 +106,7 @@ function CreatePosts({ onClose }) {
         });
     }
   };
-  console.log(errors);
-  console.log(loading);
+console.log(errors);
   return (
     <div>
       <Container

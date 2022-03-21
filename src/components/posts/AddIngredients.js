@@ -2,45 +2,62 @@ import { AddCircleOutline } from "@mui/icons-material";
 import { Button, Card, Paper, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import { Myp } from "../profile/Register";
 
 function AddIngredients({ label, setCardItem, cardItem }, ref) {
   const [nameIngredient, setIngredient] = useState("");
   const [total, setTotal] = useState("");
-  // const [cardItem, setCardItem] = useState([]);
+  const [unit, setUnit] = useState("");
   const [error, setError] = useState(false);
   const handleBtnAdd = () => {
-    if (nameIngredient && total) {
-      setCardItem((prev) => [...prev, { nameIngredient, total }]);
+    if (nameIngredient && total && unit) {
+      setCardItem((prev) => [...prev, { nameIngredient, total, unit }]);
       setError(false);
+      setIngredient('')
+      setTotal('')
+      setUnit('')
     } else {
-      setError({ ingredienError: !nameIngredient, totalError: !total });
+      setError({
+        ingredienError: !nameIngredient,
+        totalError: !total,
+        unitError: !unit,
+      });
     }
   };
-
-  console.log(label);
+console.log(label);
   return (
     <div className="my-4">
       <Paper sx={{ m: "10px 0" }} elevation={4}>
-        <Box sx={{ display: "flex", p: 2, height: 80 }}>
+        <Box sx={{ display: "flex", flexWrap: "wrap", paddingX: 2 }}>
           <TextField
+            sx={{ pr: 2, mt: 2, height: 50, width: 300 }}
             ref={ref}
-            label="Thêm nguyên liệu"
+            value={nameIngredient}
+            label={
+              error?.ingredienError || label
+                ? "Vui lòng nhập nguyên liệu"
+                : "Thêm nguyên liệu"
+            }
             size="small"
             onChange={(e) => setIngredient(e.target.value)}
-            helperText={
-              (error?.ingredienError || label) && <Myp>Nhập nguyên liệu</Myp>
-            }
+            error={error?.ingredienError || label}
           />
           <TextField
-            sx={{ ml: 2, width: 150 }}
-            label="Số lượng"
+            sx={{ width: 150, mt: 2, height: 50 }}
+            label={error?.totalError || label ? "Nhập số lượng" : "Số lượng"}
             size="small"
+            value={total}
             onChange={(e) => setTotal(e.target.value)}
             type="number"
-            helperText={
-              (error?.totalError || label) && <Myp>Nhập số lượng</Myp>
-            }
+            error={error?.totalError || label}
+          />
+          <TextField
+            sx={{ ml: 2, width: 120, mt: 2, mb: 2, height: 50 }}
+            label={error?.unitError || label ? "Nhập đơn vị" : "Đơn vị"}
+            size="small"
+            value={unit}
+            onChange={(e) => setUnit(e.target.value)}
+            type="text"
+            error={error?.unitError || label}
           />
         </Box>
         <Button
@@ -60,7 +77,7 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
           fontFamily: `Roboto ,sans-serif`,
         }}
       >
-        {cardItem.map(({ nameIngredient, total }, index) => {
+        {cardItem.map(({ nameIngredient, total ,unit}, index) => {
           return (
             <Card
               key={index}
@@ -113,7 +130,7 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
                   left: 16,
                 }}
               >
-                {total}
+                {total} {unit}
               </Card>
             </Card>
           );

@@ -54,7 +54,7 @@ function FeaturedPhoto(
               Vui lòng tải ảnh đại diện cho bài viết
             </Paper>
           ) : (
-            <p className="mt-2 text-secondary">Tải ảnh đại diện cho bài viết</p>
+            <p className="mt-2 text-secondary">Tải ảnh đại diện bài viết</p>
           )}
         </div>
       </Box>
