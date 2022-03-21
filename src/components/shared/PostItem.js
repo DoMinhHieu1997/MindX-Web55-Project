@@ -1,18 +1,27 @@
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useState } from 'react';
+import { useState,useContext,useEffect } from 'react';
+import AppCtx from "../../appContext";
 import {COMMON} from '../Common';
 
 const PostItem = (props) => {
+  const appCtx = useContext(AppCtx);
+  const userId = appCtx.userInfo?._id;
+  const token = appCtx.userToken;
   const [isLove, setIsLove] = useState(false);
   const [totalLike, setTotalLike] = useState(props.data.usersLike.length ? props.data.usersLike.length : 0);
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjMxOTQ3MDc3NmY2Y2M5Y2E4NjFlYmQiLCJpYXQiOjE2NDc3NDU2NDMsImV4cCI6MTY1MDMzNzY0M30.9Hb7h96Zfm0daSpjJc5t_2PQyPZGmTcgVRkvBtkCs84";
-  const data = {
-    "_id":props.data._id,
-    "userLike":["623214b4d53a3a1b371680a8","62319470776f6cc9ca861ebd"]
-  }
 
+  useEffect(() => {
+    if (props.data.usersLike.indexOf(userId) > -1)
+      setIsLove(true);
+  },[userId])
+  
   const handleLike = (event) => {
+    const data = {
+      "_id":props.data._id,
+      "userLike":[...props.data.usersLike,userId]
+    }
+  
     setTotalLike(prev => prev + 1);
     setIsLove(true);
     fetch(`${COMMON.DOMAIN}posts/like`,{
@@ -22,8 +31,12 @@ const PostItem = (props) => {
         'Authorization':"Bearer "+token
       },
       body: JSON.stringify(data)
-    }).then(res => {
-      console.log(res);
+    })
+    .then(res => res.json())
+    .then(resJson => {
+      if (resJson.message === "success") {
+
+      }
     });
   }
 
