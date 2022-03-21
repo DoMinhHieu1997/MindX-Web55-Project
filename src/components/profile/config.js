@@ -1,8 +1,8 @@
 import axios from "axios";
 
 
-// const host = "http://localhost:5000";
-const host = "https://cooking-holics-backend.herokuapp.com/";
+const host = "http://localhost:5000";
+// const host = "https://cooking-holics-backend.herokuapp.com/";
 
 export const http = axios.create({
   baseURL: host,

@@ -31,7 +31,8 @@ function Login() {
     http.post("/auth/login", data).then((res) => {
       data.keepLogin && localStorage.setItem("token", res.data.data.tocken);
       sessionStorage.setItem("token", res.data.data.tocken);
-      navigate("/");
+      navigate("/")
+
     });
   };
   return (

@@ -23,9 +23,9 @@ const Register = () => {
   const onSubmit = async (data) => {
     try {
       const result = await http.post("/auth/register", data);
-      setTimeout(()=>
-      navigate("/dang-nhap"),500
-      )
+   
+      navigate("/dang-nhap")
+      
     } catch (error) {
       error.response.data.data === "Email is existed!" &&
         setError("email", {
@@ -79,10 +79,10 @@ const Register = () => {
                       value: validateEmail,
                       message: "Email không đúng định dạng",
                     },
-                    validate: {
-                      checkEmailExist: async (v) =>
-                        !(await checkEmail(v)) || "Email đã tồn tại",
-                    },
+                    // validate: {
+                    //   checkEmailExist: async (v) =>
+                    //     !(await checkEmail(v)) || "Email đã tồn tại",
+                    // },
                   })}
                 />
                 {errors.email && <Myp>{errors.email.message}</Myp>}

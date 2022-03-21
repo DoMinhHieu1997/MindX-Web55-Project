@@ -104,8 +104,7 @@ function CreatePosts({ onClose }) {
         });
     }
   };
-  console.log(errors);
-  console.log(loading);
+
   return (
     <div>
       <Container

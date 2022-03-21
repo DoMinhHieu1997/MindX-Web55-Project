@@ -5,6 +5,7 @@ function Toggle({ toggle, handleClick }) {
   return (
     <div>
       <Button
+      type="button"
         variant={toggle ? "contained" : "text"}
         sx={{
           width: "50%",
@@ -17,6 +18,8 @@ function Toggle({ toggle, handleClick }) {
         Tạo bài viết mới
       </Button>
       <Button
+      type="button"
+
         variant={!toggle ? "contained" : "text"}
         sx={{
           width: "50%",
