@@ -19,7 +19,7 @@ const FloatingAction = () => {
   useEffect(() => {
     if (token) setShowActions(true);
   }, [token]);
-
+console.log(open);
   return (
     <>
       <div
@@ -61,7 +61,7 @@ const FloatingAction = () => {
           sx={{ paddingTop: 5, overflow: "scroll", marginX: 1 }}
         >
           <>
-            <CreatePosts onClose={handleClose} />
+            <CreatePosts onClose={handleClose} setOpen={setOpen }/>
           </>
         </Modal>
 
