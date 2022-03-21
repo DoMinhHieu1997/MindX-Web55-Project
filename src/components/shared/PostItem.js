@@ -17,27 +17,30 @@ const PostItem = (props) => {
   },[userId])
   
   const handleLike = (event) => {
-    const data = {
-      "_id":props.data._id,
-      "userLike":[...props.data.usersLike,userId]
-    }
-  
-    setTotalLike(prev => prev + 1);
-    setIsLove(true);
-    fetch(`${COMMON.DOMAIN}posts/like`,{
-      method: "PATCH",
-      headers: {
-        'Content-type':'application/json',
-        'Authorization':"Bearer "+token
-      },
-      body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(resJson => {
-      if (resJson.message === "success") {
-
+    if (token) {
+        const data = {
+        "_id":props.data._id,
+        "userLike":[...props.data.usersLike,userId]
       }
-    });
+    
+      fetch(`${COMMON.DOMAIN}posts/like`,{
+        method: "PATCH",
+        headers: {
+          'Content-type':'application/json',
+          'Authorization':"Bearer "+token
+        },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(resJson => {
+        if (resJson.message === "success") {
+          setTotalLike(prev => prev + 1);
+          setIsLove(true);
+        }
+      });
+    } else {
+      appCtx.setOpenLoginNotify(true);
+    }
   }
 
   return <div className='card overflow-hidden h-100'>

@@ -3,7 +3,9 @@ import { createContext } from "react";
 const AppCtx = createContext({
   userInfo:{},
   userToken:null,
-  setUserInfo: () => {}
+  openLoginNotify:null,
+  setUserInfo: () => {},
+  setOpenLoginNotify: () => {},
 });
 
 export default AppCtx;
