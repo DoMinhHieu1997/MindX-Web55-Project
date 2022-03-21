@@ -78,6 +78,16 @@ const Search = () => {
         }
     }
 
+    const handleKeypress = (event) => {
+        if(event.key === 'Enter'){
+            if (!searchValue) {
+                setIsError(true);
+            } else {
+                navigate(`/tim-kiem?p=${searchValue.replace(" ","-")}`);
+            }
+        }
+    }
+
     const handleLoadMoreClick = () => {
         setPage(prev => prev + 1);
     }
@@ -96,7 +106,7 @@ const Search = () => {
         <h3 className="text-center mb-4 text-uppercase fw-normal">Tìm kiếm</h3>
         <div className="p-3 mb-5 bg-body mx-auto text-center">
             <div className="w-75 d-inline-block align-middle me-4">
-                <TextField id="filled-basic" variant="filled" fullWidth label="Nhập từ khóa..." className="rounded" onChange={handleTextFieldChange} value={searchValue}/>
+                <TextField id="filled-basic" variant="filled" fullWidth label="Nhập từ khóa..." className="rounded" onChange={handleTextFieldChange} onKeyPress={handleKeypress} value={searchValue}/>
             </div>
             <div className="d-inline-block align-middle">
                 <Button onClick={handleClick} variant="outlined" startIcon={<SearchIcon />}>

@@ -19,6 +19,13 @@ const Menu = () => {
         navigate(`/tim-kiem?p=${inputValue.replace(" ","-")}`);
     }
 
+    const handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            setInputValue("")
+            navigate(`/tim-kiem?p=${inputValue.replace(" ","-")}`);
+        }
+    }
+
     return <div className="bg-3e9294 py-2 py-md-3">
 
         <nav className="navbar navbar-expand-lg navbar-dark">
@@ -46,7 +53,7 @@ const Menu = () => {
                     </div>
                     <div className="d-flex align-items-center mt-4 mt-sm-0">
                         <div className="position-relative me-3 w-100">
-                            <input type="text" placeholder="Tìm kiếm..." value={inputValue}  className="rounded-pill border py-1 px-2 w-100" onChange={handleInputChange}/>
+                            <input type="text" placeholder="Tìm kiếm..." value={inputValue}  className="rounded-pill border py-1 px-2 w-100" onChange={handleInputChange} onKeyPress={handleKeyPress}/>
                             <SearchIcon className="position-absolute top-50 end-0 translate-middle-y me-2" style={{ color: '#939393'}} onClick={handleSearch}/>
                         </div>
                         <div className="d-none d-sm-block">
