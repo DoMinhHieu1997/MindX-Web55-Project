@@ -7,6 +7,7 @@ import { useState,useEffect} from "react";
 import {COMMON} from "./Common";
 import { useNavigate } from "react-router-dom";
 import PostItem from "./shared/PostItem";
+import NoResult from "../assets/no-result.png";
 
 const Search = () => {
     let navigate = useNavigate();
@@ -103,7 +104,12 @@ const Search = () => {
                 {
                     searchResponse 
                     ? <div className="text-center fs-4">Kết quả tìm kiếm cho từ khóa: <strong>{searchValue.replace("-"," ")}</strong></div>
-                    : <div className="text-center fs-4">Không tìm thấy kết quả cho từ khóa: <strong>{searchValue.replace("-"," ")}</strong></div>
+                    : <>
+                        <div className="text-center fs-4">Không tìm thấy kết quả cho từ khóa: <strong>{searchValue.replace("-"," ")}</strong></div>
+                        <div className="col-md-4 col-9 mx-auto mt-3">
+                            <img className="w-100" src={NoResult}/>
+                        </div>
+                    </>
                 }
             </div>
         }
