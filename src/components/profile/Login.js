@@ -6,34 +6,58 @@ import {
   FormControlLabel,
   FormGroup,
   Paper,
+  Snackbar,
   TextField,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { http,  Logo } from "./config";
+import { http, Logo } from "./config";
 function Login() {
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const {
     formState: { errors },
     handleSubmit,
     register,
+    setError,
   } = useForm();
+
   const validateEmail =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  const verifyEmail = localStorage.getItem("verifyEmail");
+  if (verifyEmail) {
+    setOpen(true);
+    localStorage.removeItem("verifyEmail");
+  }
 
   const handleClick = () => {
     setShow((prev) => !prev);
   };
-  const onSubmit = async (data) => {
-    http.post("/auth/login", data).then((res) => {
-      data.keepLogin && localStorage.setItem("token", res.data.data.tocken);
-      sessionStorage.setItem("token", res.data.data.tocken);
-      navigate("/")
-
-    });
+  const onSubmit = (data) => {
+    http
+      .post("/auth/login", data)
+      .then((res) => {
+        data.keepLogin && localStorage.setItem("token", res.data.data.tocken);
+        sessionStorage.setItem("token", res.data.data.tocken);
+        navigate("/");
+      })
+      .catch((error) => {
+        if (error.response.data.data === "Email is not verify") {
+          setError("email", {
+            type: "manual",
+            message: "Email chưa kích hoạt",
+          });
+        } else if (error.response.data.data === "Password not correct") {
+          setError("password", {
+            type: "manual",
+            message: "Sai mật khẩu",
+          });
+        }
+      });
   };
   return (
     <Container maxWidth="sm">
@@ -144,6 +168,11 @@ function Login() {
           </div>
         </Paper>
       </form>
+      <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        message="Bạn vui lòng kích hoạt Email trước khi đăng nhập"
+      />
     </Container>
   );
 }

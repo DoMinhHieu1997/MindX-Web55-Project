@@ -1,11 +1,12 @@
-import {useState,useContext,useEffect} from "react";
+import { useState, useContext, useEffect } from "react";
 import AppCtx from "../../appContext";
 import LoupeIcon from "@mui/icons-material/Loupe";
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoardOutlined";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
-import {  Modal, Tooltip } from "@mui/material";
+import { Modal, Tooltip } from "@mui/material";
 import React from "react";
 import CreatePosts from "../posts/CreatePosts";
+import { Box } from "@mui/system";
 
 const FloatingAction = () => {
   const appCtx = useContext(AppCtx);
@@ -16,14 +17,14 @@ const FloatingAction = () => {
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    if (token)
-      setShowActions(true);
-  },[token]);
+    if (token) setShowActions(true);
+  }, [token]);
 
   return (
     <>
-      <div className="position-fixed end-0 top-50 translate-middle-y me-3 z-index-3" 
-      // hidden={!showActions}
+      <div
+        className="position-fixed end-0 top-50 translate-middle-y me-3 z-index-3"
+        // hidden={!showActions}
       >
         <div>
           <Tooltip title="Thêm bài viết / công thức">
@@ -51,16 +52,19 @@ const FloatingAction = () => {
         </div>
       </div>
 
-      <Modal
-        open={open}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{ paddingTop: 5 ,overflow:'scroll',marginX:1 }}
-      >
-        <>
-          <CreatePosts onClose={handleClose} />
-        </>
-      </Modal>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          sx={{ paddingTop: 5, overflow: "scroll", marginX: 1 }}
+        >
+          <>
+            <CreatePosts onClose={handleClose} />
+          </>
+        </Modal>
+
     </>
   );
 };

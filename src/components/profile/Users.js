@@ -24,7 +24,11 @@ function Users() {
   const handleClickMenuItem = (value) => {
     value === "Đăng Nhập" && navigate("/dang-nhap");
     value === "Đăng Ký" && navigate("/dang-ky");
-    value === "Đăng Xuất" && navigate("/");
+    value === "Thông Tin Tài Khoản" && navigate("/user");
+    if(value === "Đăng Xuất") {
+      sessionStorage.removeItem("token")
+      localStorage.removeItem('token')
+      navigate("/");}
   };
 
   return (

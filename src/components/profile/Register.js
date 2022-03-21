@@ -1,5 +1,5 @@
 import { Button, Container, Paper, TextField } from "@mui/material";
-import { checkEmail, http, Logo } from "./config";
+import { http, Logo } from "./config";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
@@ -23,9 +23,8 @@ const Register = () => {
   const onSubmit = async (data) => {
     try {
       const result = await http.post("/auth/register", data);
-   
-      navigate("/dang-nhap")
-      
+      localStorage.setItem("verifyEmail", "true");
+      navigate("/dang-nhap");
     } catch (error) {
       error.response.data.data === "Email is existed!" &&
         setError("email", {

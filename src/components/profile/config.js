@@ -1,8 +1,8 @@
 import axios from "axios";
 
 
-const host = "http://localhost:5000";
-// const host = "https://cooking-holics-backend.herokuapp.com/";
+// const host = "http://localhost:5000";
+const host = "https://cooking-holics-backend.herokuapp.com/";
 
 export const http = axios.create({
   baseURL: host,
@@ -16,7 +16,7 @@ http.interceptors.request.use((config) => {
     return config
 });
 export const isLogged = () => {
-  return false;
+ return localStorage.getItem("token");
 };
 export const Logo = () => {
   return (
@@ -33,11 +33,11 @@ export const Logo = () => {
   );
 };
 
-export const checkUser = async (user) => {
-  return false;
-};
+// export const checkUser = async (user) => {
+//   return false;
+// };
 
-export const checkEmail = async (email) => {
-  return false;
-};
+// export const checkEmail = async (email) => {
+//   return false;
+// };
 
