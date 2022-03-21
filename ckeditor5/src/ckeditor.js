@@ -89,6 +89,7 @@ Editor.defaultConfig = {
 		]
 	},
 	language: 'vi',
+
 	image: {
 		toolbar: [
 			'imageTextAlternative',
