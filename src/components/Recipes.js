@@ -12,7 +12,7 @@ const Recipes = () => {
   const [page, setPage] = useState(1);
 
   const handleLoadMoreClick = () => {
-    console.log("loadmore");
+    setPage(prev => prev + 1);
   }
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const Recipes = () => {
       .then((res) => res.json())
       .then((resJson) => {
         if (resJson.data.length < 8) setDisplayLoadMore(false);
-        setList(resJson.data);
+        setList(prev => [...prev,...resJson.data]);
         setIsLoading(false);
       });
   }, [page]);
@@ -49,7 +49,7 @@ const Recipes = () => {
       displayLoadMore &&
       <div className="text-center">
         {
-          !isLoading && <Button className="return-to-home-btn" variant="outlined" color="primary" onClick={handleLoadMoreClick}>
+          !isLoading && <Button variant="outlined" color="primary" onClick={handleLoadMoreClick}>
             <div className="fw-bold">Hiển thị thêm công thức</div>
           </Button>
         }
