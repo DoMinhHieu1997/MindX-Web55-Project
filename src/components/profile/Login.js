@@ -14,6 +14,9 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { http, Logo } from "./config";
+import bglogin from '../../assets/bglogin.jpg'
+
+
 function Login() {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
@@ -60,7 +63,8 @@ function Login() {
       });
   };
   return (
-    <Container maxWidth="sm">
+<div className=""style={{backgroundImage:`url(${bglogin})`}}>
+<Container maxWidth="sm" >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Paper
           elevation={12}
@@ -174,6 +178,7 @@ function Login() {
         message="Bạn vui lòng kích hoạt Email trước khi đăng nhập"
       />
     </Container>
+</div>
   );
 }
 
