@@ -8,7 +8,7 @@ function Toggle({ toggle, handleClick }) {
         variant={toggle ? "contained" : "text"}
         sx={{
           width: "50%",
-          borderRadius: "30px",
+          borderRadius: "3px",
           mt: 2,
           p: 1,
         }}
@@ -20,7 +20,7 @@ function Toggle({ toggle, handleClick }) {
         variant={!toggle ? "contained" : "text"}
         sx={{
           width: "50%",
-          borderRadius: "30px",
+          borderRadius: "3px",
           mt: 2,
           p: 1,
         }}
