@@ -4,7 +4,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 import { Button } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
-import { useState,useContext } from "react";
+import { useState,useContext,useEffect } from "react";
 import AppCtx from "../../appContext";
 import CommentList from "../comments/CommentList";
 import CommentIcon from '@mui/icons-material/Comment';
@@ -12,15 +12,18 @@ import { COMMON,transferDate } from "../Common";
 
 const PostContent = (props) => {
   const appCtx = useContext(AppCtx);
-  const userId = appCtx.userInfo.userId;
+  const userId = appCtx.userInfo?._id;
   const token = appCtx.userToken;
-  console.log(userId,token);
   const data = props.postContent.data;
   const userLikeArr = data.usersLike;
   const [countLike,setCountLike] = useState(userLikeArr.length ? userLikeArr.length : 0);
-  const [isLove, setIsLove] = useState(userLikeArr.indexOf(userId) > -1 ? true : false);
+  const [isLove, setIsLove] = useState(false);
   const [comment, setComment] = useState("");
   const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    if (userLikeArr.indexOf(userId) > -1) setIsLove(true);
+  },[userId])
 
   const handleLike = () => {
     setIsLove(true);

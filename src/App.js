@@ -20,10 +20,9 @@ function App() {
   const [userToken, setUserToken] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (token) {
       setUserToken(token);
-      setUserInfo("Minh Hiếu");
       fetch(`${COMMON.DOMAIN}user/info`,{
         method: "GET",
         headers: {
@@ -36,7 +35,7 @@ function App() {
         setUserInfo(resJson.data);
       });
     }
-  });
+  },[]);
 
   return (
     <div className="App">

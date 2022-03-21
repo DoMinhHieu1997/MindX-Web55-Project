@@ -15,7 +15,7 @@ const Detail = () => {
         .then((resJson) => {
             setPostData(resJson);
         });
-    }, []);
+    },[]);
 
     return <div className="container py-5">
         <div className="row">

@@ -83,12 +83,6 @@ const Search = () => {
         getSearchValue();
     },[size,searchKey]);
 
-    // useEffect(() => {
-    //     setSearchValue(searchKey)
-    //     setIsLoading(true);
-    //     getSearchValue();
-    // },[size || searchKey]);
-
     return <div className="container py-5 position-relative">
         {
             isError && <Alert severity="error" className="d-inline-flex position-absolute top-0 end-0 mt-3">Mời nhập từ kháo để thực hiện tìm kiếm!</Alert>
