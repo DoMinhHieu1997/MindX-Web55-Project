@@ -20,7 +20,7 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
 
   console.log(label);
   return (
-    <div>
+    <div className="my-4">
       <Paper sx={{ m: "10px 0" }} elevation={4}>
         <Box sx={{ display: "flex", p: 2, height: 80 }}>
           <TextField
@@ -29,7 +29,7 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
             size="small"
             onChange={(e) => setIngredient(e.target.value)}
             helperText={
-              (error?.ingredienError || label) && <Myp>Vui lòng nhập nguyên liệu</Myp>
+              (error?.ingredienError || label) && <Myp>Nhập nguyên liệu</Myp>
             }
           />
           <TextField
@@ -39,7 +39,7 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
             onChange={(e) => setTotal(e.target.value)}
             type="number"
             helperText={
-              (error?.totalError || label) && <Myp>Vui lòng nhập số lượng</Myp>
+              (error?.totalError || label) && <Myp>Nhập số lượng</Myp>
             }
           />
         </Box>

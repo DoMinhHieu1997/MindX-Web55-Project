@@ -92,6 +92,9 @@ input:focus {
 .navbar-dark .navbar-toggler {
   border-color: rgb(255 255 255) !important;
 }
+.ck-editor__editable {
+  min-height: 15rem;
+}
 .skeleton {
   position: relative;
   background: #e2e2e2;

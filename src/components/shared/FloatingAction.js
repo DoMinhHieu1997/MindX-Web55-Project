@@ -55,7 +55,7 @@ const FloatingAction = () => {
         open={open}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        sx={{ paddingTop: 16 ,overflow:'scroll'}}
+        sx={{ paddingTop: 5 ,overflow:'scroll',marginX:1 }}
       >
         <>
           <CreatePosts onClose={handleClose} />
