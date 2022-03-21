@@ -14,11 +14,11 @@ const Search = () => {
     const search = useLocation().search;
     const searchKey = new URLSearchParams(search).get('p');
     const [isError, setIsError] = useState(false);
-    const [size, setSize] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
-    const [isTyping, setIsTyping] = useState(true);
     const [searchValue, setSearchValue] = useState(searchKey.replace("-"," "));
-    const [searchResponse, setSearchResponse] = useState("");
+    const [searchResponse, setSearchResponse] = useState([]);
+    const [displayLoadMore, setDisplayLoadMore] = useState(true);
+    const [page, setPage] = useState(1);
 
     function removeAccents(str) {
         str = str.replace("-"," ");
@@ -46,26 +46,27 @@ const Search = () => {
     };
 
     const getSearchValue = () => {
-        setIsTyping(true);
-        fetch(`${COMMON.DOMAIN}posts/search?k=${removeAccents(searchKey.replace("-"," "))}&s=8&p=${size}`)
+        setIsLoading(true);
+        fetch(`${COMMON.DOMAIN}posts/search?k=${removeAccents(searchKey.replace("-"," "))}&s=8&p=${page}`)
         .then(res => res.json())
         .then(resJson => {
             if (resJson.message === "success") {
                 if (resJson.data.length) {
+                    if (resJson.data.length < 8) setDisplayLoadMore(false);
                     setSearchResponse(resJson.data);
                 } else {
+                    setDisplayLoadMore(false);
                     setSearchResponse("");
                 }
                 setIsLoading(false);
             } else {
+                setDisplayLoadMore(false);
                 setSearchResponse("");
             }
-            setIsTyping(false);
         });
     }
 
     const handleTextFieldChange = (event) => {
-        setIsTyping(true);
         setSearchValue(event.target.value);
     }
 
@@ -77,12 +78,16 @@ const Search = () => {
         }
     }
 
+    const handleLoadMoreClick = () => {
+        setPage(prev => prev + 1);
+    }
+
     useEffect(() => {
         setSearchResponse([]);
         setSearchValue(searchKey.replace("-"," "));
         setIsLoading(true);
         getSearchValue();
-    },[size,searchKey]);
+    },[page,searchKey]);
 
     return <div className="container py-5 position-relative">
         {
@@ -99,20 +104,18 @@ const Search = () => {
                 </Button>
             </div>
         </div>
-        {
-            !isTyping && <div>
-                {
-                    searchResponse 
-                    ? <div className="text-center fs-4">Kết quả tìm kiếm cho từ khóa: <strong>{searchValue.replace("-"," ")}</strong></div>
-                    : <>
-                        <div className="text-center fs-4">Không tìm thấy kết quả cho từ khóa: <strong>{searchValue.replace("-"," ")}</strong></div>
-                        <div className="col-md-4 col-9 mx-auto mt-3">
-                            <img className="w-100" src={NoResult}/>
-                        </div>
-                    </>
-                }
-            </div>
-        }
+        <div>
+            {
+                searchResponse 
+                ? (!isLoading && <div className="text-center fs-4">Kết quả tìm kiếm cho từ khóa: <strong>{searchKey.replace("-"," ")}</strong></div>)
+                : (!isLoading && <>
+                    <div className="text-center fs-4">Không tìm thấy kết quả cho từ khóa: <strong>{searchKey.replace("-"," ")}</strong></div>
+                    <div className="col-md-4 col-9 mx-auto mt-3">
+                        <img className="w-100" src={NoResult}/>
+                    </div>
+                </>)
+            }
+        </div>
         <div className="row mt-5">
             {
                 searchResponse && searchResponse.map((item) => {
@@ -134,7 +137,16 @@ const Search = () => {
                 </>    
             }
         </div>
-        <div></div>
+        {
+            displayLoadMore &&
+            <div className="text-center">
+                {
+                    !isLoading && <Button variant="outlined" color="primary" onClick={handleLoadMoreClick}>
+                        <div className="fw-bold">Hiển thị thêm kết quả</div>
+                    </Button>
+                }
+            </div>
+        }
     </div>
 }
 
