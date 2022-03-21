@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
+import bglogin from '../../assets/bglogin.jpg'
+
 
 const Register = () => {
   const {
@@ -47,7 +49,7 @@ const Register = () => {
   };
 
   return (
-    <MyContainer>
+    <MyContainer style={{backgroundImage:`url(${bglogin})`}}>
       <Container maxWidth="sm">
         <Paper
           elevation={12}
