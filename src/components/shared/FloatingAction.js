@@ -23,7 +23,7 @@ const FloatingAction = () => {
   return (
     <>
       <div className="position-fixed end-0 top-50 translate-middle-y me-3 z-index-3" 
-      hidden={!showActions}
+      // hidden={!showActions}
       >
         <div>
           <Tooltip title="Thêm bài viết / công thức">
