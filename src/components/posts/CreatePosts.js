@@ -13,40 +13,6 @@ import AddIngredients from "./AddIngredients";
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
 
-const editorConfiguration = {
-  toolbar: {
-    items: [
-      "heading",
-      "|",
-      "bold",
-      "italic",
-      "imageUpload",
-      "link",
-      "bulletedList",
-      "numberedList",
-      "|",
-      "blockQuote",
-      "insertTable",
-      "undo",
-      "redo",
-      "imageInsert",
-    ],
-  },
-  language: "vi",
-
-  image: {
-    toolbar: [
-      "imageTextAlternative",
-      "imageStyle:inline",
-      "imageStyle:block",
-      "imageStyle:side",
-    ],
-  },
-  table: {
-    contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
-  },
-};
-
 function CreatePosts({ onClose }) {
   const {
     formState: { errors },
@@ -81,6 +47,7 @@ function CreatePosts({ onClose }) {
     } else {
       uploadPosts.current.type = 1;
       uploadPosts.current.ingredients = cardItem;
+      console.log(uploadPosts.current);
       http.post("/posts/create", uploadPosts.current).then((res) => {
         onClose();
         navigate("/cong-thuc");
@@ -187,11 +154,9 @@ function CreatePosts({ onClose }) {
               />
             )}
             <h5 className="mt-4 mb-2 text-secondary">Nội dung bài viết</h5>
-            {/* <Box sx={{ height: "100%", p: "10px 0" }}> */}
-            <Box>
+            <Box sx={{ height: "100%", p: "10px 0" }}>
               <CKEditor
                 editor={Editor}
-                config={editorConfiguration}
                 data=""
                 onChange={(event, editor) => {
                   const data = editor.getData();

@@ -32,6 +32,8 @@ input[type=number] {
   --ck-todo-list-checkmark-size: 16px;
 }
 
+.ck-balloon-panel{z-index:9999 !important}
+
 /* ckeditor5-basic-styles/theme/code.css */
 .ck-content code {
   background-color: hsla(0, 0%, 78%, 0.3);
