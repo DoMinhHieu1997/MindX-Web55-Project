@@ -9,7 +9,7 @@ import CreatePosts from "../posts/CreatePosts";
 
 const FloatingAction = () => {
   const appCtx = useContext(AppCtx);
-  const token = appCtx.userToken;
+  const token = localStorage.getItem("token") || sessionStorage.getItem("token");
   const [showActions, setShowActions] = useState(false);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
