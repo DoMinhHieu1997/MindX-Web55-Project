@@ -9,7 +9,7 @@ import { COMMON } from "../Common";
 const CommentItem = (props) => {
   const appCtx = useContext(AppCtx);
   const userId = appCtx.userInfo?._id;
-  const token = appCtx.userToken;
+  const token = localStorage.getItem("token") || sessionStorage.getItem("token");
   const [canUpdate, setCanUpdate] = useState(props.data.userId.indexOf(userId) > -1 ? true : false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [content, setContent] = useState(props.data.content);

@@ -6,11 +6,8 @@ import Home from "./components/Home";
 import Login from "./components/profile/Login";
 import Register from "./components//profile/Register";
 import Recipes from "./components/Recipes";
-import FloatingAction from "./components/shared/FloatingAction";
 import NotFound from "./components/NotFound";
 import Detail from "./components/Detail";
-import FoodRecommendation from "./components/shared/FoodRecommendation";
-import TimeTable from "./components/shared/TimeTable";
 import Search from "./components/Search";
 import AppCtx from "./appContext";
 import {COMMON} from "./components/Common";
@@ -39,6 +36,8 @@ function App() {
 
   useEffect(() => {
     const token = sessionStorage.getItem("token") || localStorage.getItem("token");
+    setUserToken(token);
+    
     if (token) {
       setUserToken(token);
       fetch(`${COMMON.DOMAIN}user/info`,{

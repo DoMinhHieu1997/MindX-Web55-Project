@@ -10,7 +10,7 @@ import {COMMON} from "../Common";
 
 const CommentList = (props) => {
   const appCtx = useContext(AppCtx);
-  const token = appCtx.userToken;
+  const token = localStorage.getItem("token") || sessionStorage.getItem("token");
   const [commentList,setCommentList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [comment, setComment] = useState("");
