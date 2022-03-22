@@ -1,8 +1,10 @@
 import axios from "axios";
+import {COMMON} from "../Common";
+import LogoImage from "../../assets/logo-image.png";
 
 
 // const host = "http://localhost:5000";
-const host = "https://cooking-holics-backend.herokuapp.com/";
+const host = COMMON.DOMAIN;
 
 export const http = axios.create({
   baseURL: host,
@@ -19,17 +21,20 @@ export const isLogged = () => {
  return localStorage.getItem("token");
 };
 export const Logo = () => {
-  return (
+  return (<>
+    <div className="col-2 col-3 mx-auto">
+      <img className="w-100" src={LogoImage}/>
+    </div>
     <div
+      className="text-center pt-3 h4"
       style={{
-        height: "100px",
-        display: "flex",
-        justifyContent: "center",
-        lineHeight: "70px",
+        fontFamily: "Lobster, cursive"
       }}
     >
-      Logo
+      COOKING HOLICS
     </div>
+  </>
+    
   );
 };
 
