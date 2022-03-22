@@ -9,11 +9,13 @@ import { COMMON,transferDate } from "../Common";
 const PostContent = (props) => {
   const appCtx = useContext(AppCtx);
   const userId = appCtx.userInfo?._id;
-  const token = appCtx.userToken;
+  const token = localStorage.getItem("token") || sessionStorage.getItem("token");
   const data = props.postContent.data;
   const userLikeArr = data.usersLike;
   const [countLike,setCountLike] = useState(userLikeArr.length ? userLikeArr.length : 0);
   const [isLove, setIsLove] = useState(false);
+
+  console.log(data.ingredients);
 
   useEffect(() => {
     if (userLikeArr.indexOf(userId) > -1) setIsLove(true);
@@ -41,6 +43,10 @@ const PostContent = (props) => {
       appCtx.setOpenLoginNotify(true);
     }
   };
+
+  useEffect(() => {
+    document.getElementById("html-content").innerHTML = data.content;
+  },[]);
 
   return (
     <>
@@ -75,7 +81,7 @@ const PostContent = (props) => {
             </ul>
           </div>
         )}
-        <div className="mt-4 fs-4">{data.content}</div>
+        <div className="mt-4 fs-4" id="html-content"></div>
         <div className="fs-5 mt-3 fw-bold">{data.authorName}</div>
       </div>
       <div className="mt-4">
