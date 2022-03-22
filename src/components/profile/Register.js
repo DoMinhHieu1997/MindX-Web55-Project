@@ -1,10 +1,12 @@
 import { Button, Container, Paper, TextField } from "@mui/material";
-import { checkEmail, http, Logo } from "./config";
+import { http, Logo } from "./config";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useState } from "react";
+import bglogin from '../../assets/bglogin.jpg'
+
 
 const Register = () => {
   const {
@@ -23,9 +25,8 @@ const Register = () => {
   const onSubmit = async (data) => {
     try {
       const result = await http.post("/auth/register", data);
-      setTimeout(()=>
-      navigate("/dang-nhap"),500
-      )
+      localStorage.setItem("verifyEmail", "true");
+      navigate("/dang-nhap");
     } catch (error) {
       error.response.data.data === "Email is existed!" &&
         setError("email", {
@@ -48,7 +49,7 @@ const Register = () => {
   };
 
   return (
-    <MyContainer>
+    <MyContainer style={{backgroundImage:`url(${bglogin})`}}>
       <Container maxWidth="sm">
         <Paper
           elevation={12}
@@ -79,10 +80,10 @@ const Register = () => {
                       value: validateEmail,
                       message: "Email không đúng định dạng",
                     },
-                    validate: {
-                      checkEmailExist: async (v) =>
-                        !(await checkEmail(v)) || "Email đã tồn tại",
-                    },
+                    // validate: {
+                    //   checkEmailExist: async (v) =>
+                    //     !(await checkEmail(v)) || "Email đã tồn tại",
+                    // },
                   })}
                 />
                 {errors.email && <Myp>{errors.email.message}</Myp>}

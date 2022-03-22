@@ -12,6 +12,7 @@ import { Box } from "@mui/system";
 import AddIngredients from "./AddIngredients";
 import { Save } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
+import { useNavigate } from "react-router-dom";
 
 const editorConfiguration = {
   
@@ -53,7 +54,7 @@ const editorConfiguration = {
 	}
 };
 
-function CreatePosts({ onClose }) {
+function CreatePosts({ onClose}) {
   let test = document.getElementById("test");
   const {
     formState: { errors },
@@ -61,15 +62,18 @@ function CreatePosts({ onClose }) {
     handleSubmit,
     register,
     setValue,
+    clearErrors,
   } = useForm();
   const [toggle, setToggle] = useState(true);
   const uploadPosts = useRef({ avatar: "", content: "" });
   const [imgPreview, setImgPreview] = useState(null);
   const [cardItem, setCardItem] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate=useNavigate()
 
   const handleClick = (toggle) => {
     setToggle(toggle);
+    clearErrors()
   };
   const onSubmit = (data) => {
     setLoading(true);
@@ -78,18 +82,21 @@ function CreatePosts({ onClose }) {
       uploadPosts.current.type = 1;
       uploadPosts.current.ingredients = [];
       http.post("/posts/create", uploadPosts.current).then((res) => {
-        console.log(res);
+        // console.log(res);
+        onClose()
+        navigate('/posts?p=1&s=6&t=1')
         setLoading(false);
       });
     } else {
       uploadPosts.current.type = 2;
       uploadPosts.current.ingredients = cardItem;
       http.post("/posts/create", uploadPosts.current).then((res) => {
-        console.log(res);
+        // console.log(res);
+        onClose()
+        navigate('/posts?p=1&s=6&t=1')
         setLoading(false);
       });
     }
-    test.innerHTML = uploadPosts.current.content;
   };
   const handlePhoto = (file) => {
     if (file) {
@@ -97,15 +104,12 @@ function CreatePosts({ onClose }) {
       formData.append("myFile", file);
       file &&
         http.post("/upload", formData).then((res) => {
-          console.log(res);
-          const linkAvatar = res.data[res.data.length - 1];
+          const linkAvatar = res.data.data[res.data.data.length - 1];
           uploadPosts.current.avatar = linkAvatar;
           setValue("avatar", linkAvatar);
         });
     }
   };
-  console.log(errors);
-  console.log(loading);
   return (
     <div>
       <Container
