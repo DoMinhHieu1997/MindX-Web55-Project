@@ -50,14 +50,14 @@ const Register = () => {
 
   return (
     <MyContainer style={{backgroundImage:`url(${bglogin})`}}>
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" className="py-5">
         <Paper
           elevation={12}
           style={{
             maxWidth: 400,
             minHeight: 550,
-            margin: "40px auto 0",
-            borderRadius: "15px",
+            margin: "auto",
+            backgroundColor:"#ffffffc7"
           }}
         >
           <div

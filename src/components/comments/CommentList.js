@@ -41,31 +41,35 @@ const CommentList = (props) => {
   }
 
   const handleSendComment = () => {
-    setDisableSend(true);
-    if (comment) {
-      const bodyJson = {
-        "postId":props.postId,
-        "content":comment
-      }
-
-      fetch(`${COMMON.DOMAIN}comments/create`,{
-        method: "POST",
-        headers: {
-          'Content-type':'application/json',
-          'Authorization':"Bearer "+token
-        },
-        body: JSON.stringify(bodyJson)
-      })
-      .then(res => res.json())
-      .then(resJson => {
-        if (resJson.message === "success") {
-          setComment("");
-          setCommentList(prev => [...prev,resJson.data]);
+    if (token) {
+      setDisableSend(true);
+      if (comment) {
+        const bodyJson = {
+          "postId":props.postId,
+          "content":comment
         }
-        setDisableSend(false);
-      });
+
+        fetch(`${COMMON.DOMAIN}comments/create`,{
+          method: "POST",
+          headers: {
+            'Content-type':'application/json',
+            'Authorization':"Bearer "+token
+          },
+          body: JSON.stringify(bodyJson)
+        })
+        .then(res => res.json())
+        .then(resJson => {
+          if (resJson.message === "success") {
+            setComment("");
+            setCommentList(prev => [...prev,resJson.data]);
+          }
+          setDisableSend(false);
+        });
+      } else {
+        setIsError(true);
+      }
     } else {
-      setIsError(true);
+      appCtx.setOpenLoginNotify(true);
     }
   }
 

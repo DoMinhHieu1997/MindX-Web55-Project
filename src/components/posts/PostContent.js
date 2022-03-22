@@ -21,21 +21,25 @@ const PostContent = (props) => {
 
   const handleLike = () => {
     
-    fetch(`${COMMON.DOMAIN}posts/like`,{
-      method: "PATCH",
-      headers: {
-        'Content-type':'application/json',
-        'Authorization':"Bearer "+token
-      },
-      body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(resJson => {
-      if (resJson.message === "success") {
-        setIsLove(true);
-        setCountLike(prev => prev + 1);
-      }
-    });
+    if (token) {
+      fetch(`${COMMON.DOMAIN}posts/like`,{
+        method: "PATCH",
+        headers: {
+          'Content-type':'application/json',
+          'Authorization':"Bearer "+token
+        },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(resJson => {
+        if (resJson.message === "success") {
+          setIsLove(true);
+          setCountLike(prev => prev + 1);
+        }
+      });
+    } else {
+      appCtx.setOpenLoginNotify(true);
+    }
   };
 
   return (
