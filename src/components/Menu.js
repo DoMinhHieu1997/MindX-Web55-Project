@@ -81,6 +81,9 @@ const Menu = () => {
             <div className="logo position-absolute top-50 bg-dark d-none d-md-block start-50 translate-middle p-2 rounded">
               <h2 className="text-white mb-0">COOKING HOLICS</h2>
             </div>
+            <div className="d-block d-md-none">
+              <Users />
+            </div>
             <div className="d-flex align-items-center mt-4 mt-sm-0">
               <div className="position-relative me-3 w-100">
                 <input
@@ -98,7 +101,7 @@ const Menu = () => {
                 />
               </div>
             </div>
-            <div className="d-sm-block">
+            <div className="d-none d-md-block">
               <Users />
             </div>
           </div>
