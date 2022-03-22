@@ -49,8 +49,6 @@ const FloatingAction = () => {
           </Tooltip>
         </div>
       </div>
-
-
         <Modal
           open={open}
           onClose={handleClose}
@@ -58,9 +56,9 @@ const FloatingAction = () => {
           aria-describedby="modal-modal-description"
           sx={{ paddingTop: 5, overflow: "scroll", marginX: 1 }}
         >
-          <>
-            <CreatePosts onClose={handleClose} setOpen={setOpen }/>
-          </>
+          <div>
+            <CreatePosts onClose={handleClose} setOpen={setOpen } />
+          </div>
         </Modal>
 
     </>

@@ -17,7 +17,7 @@ http.interceptors.request.use((config) => {
     return config
 });
 export const isLogged = () => {
- return localStorage.getItem("token");
+ return localStorage.getItem("token")||sessionStorage.getItem('token');
 };
 export const Logo = () => {
   return (
