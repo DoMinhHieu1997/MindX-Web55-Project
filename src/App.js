@@ -68,14 +68,12 @@ function App() {
         }}
       >
         <Menu />
-        <FloatingAction />
+        {/* <FloatingAction /> */}
         {/* <FoodRecommendation />
         <TimeTable /> */}
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/cong-thuc" element={<Recipes />}/>
-          <Route path="/lien-he" element={<Home />}/>
-          <Route path="/gioi-thieu" element={<Home />}/>
           <Route path="/dang-nhap" element={<Login />}/>
           <Route path="/dang-ky" element={<Register />}/>
           <Route path="/chi-tiet/:id" element={<Detail />}/>
