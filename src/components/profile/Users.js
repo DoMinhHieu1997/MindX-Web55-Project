@@ -1,7 +1,8 @@
 import { AccountCircleOutlined, Logout } from "@mui/icons-material";
 import { Menu, MenuItem } from "@mui/material";
-import React, {  useState } from "react";
+import React, {  useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AppCtx from "../../appContext";
 import { isLogged } from "./config";
 import "./User.css";
 
@@ -9,6 +10,8 @@ function Users() {
   const [anchorEl, setAnchorEl] = useState(null);
   const isLogin = isLogged();
   const navigate = useNavigate();
+  const appCtx = useContext(AppCtx);
+
 
   const options = !isLogin
     ? ["Đăng Nhập", "Đăng Ký"]
@@ -29,6 +32,7 @@ function Users() {
     if (value === "Đăng Xuất") {
       sessionStorage.removeItem("token");
       localStorage.removeItem("token");
+      appCtx.setUserToken(null)
       navigate("/");
     }
   };
