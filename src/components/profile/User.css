@@ -4,7 +4,7 @@
 .user-menu.desktop{
     display: block;
 }
-@media only screen and (max-width:800px){
+@media only screen and (max-width:990px){
     .user-menu.mobile{
         display: block;
     }

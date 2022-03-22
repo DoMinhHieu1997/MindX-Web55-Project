@@ -12,7 +12,7 @@ class uploadImageSever {
           const formData = new FormData();
           formData.append("myFile", file);
           http.post("/upload", formData).then((res) => {
-            resolve({ default: res.data[res.data.length - 1] });
+            resolve({ default: res.data.data[res.data.data.length - 1] });
           });
         })
     );
