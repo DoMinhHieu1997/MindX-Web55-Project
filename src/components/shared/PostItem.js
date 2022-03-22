@@ -7,21 +7,16 @@ import {COMMON} from '../Common';
 const PostItem = (props) => {
   const appCtx = useContext(AppCtx);
   const userId = appCtx.userInfo?._id;
-  const token = sessionStorage.getItem("token") || localStorage.getItem("token");
+  const token = appCtx.userToken;
   const [isLove, setIsLove] = useState(false);
   const [totalLike, setTotalLike] = useState(props.data.usersLike.length ? props.data.usersLike.length : 0);
-  const [justClicked, setJustClicked] = useState(false);
 
   useEffect(() => {
-    if (token) {
-      if (props.data.usersLike.indexOf(userId) > -1)
+    if (props.data.usersLike.indexOf(userId) > -1)
       setIsLove(true);
-    }
-  },[userId]);
+  },[userId])
   
   const handleLike = (event) => {
-    setJustClicked(true);
-
     if (token) {
         const data = {
         "_id":props.data._id,
@@ -41,7 +36,6 @@ const PostItem = (props) => {
         if (resJson.message === "success") {
           setTotalLike(prev => prev + 1);
           setIsLove(true);
-          setJustClicked(false);
         }
       });
     } else {
@@ -57,7 +51,7 @@ const PostItem = (props) => {
       <div className="pb-2 pt-1 ps-2 position-absolute top-0 start-0 end-0 bg-linear">
         {
           !isLove 
-            ? <FavoriteBorderOutlinedIcon className="d-inline-block" onClick={!justClicked ? handleLike : null}/>
+            ? <FavoriteBorderOutlinedIcon className="d-inline-block" onClick={handleLike}/>
             : <FavoriteIcon className="d-inline-block" style={{color: "#d83737"}}/> 
         }
         <div className="ms-2 d-inline-block h6 mb-0">{totalLike} Lượt thích</div>
