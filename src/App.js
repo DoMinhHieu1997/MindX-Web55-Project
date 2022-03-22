@@ -6,7 +6,6 @@ import Home from "./components/Home";
 import Login from "./components/profile/Login";
 import Register from "./components/profile/Register";
 import Recipes from "./components/Recipes";
-import FloatingAction from "./components/shared/FloatingAction";
 import NotFound from "./components/NotFound";
 import Detail from "./components/Detail";
 import Profile from "./components/profilePage/Profile";
@@ -43,6 +42,7 @@ function App() {
 
     useEffect(() => {
         const token = sessionStorage.getItem("token") || localStorage.getItem("token");
+        
         if (token) {
             setUserToken(token);
             fetch(`${COMMON.DOMAIN}user/info`, {
@@ -52,10 +52,10 @@ function App() {
                     Authorization: "Bearer " + token,
                 },
             })
-                .then((res) => res.json())
-                .then((resJson) => {
-                    setUserInfo(resJson.data);
-                });
+            .then((res) => res.json())
+            .then((resJson) => {
+                setUserInfo(resJson.data);
+            });
         }
     }, []);
 
@@ -72,7 +72,6 @@ function App() {
                 }}
             >
                 <Menu />
-                <FloatingAction />
                 {/* <FoodRecommendation />
         <TimeTable /> */}
                 <Routes>

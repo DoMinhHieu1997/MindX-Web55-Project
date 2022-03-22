@@ -37,8 +37,8 @@ input:focus {
   z-index: 3;
 }
 .active {
-  background-color: #3e9294!important;
-  font-weight: 700;
+  /* background-color: #3e9294!important; */
+  font-weight: 800;
 }
 .card:hover {
   border: 1px solid #adadad;
@@ -79,10 +79,10 @@ input:focus {
   height: 1.5rem;
   width: 1.5rem;
 }
-.user-menu{
+.user-menu {
   display: none;
 }
-.user-nav:hover .user-menu{
+.user-nav:hover .user-menu {
   display: block;
 }
 .dishes-ingredients > ul {
@@ -127,7 +127,7 @@ input:focus {
   animation: loading 1.5s infinite;
 }
 
-.nav-item{
+.nav-item {
   cursor: pointer;
 }
 
