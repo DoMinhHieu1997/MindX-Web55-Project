@@ -1,15 +1,14 @@
 import { AccountCircleOutlined, Logout } from "@mui/icons-material";
 import { Menu, MenuItem } from "@mui/material";
-
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isLogged } from "./config";
+import "./User.css";
 
 function Users() {
   const [anchorEl, setAnchorEl] = useState(null);
   const isLogin = isLogged();
   const navigate = useNavigate();
-  const [width, setWidth] = useState('');
 
   const options = !isLogin
     ? ["Đăng Nhập", "Đăng Ký"]
@@ -33,55 +32,39 @@ function Users() {
       navigate("/");
     }
   };
-  useEffect(() => {
-    function displayWindowSize() {
-      const w = document.documentElement.clientWidth;
-      w < 700 && setWidth(true);
-      w >= 700 && setWidth(false);
-    }
-    window.addEventListener("resize", displayWindowSize);
-    console.log(width);
-  },[]);
+  
   return (
     <div>
-      {
-        <>
-          {!width && (
-            <div>
-              <AccountCircleOutlined
-                onClick={handleClick}
-                style={{ fontSize: 30, color: "#fff" }}
-              />
-              <Menu open={!!anchorEl} anchorEl={anchorEl} onClose={handleClose}>
-                {options.map((value) => (
-                  <MenuItem
-                    key={value}
-                    onClick={() => handleClickMenuItem(value)}
-                  >
-                    {value === "Đăng Xuất" && <Logout />}
-                    {value}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </div>
-          )}
-          {width &&
-            options.map((value) => (
-              <div
-                className="text-white fs-5 d-block align-middle nav-item mt-3 mt-sm-0"
-                key={value}
-                onClick={() => handleClickMenuItem(value)}
-              >
-                {value === "Đăng Xuất" ? (
-                  <Logout className="me-2 d-inline-block d-md-none align-middle" />
-                ) : (
-                  <AccountCircleOutlined className="me-2 d-inline-block d-md-none align-middle" />
-                )}
-                {value}
-              </div>
-            ))}
-        </>
-      }
+      <div className="user-menu desktop">
+        <AccountCircleOutlined
+          onClick={handleClick}
+          style={{ fontSize: 30, color: "#fff" }}
+        />
+        <Menu open={!!anchorEl} anchorEl={anchorEl} onClose={handleClose}>
+          {options.map((value) => (
+            <MenuItem key={value} onClick={() => handleClickMenuItem(value)}>
+              {value === "Đăng Xuất" && <Logout />}
+              {value}
+            </MenuItem>
+          ))}
+        </Menu>
+      </div>
+      <div className="user-menu mobile">
+        {options.map((value) => (
+          <div
+            className="text-white fs-5 d-block align-middle nav-item mt-3 mt-sm-0"
+            key={value}
+            onClick={() => handleClickMenuItem(value)}
+          >
+            {value === "Đăng Xuất" ? (
+              <Logout className="me-2 d-inline-block d-md-none align-middle" />
+            ) : (
+              <AccountCircleOutlined className="me-2 d-inline-block d-md-none align-middle" />
+            )}
+            {value}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

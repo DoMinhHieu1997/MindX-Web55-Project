@@ -1,0 +1,14 @@
+.user-menu.mobile{
+    display: none;
+}
+.user-menu.desktop{
+    display: block;
+}
+@media only screen and (max-width:800px){
+    .user-menu.mobile{
+        display: block;
+    }
+    .user-menu.desktop{
+        display: none;
+    }
+}
