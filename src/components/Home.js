@@ -9,7 +9,7 @@ const Home = () => {
     const [newRecipe, setNewRecipe] = useState("");
     const [blogs, setBlogs] = useState("");
     const [moreBlog, setMoreBlog] = useState(10);
-
+console.log(1327 % 7)
     useEffect(() => {
         setIsloading(true);
         fetch(`${COMMON.DOMAIN}posts?t=1&p=1&s=4`)

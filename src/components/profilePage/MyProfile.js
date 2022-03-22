@@ -1,7 +1,30 @@
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { useState } from "react";
+const MyProfile = ({ userData, setUserData, isLoading }) => {
+    const [emailEditting, setEmailEditting] = useState(false);
+    const [editEmail, setEditEmail] = useState(userData.email);
+    const [nameEditting, setNameEditting] = useState(false);
+    const [editName, setEditName] = useState(userData.nameDisplay);
+    const editEmailHandler = (e) => {
+        setEditEmail(e.target.value);
+    };
+    const editNameHandler = (e) => {
+        setEditName(e.target.value);
+    };
+    const EndEdit = (e) => {
+        if (e.key === "Escape") {
+            CancelEdit();
+        } else {
+            console.log(editEmail);
+        }
+    };
+    const CancelEdit = () => {
+        setEditEmail(userData.email);
+        setEmailEditting(false);
+        setEditName(userData.nameDisplay);
+        setNameEditting(false);
+    };
 
-const MyProfile = () => {
-console.log()
     return (
         <div className="my-profile col-md-8 border ml-2">
             <div className="row">
@@ -18,22 +41,93 @@ console.log()
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-12 pb-2">Tên đăng nhập</div>
+                        <div className="col-12 pb-2">Email</div>
                     </div>
                     <div className="row justify-content-between">
                         <div className="col-6 pb-3">
-                            <input type="text" className="w-100" />
+                            {isLoading && (
+                                <div className="col-6 mb-4 col-sm-12">
+                                    <div className="py-3 skeleton mt-2"></div>
+                                </div>
+                            )}
+                            {!emailEditting && userData.email}
+                            {emailEditting && (
+                                <input
+                                    autoFocus
+                                    type="text"
+                                    className="w-100"
+                                    value={editEmail}
+                                    onChange={editEmailHandler}
+                                    onBlur={CancelEdit}
+                                    onKeyUp={EndEdit}
+                                />
+                            )}
                         </div>
-                        <div className="col-auto ">Thay đổi</div>
+                        {!emailEditting && (
+                            <div
+                                className="col-auto "
+                                onClick={() => {
+                                    setEmailEditting(!emailEditting);
+                                }}
+                            >
+                                Thay đổi
+                            </div>
+                        )}
+                        {emailEditting && (
+                            <div
+                                className="col-auto "
+                                onClick={() => {
+                                    EndEdit();
+                                }}
+                            >
+                                Lưu
+                            </div>
+                        )}
                     </div>
                     <div className="row">
-                        <div className="col-12 pb-3">Mật khẩu</div>
+                        <div className="col-12 pb-3">Tên hiển thị</div>
                     </div>
                     <div className="row justify-content-between">
                         <div className="col-6 pb-5">
-                            <input type="text" className="w-100" />
+                            {isLoading && (
+                                <div className="col-6 mb-4 col-sm-12">
+                                    <div className="py-3 skeleton mt-2"></div>
+                                </div>
+                            )}
+
+                            {!nameEditting && userData.nameDisplay}
+                            {nameEditting && (
+                                <input
+                                    autoFocus
+                                    type="text"
+                                    className="w-100"
+                                    value={editName}
+                                    onChange={editNameHandler}
+                                    onBlur={CancelEdit}
+                                    onKeyUp={EndEdit}
+                                />
+                            )}
                         </div>
-                        <div className="col-auto ">Đổi mật khẩu</div>
+                        {!nameEditting && (
+                            <div
+                                className="col-auto"
+                                onClick={() => {
+                                    setNameEditting(!nameEditting);
+                                }}
+                            >
+                                Thay đổi
+                            </div>
+                        )}
+                        {nameEditting && (
+                            <div
+                                className="col-auto "
+                                onClick={() => {
+                                    EndEdit();
+                                }}
+                            >
+                                Lưu
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className="col-12">
@@ -42,6 +136,11 @@ console.log()
                             <div className="col-auto">
                                 <CloseOutlinedIcon />
                             </div>
+                        </div>
+                        <div className="row justify-content-start">
+                            <h4 className="col-auto">
+                                Thay đổi mật khẩu
+                            </h4>
                         </div>
                         <div className="row">
                             <div className="col-12 pb-2">Mật khẩu</div>

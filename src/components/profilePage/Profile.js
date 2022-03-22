@@ -1,20 +1,25 @@
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import { NavLink, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
-import COMMON from "../Common";
 import { http } from "../profile/config";
 import SkeletonItem from "../shared/SkeletonItem";
-import {Navigate} from 'react-router-dom'
+import { Navigate } from "react-router-dom";
+import MyProfile from "./MyProfile";
+import SavedPost from "./SavedPost";
+import MyPost from "./MyPost";
 const Profile = () => {
+    localStorage.setItem(
+        "token",
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjM0YmFjNGU2YTVjZDZiYjZlMmJiMzkiLCJpYXQiOjE2NDc5MTk2NzksImV4cCI6MTY1MDUxMTY3OX0.PvAZEFiC9G0y_tRtI42MJrCpJHMPWOnRJ2EFIaSmB3Q"
+    );
     const token = localStorage.getItem("token");
 
     const [isLoading, setIsLoading] = useState(true);
     const [userData, setUserData] = useState("");
+    const [nav, setNav] = useState("MyProfile");
 
-    const HandlelogOut= ()=>{
+    const HandlelogOut = () => {
         localStorage.removeItem("token");
-        userData={}
-    }
+    };
 
     useEffect(() => {
         setIsLoading(true);
@@ -30,11 +35,11 @@ const Profile = () => {
                 setUserData(resJson["data"]["data"]);
                 setIsLoading(false);
             });
-    }, [token,userData]);
+    }, [token]);
 
-    // console.log(userData.listBookmark);
-    if(!token){
-        return <Navigate to="/dang-nhap" replace />
+    console.log(userData);
+    if (!token) {
+        return <Navigate to="/dang-nhap" replace />;
     }
     return (
         <div className="container py-5">
@@ -45,7 +50,7 @@ const Profile = () => {
                         <div className="col-12">
                             <div className="border px-4 py-4">
                                 {isLoading && <SkeletonItem type="1" />}
-                                {userData && (
+                                {userData && !isLoading && (
                                     <>
                                         <div className="row justify-content-center">
                                             <div className="col-10">
@@ -73,28 +78,49 @@ const Profile = () => {
                                         <div className="py-3 skeleton mt-2"></div>
                                     </div>
                                 )}
-                                {userData && (
+                                {userData && !isLoading && (
                                     <>
                                         <div className="nav-item">
-                                            <NavLink className="nav-link link-secondary m-2" to="/ho-so/">
-                                                Tài khoản của tôi
-                                            </NavLink>
-                                        </div>
-                                        <div className="nav-item">
-                                            <NavLink
-                                                className="nav-link link-secondary m-2"
-                                                to="/ho-so/bai-viet-da-luu"
+                                            <div
+                                                className={
+                                                    nav === "MyProfile"
+                                                        ? "nav-link link-secondary m-2 active"
+                                                        : "nav-link link-secondary m-2"
+                                                }
+                                                onClick={() => {
+                                                    setNav("MyProfile");
+                                                }}
                                             >
-                                                Tin đã lưu ()
-                                            </NavLink>
+                                                Tài khoản của tôi
+                                            </div>
                                         </div>
                                         <div className="nav-item">
-                                            <NavLink
-                                                className="nav-link link-secondary m-2"
-                                                to="/ho-so/bai-viet-cua-toi"
+                                            <div
+                                                className={
+                                                    nav === "SavedPost"
+                                                        ? "nav-link link-secondary m-2 active"
+                                                        : "nav-link link-secondary m-2"
+                                                }
+                                                onClick={() => {
+                                                    setNav("SavedPost");
+                                                }}
+                                            >
+                                                Tin đã lưu ({userData.listBookmark.length})
+                                            </div>
+                                        </div>
+                                        <div className="nav-item">
+                                            <div
+                                                className={
+                                                    nav === "MyPost"
+                                                        ? "nav-link link-secondary m-2 active"
+                                                        : "nav-link link-secondary m-2"
+                                                }
+                                                onClick={() => {
+                                                    setNav("MyPost");
+                                                }}
                                             >
                                                 Danh sách bài viết
-                                            </NavLink>
+                                            </div>
                                         </div>
                                     </>
                                 )}
@@ -105,7 +131,7 @@ const Profile = () => {
                         <div className="col-12">
                             <div className="border px-4 py-4">
                                 <div className="row">
-                                    <button className="col-auto" onClick={HandlelogOut}>
+                                    <button className="col-auto btn btn-warning" onClick={HandlelogOut}>
                                         Thoát <LogoutOutlinedIcon />
                                     </button>
                                 </div>
@@ -113,7 +139,9 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
-                <Outlet userData={userData} />
+                {nav === "MyProfile" && <MyProfile userData={userData} setUserData={setUserData} isLoading={isLoading} />}
+                {nav === "SavedPost" && <SavedPost />}
+                {nav === "MyPost" && <MyPost />}
             </div>
         </div>
     );
