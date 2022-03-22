@@ -15,8 +15,6 @@ const PostContent = (props) => {
   const [countLike,setCountLike] = useState(userLikeArr.length ? userLikeArr.length : 0);
   const [isLove, setIsLove] = useState(false);
 
-  console.log(data.ingredients);
-
   useEffect(() => {
     if (userLikeArr.indexOf(userId) > -1) setIsLove(true);
   },[userId])
@@ -43,9 +41,6 @@ const PostContent = (props) => {
       appCtx.setOpenLoginNotify(true);
     }
   };
-  useEffect(()=>{
-    document.getElementById('contentPost').innerHTML=data.content
-  },[])
 
   useEffect(() => {
     document.getElementById("html-content").innerHTML = data.content;
