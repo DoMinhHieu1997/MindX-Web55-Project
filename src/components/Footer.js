@@ -24,7 +24,7 @@ const Footer = () => {
                 
             </div>
         </div>
-        <div className="text-center py-2 bg-dark text-white" style={{borderTop:"2px solid white"}}>Copyright © 2022 Web55-Group3. All rights reserved.</div>
+        <div className="text-center py-2 text-white" style={{borderTop:"2px solid white",backgroundColor:"#000"}}>Copyright © 2022 Web55-Group3. All rights reserved.</div>
     </div>
 }
 
