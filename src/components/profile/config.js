@@ -1,7 +1,9 @@
 import axios from "axios";
+import {COMMON} from "../Common";
+
 
 // const host = "http://localhost:5000";
-const host = "https://cooking-holics-backend.herokuapp.com/";
+const host = COMMON.DOMAIN;
 
 export const http = axios.create({
   baseURL: host,
@@ -15,43 +17,26 @@ http.interceptors.request.use((config) => {
     return config
 });
 export const isLogged = () => {
-  return false;
+ return localStorage.getItem("token")||sessionStorage.getItem('token');
 };
 export const Logo = () => {
   return (
     <div
+      className="text-center pt-4 h4 mb-4"
       style={{
-        height: "100px",
-        display: "flex",
-        justifyContent: "center",
-        lineHeight: "70px",
+        fontFamily: "Lobster, cursive"
       }}
     >
-      Logo
+      COOKING HOLICS
     </div>
   );
 };
 
-export const checkUser = async (user) => {
-  return false;
-};
+// export const checkUser = async (user) => {
+//   return false;
+// };
 
-export const checkEmail = async (email) => {
-  return false;
-};
+// export const checkEmail = async (email) => {
+//   return false;
+// };
 
-export const loginUser = async (data) => {
-  console.log(data);
-  http.post("/auth/login", data).then((res) => {
-    data.keepLogin && localStorage.setItem("token", res.data.data.tocken);
-    sessionStorage.setItem("token", res.data.data.tocken);
-  });
-};
-export const registerUser = async (data) => {
-  try {
-    const result = await http.post("/auth/register", data);
-    return result.data;
-  } catch (error) {
-    return error.response.data;
-  }
-};

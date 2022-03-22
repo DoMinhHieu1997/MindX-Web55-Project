@@ -1,5 +1,5 @@
 import { Add } from "@mui/icons-material";
-import { Box, Fab, Paper } from "@mui/material";
+import { Box, Button,  Paper } from "@mui/material";
 import React from "react";
 
 function FeaturedPhoto(
@@ -8,7 +8,6 @@ function FeaturedPhoto(
 ) {
   const handleInputIMG = (e) => {
     const file = e.target.files[0];
-    console.log(file.type);
     if (file.type === "image/png" || "image/gif" || "image/jpeg") {
       let reader = new FileReader();
       reader.onloadend = () => {
@@ -19,11 +18,11 @@ function FeaturedPhoto(
     } else {
       label = true;
       setImgPreview(null);
-      console.log("no img");
     }
   };
+  
   return (
-    <div>
+    <div className="mt-4">
       <Box
         sx={{
           display: "flex",
@@ -37,34 +36,27 @@ function FeaturedPhoto(
         <Paper elevation={3}>
           <img src={imgPreview} alt="" width={imgPreview || 128} height={128} />
         </Paper>
-        <label htmlFor="upload-photo">
-          <input
-            ref={ref}
-            style={{ display: "none" }}
-            type="file"
-            accept="image/png, image/gif, image/jpeg"
-            name="upload-photo"
-            id="upload-photo"
-            onChange={handleInputIMG}
-          />
-          <Fab
-            color="primary"
-            size="small"
-            variant="extended"
-            aria-label="add"
-            component="span"
-            sx={{ m: "18px 0" }}
-          >
-            <Add /> Chọn ảnh
-          </Fab>
+        <div>
+          <Button variant="contained" component="label" size="small">
+            <Add fontSize="small" className="mb-1"/> Chọn ảnh
+            <input
+              ref={ref}
+              accept="image/png, image/gif, image/jpeg"
+              onChange={handleInputIMG}
+              type="file"
+              hidden
+            />
+          </Button>
           {label ? (
-            <p style={{ color: "#dc3545" }}>
+            <Paper
+              sx={{ color: "#dc3545", boxShadow: "none", maxWidth: "180px" }}
+            >
               Vui lòng tải ảnh đại diện cho bài viết
-            </p>
+            </Paper>
           ) : (
-            <p>Tải ảnh đại diện cho bài viết</p>
+            <p className="mt-2 text-secondary">Tải ảnh đại diện bài viết</p>
           )}
-        </label>
+        </div>
       </Box>
     </div>
   );
