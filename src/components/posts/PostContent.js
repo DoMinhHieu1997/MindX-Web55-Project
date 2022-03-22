@@ -43,6 +43,9 @@ const PostContent = (props) => {
       appCtx.setOpenLoginNotify(true);
     }
   };
+  useEffect(()=>{
+    document.getElementById('contentPost').innerHTML=data.content
+  },[])
 
   useEffect(() => {
     document.getElementById("html-content").innerHTML = data.content;
@@ -85,7 +88,7 @@ const PostContent = (props) => {
         <div className="fs-5 mt-3 fw-bold">{data.authorName}</div>
       </div>
       <div className="mt-4">
-        <div className="mb-3">
+        <div className="mb-3"> 
           {
             isLove 
             ? 

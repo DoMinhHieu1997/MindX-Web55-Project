@@ -29,7 +29,7 @@ const editorConfiguration = {
       "insertTable",
       "undo",
       "redo",
-      // 'imageInsert'
+      "imageInsert",
     ],
   },
   language: "vi",
@@ -71,21 +71,19 @@ function CreatePosts({ onClose }) {
     setLoading(true);
     uploadPosts.current = { ...uploadPosts.current, ...data };
     if (toggle) {
-      uploadPosts.current.type = 1;
+      uploadPosts.current.type = 2;
       uploadPosts.current.ingredients = [];
       http.post("/posts/create", uploadPosts.current).then((res) => {
-        // console.log(res);
         onClose();
-        navigate("/posts?p=1&s=6&t=1");
+        navigate("/cong-thuc");
         setLoading(false);
       });
     } else {
-      uploadPosts.current.type = 2;
+      uploadPosts.current.type = 1;
       uploadPosts.current.ingredients = cardItem;
       http.post("/posts/create", uploadPosts.current).then((res) => {
-        // console.log(res);
         onClose();
-        navigate("/posts?p=1&s=6&t=1");
+        navigate("/cong-thuc");
         setLoading(false);
       });
     }
@@ -102,6 +100,7 @@ function CreatePosts({ onClose }) {
         });
     }
   };
+  console.log(uploadPosts);
   return (
     <div>
       <Container
@@ -188,7 +187,8 @@ function CreatePosts({ onClose }) {
               />
             )}
             <h5 className="mt-4 mb-2 text-secondary">Nội dung bài viết</h5>
-            <Box sx={{ height: "100%", p: "10px 0" }}>
+            {/* <Box sx={{ height: "100%", p: "10px 0" }}> */}
+            <Box>
               <CKEditor
                 editor={Editor}
                 config={editorConfiguration}
