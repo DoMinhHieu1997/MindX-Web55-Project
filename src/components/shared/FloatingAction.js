@@ -6,7 +6,6 @@ import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import { Modal, Tooltip } from "@mui/material";
 import React from "react";
 import CreatePosts from "../posts/CreatePosts";
-import { Box } from "@mui/system";
 
 const FloatingAction = () => {
   const appCtx = useContext(AppCtx);
@@ -19,12 +18,11 @@ const FloatingAction = () => {
   useEffect(() => {
     if (token) setShowActions(true);
   }, [token]);
-console.log(open);
   return (
     <>
       <div
         className="position-fixed end-0 top-50 translate-middle-y me-3 z-index-3"
-        // hidden={!showActions}
+        hidden={!showActions}
       >
         <div>
           <Tooltip title="Thêm bài viết / công thức">
