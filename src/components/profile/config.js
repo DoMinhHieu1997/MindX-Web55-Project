@@ -26,7 +26,7 @@ export const Logo = () => {
       <img className="w-100" src={LogoImage}/>
     </div>
     <div
-      className="text-center pt-3 h4"
+      className="text-center pt-3 h4 mb-4"
       style={{
         fontFamily: "Lobster, cursive"
       }}
