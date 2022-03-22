@@ -4,6 +4,7 @@ import PostItem from "./shared/PostItem";
 import SkeletonItem from "./shared/SkeletonItem";
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import {COMMON} from "./Common";
+import FloatingAction from "./shared/FloatingAction";
 
 const Recipes = () => {
   const [list, setList] = useState("");
@@ -26,36 +27,39 @@ const Recipes = () => {
       });
   }, [page]);
 
-  return <div className="container py-5">
-    <div className="d-flex align-items-center justify-content-center">
-      <RestaurantIcon sx={{ fontSize: 40 }} style={{color:"#6c757d"}}/>
-      <h3 className="text-center text-uppercase fw-normal mx-3 mb-0">Công thức cho bạn</h3>
-      <RestaurantIcon sx={{ fontSize: 40 }} style={{color:"#6c757d", transform: "rotateY(180deg)"}}/>
-    </div>
-    <div className="bg-secondary mx-auto mt-3" style={{ height:"3px",width:"5rem" }}></div>
-    <div className="list-recipes row py-3">
-      {
-        list && list.map((item,index) => {
-          return <div key={index} className="col-6 col-md-3 mb-3"><PostItem data={item}/></div>
-        })
-      }
-    </div>
-    {
-      isLoading ? <div className="post-loading row mt-3">
-        <Skeleton />
-      </div> : null
-    }
-    {
-      displayLoadMore &&
-      <div className="text-center">
+  return <>
+    <FloatingAction />
+    <div className="container py-5">
+      <div className="d-flex align-items-center justify-content-center">
+        <RestaurantIcon sx={{ fontSize: 40 }} style={{color:"#6c757d"}}/>
+        <h3 className="text-center text-uppercase fw-normal mx-3 mb-0">Công thức cho bạn</h3>
+        <RestaurantIcon sx={{ fontSize: 40 }} style={{color:"#6c757d", transform: "rotateY(180deg)"}}/>
+      </div>
+      <div className="bg-secondary mx-auto mt-3" style={{ height:"3px",width:"5rem" }}></div>
+      <div className="list-recipes row py-3">
         {
-          !isLoading && <Button variant="outlined" color="primary" onClick={handleLoadMoreClick}>
-            <div className="fw-bold">Hiển thị thêm công thức</div>
-          </Button>
+          list && list.map((item,index) => {
+            return <div key={index} className="col-6 col-md-3 mb-3"><PostItem data={item}/></div>
+          })
         }
       </div>
-    }
-  </div>
+      {
+        isLoading ? <div className="post-loading row mt-3">
+          <Skeleton />
+        </div> : null
+      }
+      {
+        displayLoadMore &&
+        <div className="text-center">
+          {
+            !isLoading && <Button variant="outlined" color="primary" onClick={handleLoadMoreClick}>
+              <div className="fw-bold">Hiển thị thêm công thức</div>
+            </Button>
+          }
+        </div>
+      }
+    </div>
+  </>
 }
 
 const Skeleton = () => {

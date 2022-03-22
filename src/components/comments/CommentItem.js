@@ -9,7 +9,7 @@ import { COMMON } from "../Common";
 const CommentItem = (props) => {
   const appCtx = useContext(AppCtx);
   const userId = appCtx.userInfo?._id;
-  const token = appCtx.userToken;
+  const token = sessionStorage.getItem("token") || localStorage.getItem("token");
   const [canUpdate, setCanUpdate] = useState(props.data.userId.indexOf(userId) > -1 ? true : false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [content, setContent] = useState(props.data.content);
@@ -62,7 +62,7 @@ const CommentItem = (props) => {
 
   return <div className="mb-4 col-12 col-md-9">
     <div className="d-flex">
-      <div className="me-4 fs-6 fw-bold">User Name</div>
+      <div className="me-4 fs-6 fw-bold">{props.data.nameDisplay}</div>
       <div className="text-secondary fs-6">
         <span><AccessAlarmsOutlinedIcon fontSize="sm"/></span> <span style={{fontSize:".8rem"}}>{transferDate(props.data.createdAt)}</span></div>
     </div>

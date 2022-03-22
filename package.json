@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-react": "^4.0.0",
+    "ckeditor5-custom-build": "file:ckeditor5",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.5.0",

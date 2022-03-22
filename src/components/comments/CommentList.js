@@ -10,7 +10,7 @@ import {COMMON} from "../Common";
 
 const CommentList = (props) => {
   const appCtx = useContext(AppCtx);
-  const token = appCtx.userToken;
+  const token = sessionStorage.getItem("token") || localStorage.getItem("token");
   const [commentList,setCommentList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [comment, setComment] = useState("");
@@ -18,7 +18,6 @@ const CommentList = (props) => {
   const [disableSend, setDisableSend] = useState(true);
   
   useEffect(() => {
-    setIsLoading(false);
     fetch(`${COMMON.DOMAIN}comments?postId=${props.postId}`)
       .then((res) => res.json())
       .then((resJson) => {
@@ -60,7 +59,7 @@ const CommentList = (props) => {
         .then(res => res.json())
         .then(resJson => {
           if (resJson.message === "success") {
-            setComment("");
+            setComment(null);
             setCommentList(prev => [...prev,resJson.data]);
           }
           setDisableSend(false);

@@ -6,7 +6,7 @@ import Editor from "ckeditor5-custom-build/build/ckeditor";
 import uploadImageSever from "./uploadImageSever";
 import FeaturedPhoto from "./FeaturedPhoto";
 import { http } from "../profile/config";
-// import "./posts.css";
+import "./posts.css";
 import Toggle from "./Toggle";
 import { Box } from "@mui/system";
 import AddIngredients from "./AddIngredients";
@@ -20,22 +20,17 @@ const editorConfiguration = {
       "|",
       "bold",
       "italic",
+      "imageUpload",
       "link",
       "bulletedList",
       "numberedList",
       "|",
-      "outdent",
-      "indent",
-      "|",
-      "imageUpload",
       "blockQuote",
       "insertTable",
       "undo",
       "redo",
-      "CKFinder",
-      "imageInsert",
+      // 'imageInsert'
     ],
-   
   },
   language: "vi",
 
@@ -79,16 +74,18 @@ function CreatePosts({ onClose }) {
       uploadPosts.current.type = 1;
       uploadPosts.current.ingredients = [];
       http.post("/posts/create", uploadPosts.current).then((res) => {
+        // console.log(res);
         onClose();
-        navigate("/cong-thuc");
+        navigate("/posts?p=1&s=6&t=1");
         setLoading(false);
       });
     } else {
       uploadPosts.current.type = 2;
       uploadPosts.current.ingredients = cardItem;
       http.post("/posts/create", uploadPosts.current).then((res) => {
+        // console.log(res);
         onClose();
-        navigate("/cong-thuc");
+        navigate("/posts?p=1&s=6&t=1");
         setLoading(false);
       });
     }
@@ -105,7 +102,6 @@ function CreatePosts({ onClose }) {
         });
     }
   };
-  console.log(uploadPosts.current);
   return (
     <div>
       <Container
@@ -194,15 +190,14 @@ function CreatePosts({ onClose }) {
             <h5 className="mt-4 mb-2 text-secondary">Nội dung bài viết</h5>
             <Box sx={{ height: "100%", p: "10px 0" }}>
               <CKEditor
-
                 editor={Editor}
                 config={editorConfiguration}
-                // data=""
-                // required={true}
+                data=""
                 onChange={(event, editor) => {
                   const data = editor.getData();
                   uploadPosts.current.content = data;
                 }}
+                required={true}
                 onReady={(editor) => {
                   editor.plugins.get("FileRepository").createUploadAdapter = (
                     loader
