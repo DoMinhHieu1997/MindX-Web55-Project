@@ -10,52 +10,44 @@ import "./posts.css";
 import Toggle from "./Toggle";
 import { Box } from "@mui/system";
 import AddIngredients from "./AddIngredients";
-import { Save } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
 
 const editorConfiguration = {
-  
   toolbar: {
     items: [
-			'heading',
-			'|',
-			'bold',
-			'italic',
-			'link',
-			'bulletedList',
-			'numberedList',
-			'|',
-			'imageUpload',
-			'blockQuote',
-			'insertTable',
-			'undo',
-			'redo',
-			'imageInsert'
-		],
+      "heading",
+      "|",
+      "bold",
+      "italic",
+      "imageUpload",
+      "link",
+      "bulletedList",
+      "numberedList",
+      "|",
+      "blockQuote",
+      "insertTable",
+      "undo",
+      "redo",
+      // 'imageInsert'
+    ],
   },
   language: "vi",
 
-	image: {
-		toolbar: [
-			'imageTextAlternative',
-			'imageStyle:inline',
-			'imageStyle:block',
-			'imageStyle:side'
-		],
-
-	},
-	table: {
-		contentToolbar: [
-			'tableColumn',
-			'tableRow',
-			'mergeTableCells'
-		]
-	}
+  image: {
+    toolbar: [
+      "imageTextAlternative",
+      "imageStyle:inline",
+      "imageStyle:block",
+      "imageStyle:side",
+    ],
+  },
+  table: {
+    contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
+  },
 };
 
-function CreatePosts({ onClose}) {
-  let test = document.getElementById("test");
+function CreatePosts({ onClose }) {
   const {
     formState: { errors },
     trigger,
@@ -69,11 +61,11 @@ function CreatePosts({ onClose}) {
   const [imgPreview, setImgPreview] = useState(null);
   const [cardItem, setCardItem] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const handleClick = (toggle) => {
     setToggle(toggle);
-    clearErrors()
+    clearErrors();
   };
   const onSubmit = (data) => {
     setLoading(true);
@@ -83,8 +75,8 @@ function CreatePosts({ onClose}) {
       uploadPosts.current.ingredients = [];
       http.post("/posts/create", uploadPosts.current).then((res) => {
         // console.log(res);
-        onClose()
-        navigate('/posts?p=1&s=6&t=1')
+        onClose();
+        navigate("/posts?p=1&s=6&t=1");
         setLoading(false);
       });
     } else {
@@ -92,8 +84,8 @@ function CreatePosts({ onClose}) {
       uploadPosts.current.ingredients = cardItem;
       http.post("/posts/create", uploadPosts.current).then((res) => {
         // console.log(res);
-        onClose()
-        navigate('/posts?p=1&s=6&t=1')
+        onClose();
+        navigate("/posts?p=1&s=6&t=1");
         setLoading(false);
       });
     }
@@ -220,15 +212,12 @@ function CreatePosts({ onClose}) {
                 Vui lòng viết nội dung bài viết
               </p>
             )}
-            <div id="test" className="ck-content"></div>
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <LoadingButton
                 sx={{ margin: "10px 0" }}
                 type="submit"
                 variant="contained"
                 loading={loading}
-                // loadingPosition="start"
-                // startIcon={<SaveIcon />}
               >
                 Tạo bài viết
               </LoadingButton>

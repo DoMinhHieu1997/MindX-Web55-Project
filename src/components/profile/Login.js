@@ -1,12 +1,12 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
+  Box,
   Button,
   Checkbox,
   Container,
   FormControlLabel,
   FormGroup,
   Paper,
-  Snackbar,
   TextField,
 } from "@mui/material";
 import { styled } from "@mui/system";
@@ -169,14 +169,10 @@ function Login() {
                 <Link to="/dang-ky"> Đăng Ký</Link>
               </div>
             </div>
+          {open&&<Box sx={{textAlign:'center',color:'#f73378'}}>Bạn vui lòng kích hoạt Email trước khi đăng nhập</Box>}
           </div>
         </Paper>
       </form>
-      <Snackbar
-        open={open}
-        autoHideDuration={5000}
-        message="Bạn vui lòng kích hoạt Email trước khi đăng nhập"
-      />
     </Container>
 </div>
   );

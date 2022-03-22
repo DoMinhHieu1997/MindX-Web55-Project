@@ -12,9 +12,9 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
     if (nameIngredient && total && unit) {
       setCardItem((prev) => [...prev, { nameIngredient, total, unit }]);
       setError(false);
-      setIngredient('')
-      setTotal('')
-      setUnit('')
+      setIngredient("");
+      setTotal("");
+      setUnit("");
     } else {
       setError({
         ingredienError: !nameIngredient,
@@ -23,7 +23,6 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
       });
     }
   };
-console.log(label);
   return (
     <div className="my-4">
       <Paper sx={{ m: "10px 0" }} elevation={4}>
@@ -33,31 +32,39 @@ console.log(label);
             ref={ref}
             value={nameIngredient}
             label={
-              error?.ingredienError || label
+              (error?.ingredienError || label) && !cardItem[0]
                 ? "Vui lòng nhập nguyên liệu"
                 : "Thêm nguyên liệu"
             }
             size="small"
             onChange={(e) => setIngredient(e.target.value)}
-            error={error?.ingredienError || label}
+            error={(error?.ingredienError || label) && !cardItem[0]}
           />
           <TextField
             sx={{ width: 150, mt: 2, height: 50 }}
-            label={error?.totalError || label ? "Nhập số lượng" : "Số lượng"}
+            label={
+              (error?.totalError || label) && !cardItem[0]
+                ? "Nhập số lượng"
+                : "Số lượng"
+            }
             size="small"
             value={total}
             onChange={(e) => setTotal(e.target.value)}
             type="number"
-            error={error?.totalError || label}
+            error={(error?.totalError || label) && !cardItem[0]}
           />
           <TextField
             sx={{ ml: 2, width: 120, mt: 2, mb: 2, height: 50 }}
-            label={error?.unitError || label ? "Nhập đơn vị" : "Đơn vị"}
+            label={
+              (error?.unitError || label) && !cardItem[0]
+                ? "Nhập đơn vị"
+                : "Đơn vị"
+            }
             size="small"
             value={unit}
             onChange={(e) => setUnit(e.target.value)}
             type="text"
-            error={error?.unitError || label}
+            error={(error?.unitError || label) && !cardItem[0]}
           />
         </Box>
         <Button
@@ -68,7 +75,6 @@ console.log(label);
         >
           Thêm
         </Button>{" "}
-        {/* {label} */}
       </Paper>
       <Box
         sx={{
@@ -77,7 +83,7 @@ console.log(label);
           fontFamily: `Roboto ,sans-serif`,
         }}
       >
-        {cardItem.map(({ nameIngredient, total ,unit}, index) => {
+        {cardItem.map(({ nameIngredient, total, unit }, index) => {
           return (
             <Card
               key={index}
