@@ -16,7 +16,7 @@ http.interceptors.request.use((config) => {
     }
     return config
 });
-export const isLogged = () => {
+export const isLogged  = () => {
  return localStorage.getItem("token")||sessionStorage.getItem('token');
 };
 export const Logo = () => {
@@ -32,11 +32,5 @@ export const Logo = () => {
   );
 };
 
-// export const checkUser = async (user) => {
-//   return false;
-// };
 
-// export const checkEmail = async (email) => {
-//   return false;
-// };
 

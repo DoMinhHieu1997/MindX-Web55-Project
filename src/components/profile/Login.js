@@ -10,17 +10,19 @@ import {
   TextField,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { http, Logo } from "./config";
-import bglogin from '../../assets/bglogin.jpg'
-
+import bglogin from "../../assets/bglogin.jpg";
+import AppCtx from "../../appContext";
 
 function Login() {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const appCtx = useContext(AppCtx);
+
   const {
     formState: { errors },
     handleSubmit,
@@ -46,6 +48,7 @@ function Login() {
       .then((res) => {
         data.keepLogin && localStorage.setItem("token", res.data.data.tocken);
         sessionStorage.setItem("token", res.data.data.tocken);
+        appCtx.setUserToken(res.data.data.tocken);
         navigate("/");
       })
       .catch((error) => {
@@ -63,8 +66,8 @@ function Login() {
       });
   };
   return (
-    <div className="py-5" style={{ backgroundImage:`url(${bglogin})` }}>
-      <Container maxWidth="sm" >
+    <div className="py-5" style={{ backgroundImage: `url(${bglogin})` }}>
+      <Container maxWidth="sm">
         <form onSubmit={handleSubmit(onSubmit)}>
           <Paper
             elevation={12}
@@ -72,7 +75,7 @@ function Login() {
               maxWidth: 400,
               minHeight: 500,
               margin: "auto",
-              backgroundColor:"#ffffffc7"
+              backgroundColor: "#ffffffc7",
             }}
           >
             <div
@@ -169,7 +172,11 @@ function Login() {
                   <Link to="/dang-ky"> Đăng Ký</Link>
                 </div>
               </div>
-            {open&&<Box sx={{textAlign:'center',color:'#f73378'}}>Bạn vui lòng kích hoạt Email trước khi đăng nhập</Box>}
+              {open && (
+                <Box sx={{ textAlign: "center", color: "#f73378" }}>
+                  Bạn vui lòng kích hoạt Email trước khi đăng nhập
+                </Box>
+              )}
             </div>
           </Paper>
         </form>
