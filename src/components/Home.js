@@ -4,6 +4,7 @@ import BlogList from "./shared/BlogList";
 import SkeletonItem from "./shared/SkeletonItem";
 import {COMMON} from "./Common";
 import { useState, useEffect } from "react";
+import FloatingAction from "./shared/FloatingAction";
 
 const Home = () => {
     const [isLoading, setIsloading] = useState(true);
@@ -30,8 +31,9 @@ const Home = () => {
                 setIsloading(false);
             });
     }, [moreBlog]);
-    
-    return (
+
+    return (<>
+        <FloatingAction />
         <div className="container py-5">
             <h3>Công thức mới - thử ngay</h3>
             <div className="new-recipres row mt-4">
@@ -108,6 +110,8 @@ const Home = () => {
                 </div>
             </div>
         </div>
+    </>
+        
     );
 };
 
