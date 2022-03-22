@@ -12,7 +12,7 @@ import Detail from "./components/Detail";
 import FoodRecommendation from "./components/shared/FoodRecommendation";
 import TimeTable from "./components/shared/TimeTable";
 import Search from "./components/Search";
-import SearchCtx from "./appContext";
+import AppCtx from "./appContext";
 import {COMMON} from "./components/Common";
 import { Button } from "@mui/material";
 import Dialog from '@mui/material/Dialog';
@@ -38,7 +38,7 @@ function App() {
   }
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("token") || localStorage.getItem("token");
     if (token) {
       setUserToken(token);
       fetch(`${COMMON.DOMAIN}user/info`,{
@@ -57,7 +57,7 @@ function App() {
 
   return (
     <div className="App">
-      <SearchCtx.Provider 
+      <AppCtx.Provider 
         value={{
           userInfo:userInfo, 
           setUserInfo:setUserInfo, 
@@ -103,7 +103,7 @@ function App() {
             </Button>
           </DialogActions>
         </Dialog>
-      </SearchCtx.Provider>
+      </AppCtx.Provider>
     </div>
   );
 }
