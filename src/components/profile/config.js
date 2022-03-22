@@ -1,6 +1,5 @@
 import axios from "axios";
 import {COMMON} from "../Common";
-import LogoImage from "../../assets/logo-image.png";
 
 
 // const host = "http://localhost:5000";
@@ -21,20 +20,15 @@ export const isLogged = () => {
  return localStorage.getItem("token");
 };
 export const Logo = () => {
-  return (<>
-    <div className="col-2 col-3 mx-auto">
-      <img className="w-100" src={LogoImage}/>
-    </div>
+  return (
     <div
-      className="text-center pt-3 h4"
+      className="text-center pt-4 h4 mb-4"
       style={{
         fontFamily: "Lobster, cursive"
       }}
     >
       COOKING HOLICS
     </div>
-  </>
-    
   );
 };
 
