@@ -8,4 +8,4 @@ const AppCtx = createContext({
   setOpenLoginNotify: () => {},
 });
 
-export default AppCtx;
+export default AppCtx; 
