@@ -6,7 +6,6 @@ import Home from "./components/Home";
 import Login from "./components/profile/Login";
 import Register from "./components/profile/Register";
 import Recipes from "./components/Recipes";
-import FloatingAction from "./components/shared/FloatingAction";
 import NotFound from "./components/NotFound";
 import Detail from "./components/Detail";
 import Profile from "./components/profilePage/Profile";
@@ -72,7 +71,6 @@ function App() {
                 }}
             >
                 <Menu />
-                <FloatingAction />
                 {/* <FoodRecommendation />
         <TimeTable /> */}
                 <Routes>

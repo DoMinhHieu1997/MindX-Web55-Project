@@ -99,6 +99,11 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
+                    
+                    
+                </div>
+                <div className="most-favourite-post col-md-3">
+                    <MostFavorite />
                 </div>
                 <div className="most-favourite-post col-md-3">
                     <MostFavorite />
