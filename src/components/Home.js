@@ -2,7 +2,7 @@ import MostFavorite from "./shared/MostFavorite";
 import NewRecipe from "./shared/NewRecipe";
 import BlogList from "./shared/BlogList";
 import SkeletonItem from "./shared/SkeletonItem";
-import COMMON from "./Common";
+import {COMMON} from "./Common";
 import { useState, useEffect } from "react";
 const Home = () => {
     const [isLoading, setIsloading] = useState(true);

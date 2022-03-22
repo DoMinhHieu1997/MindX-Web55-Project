@@ -1,7 +1,7 @@
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react';
-import COMMON from "../Common";
+import {COMMON} from "../Common";
 const NewRecipe = ({ recipe }) => {
     const [isLove, setIsLove] = useState(false);
     const [totalLike, setTotalLike] = useState(recipe.usersLike.length ? recipe.usersLike.length : 0);
