@@ -14,42 +14,42 @@ import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
 
 const editorConfiguration = {
-//   toolbar: {
-//     items: [
-//       "heading",
-//       "|",
-//       "bold",
-//       "italic",
-//       "link",
-//       "bulletedList",
-//       "numberedList",
-//       "|",
-//       "outdent",
-//       "indent",
-//       "|",
-//       "imageUpload",
-//       "blockQuote",
-//       "insertTable",
-//       "undo",
-//       "redo",
-//       "CKFinder",
-//       "imageInsert",
-//     ],
+  toolbar: {
+    items: [
+      "heading",
+      "|",
+      "bold",
+      "italic",
+      "link",
+      "bulletedList",
+      "numberedList",
+      "|",
+      "outdent",
+      "indent",
+      "|",
+      "imageUpload",
+      "blockQuote",
+      "insertTable",
+      "undo",
+      "redo",
+      "CKFinder",
+      "imageInsert",
+    ],
    
-//   },
-//   language: "vi",
+  },
+  language: "vi",
 
-//   image: {
-//     toolbar: [
-//       "imageTextAlternative",
-//       "imageStyle:inline",
-//       "imageStyle:block",
-//       "imageStyle:side",
-//     ],
-//   },
-//   table: {
-//     contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
-//   },
+  image: {
+    toolbar: [
+      "imageTextAlternative",
+      "imageStyle:inline",
+      "imageStyle:block",
+      "imageStyle:side",
+    ],
+  },
+  table: {
+    contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
+  },
 };
 
 function CreatePosts({ onClose }) {
