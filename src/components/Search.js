@@ -20,8 +20,6 @@ const Search = () => {
     const [displayLoadMore, setDisplayLoadMore] = useState(true);
     const [page, setPage] = useState(1);
 
-    console.log(page);
-
     function removeAccents(str) {
         str = str.replace("-"," ");
         const AccentsMap = [
