@@ -26,6 +26,7 @@ const NewRecipe = ({ recipe }) => {
             console.log(res);
         });
     };
+
     const handleDisLike = (event) => {
         setTotalLike(prev => prev - 1);
         setIsLove(!isLove);
@@ -40,6 +41,7 @@ const NewRecipe = ({ recipe }) => {
             console.log(res);
         });
     };
+
     return (
         <div className="col-md-3 position-relative">
             <a href={"/chi-tiet/"+recipe._id} className="link-dark">
@@ -54,7 +56,7 @@ const NewRecipe = ({ recipe }) => {
                     </div>
                 </div>
             </a>
-            <div className="position-absolute end-0 me-4 mt-2 top-0">
+            <div className="pb-2 pt-2 ps-3 position-absolute top-0 start-0 end-0 bg-linear">
                 {!isLove ? (
                     <FavoriteBorderOutlinedIcon className="d-inline-block" onClick={handleLike} />
                 ) : (

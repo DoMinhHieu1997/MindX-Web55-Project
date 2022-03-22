@@ -7,13 +7,15 @@ import {COMMON} from '../Common';
 const PostItem = (props) => {
   const appCtx = useContext(AppCtx);
   const userId = appCtx.userInfo?._id;
-  const token = appCtx.userToken;
+  const token =  localStorage.getItem("token") || sessionStorage.getItem("token");
   const [isLove, setIsLove] = useState(false);
   const [totalLike, setTotalLike] = useState(props.data.usersLike.length ? props.data.usersLike.length : 0);
 
   useEffect(() => {
-    if (props.data.usersLike.indexOf(userId) > -1)
+    if (token) {
+      if (props.data.usersLike.indexOf(userId) > -1)
       setIsLove(true);
+    }
   },[userId])
   
   const handleLike = (event) => {

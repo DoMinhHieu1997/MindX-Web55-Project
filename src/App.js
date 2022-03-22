@@ -42,6 +42,7 @@ function App() {
 
     useEffect(() => {
         const token = sessionStorage.getItem("token") || localStorage.getItem("token");
+        
         if (token) {
             setUserToken(token);
             fetch(`${COMMON.DOMAIN}user/info`, {
@@ -51,10 +52,10 @@ function App() {
                     Authorization: "Bearer " + token,
                 },
             })
-                .then((res) => res.json())
-                .then((resJson) => {
-                    setUserInfo(resJson.data);
-                });
+            .then((res) => res.json())
+            .then((resJson) => {
+                setUserInfo(resJson.data);
+            });
         }
     }, []);
 

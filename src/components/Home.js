@@ -4,6 +4,7 @@ import BlogList from "./shared/BlogList";
 import SkeletonItem from "./shared/SkeletonItem";
 import {COMMON} from "./Common";
 import { useState, useEffect } from "react";
+
 const Home = () => {
     const [isLoading, setIsloading] = useState(true);
     const [newRecipe, setNewRecipe] = useState("");
@@ -19,6 +20,7 @@ const Home = () => {
                 setIsloading(false);
             });
     }, []);
+
     useEffect(() => {
         setIsloading(true);
         fetch(`${COMMON.DOMAIN}posts?t=2&p=1&s=${moreBlog}`)
@@ -28,6 +30,7 @@ const Home = () => {
                 setIsloading(false);
             });
     }, [moreBlog]);
+    
     return (
         <div className="container py-5">
             <h3>Công thức mới - thử ngay</h3>
@@ -99,11 +102,6 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                    
-                    
-                </div>
-                <div className="most-favourite-post col-md-3">
-                    <MostFavorite />
                 </div>
                 <div className="most-favourite-post col-md-3">
                     <MostFavorite />
