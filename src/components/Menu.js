@@ -27,7 +27,7 @@ const Menu = () => {
   };
 
   return (
-    <div className="bg-3e9294 py-2 py-md-3">
+    <div className="bg-06a682 py-2 py-md-3">
       <nav className="navbar navbar-expand-lg navbar-dark">
         <div className="container">
           <button
@@ -42,7 +42,7 @@ const Menu = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <a
-            className="navbar-brand d-sm-none d-block logo p-2 rounded bg-dark me-0"
+            className="navbar-brand d-sm-none d-block logo p-2 rounded bg-06a682 me-0"
             href="/"
           >
             <h6 className="text-white mb-0">COOKING HOLICS</h6>
