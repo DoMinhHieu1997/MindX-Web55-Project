@@ -27,7 +27,7 @@ const Menu = () => {
   };
 
   return (
-    <div className="bg-06a682 py-2 py-md-3">
+    <div className="bg-06a682 py-2 py-md-2">
       <nav className="navbar navbar-expand-lg navbar-dark">
         <div className="container">
           <button
@@ -79,7 +79,7 @@ const Menu = () => {
               </li>
             </ul>
             <div className="logo position-absolute top-50 d-none d-md-block start-50 translate-middle p-2 rounded">
-              <h2 className="text-white mb-0">COOKING HOLICS</h2>
+              <h4 className="text-white mb-0">COOKING HOLICS</h4>
             </div>
             <div className="d-block d-md-none">
               <Users />

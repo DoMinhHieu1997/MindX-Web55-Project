@@ -2,7 +2,7 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState,useContext,useEffect } from 'react';
 import AppCtx from "../../appContext";
-import {COMMON} from '../Common';
+import {COMMON,spliceString} from '../Common';
 
 const PostItem = (props) => {
   const appCtx = useContext(AppCtx);
@@ -51,23 +51,23 @@ const PostItem = (props) => {
   return <div className='card overflow-hidden h-100'>
     <div className="position-relative rounded oveflow-hidden">
       <a href={"/chi-tiet/"+props.data._id}>
-        <div className="ratio ratio-4x3 image-background" style={{backgroundImage:`url(${props.data.avatar})`}}></div>
+        <div className="ratio ratio-1x1 image-background" style={{backgroundImage:`url(${props.data.avatar})`}}></div>
       </a>
-      <div className="pb-2 pt-1 ps-2 position-absolute top-0 start-0 end-0 bg-linear">
+      <div className="p-1 mt-2 ms-2 position-absolute top-0 bg-06a682 rounded text-white">
         {
           !isLove 
-            ? <FavoriteBorderOutlinedIcon className="d-inline-block" onClick={!justLiked ? handleLike : null}/>
+            ? <FavoriteBorderOutlinedIcon style={{color:"white"}} className="d-inline-block" onClick={!justLiked ? handleLike : null}/>
             : <FavoriteIcon className="d-inline-block" style={{color: "#d83737"}}/> 
         }
         <div className="ms-2 d-inline-block h6 mb-0">{totalLike} Lượt thích</div>
       </div>
     </div>
-    <div className="card-body pb-2">
+    <div className={props.isTopLikeItem ? "card-body pb-2 position-absolute bottom-0 end-0 start-0 text-shadow" : "mt-2 px-2"}>
       <a href={"/chi-tiet/"+props.data._id}>
-        <h5 className="card-title">{props.data.title}</h5>
+        <h5 className={"card-title " + (props.isTopLikeItem ? "text-white" : "")}>{props.data.title}</h5>
       </a>
       {
-        !props.isTopLikeItem && <p className="card-text">{props.data.description}</p>
+        !props.isTopLikeItem && <p className="card-text pb-2">{spliceString(props.data.description,80)}</p>
       }
     </div>
   </div>
