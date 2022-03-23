@@ -1,4 +1,4 @@
-import COMMON from "../Common";
+
 const BlogList = ({blog}) => {
     return (
         <div className="col-md-6 mb-3 row">

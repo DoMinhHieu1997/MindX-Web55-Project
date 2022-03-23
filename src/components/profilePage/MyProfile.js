@@ -1,10 +1,29 @@
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { useState } from "react";
-const MyProfile = ({ userData, setUserData, isLoading }) => {
-    const [emailEditting, setEmailEditting] = useState(false);
-    const [editEmail, setEditEmail] = useState(userData.email);
-    const [nameEditting, setNameEditting] = useState(false);
-    const [editName, setEditName] = useState(userData.nameDisplay);
+import { useState, useEffect } from "react";
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig, http } from "../profile/config";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+const MyProfile = ({ userData, setUserData, isLoading, setIsLoading }) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [editEmail, setEditEmail] = useState("Loading...");
+    const [editName, setEditName] = useState("Loading...");
+    const [editAvatar, setEditAvatar] = useState("Loading...");
+    const [oldPassword, setOldPassword] = useState("");
+    const [newPassword, setNewPassword] = useState("");
+    const [showOldPassword, setShowOldPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+    const firebaseApp = initializeApp(firebaseConfig);
+    const storage = getStorage(firebaseApp);
+    useEffect(() => {
+        if (userData) {
+            setEditEmail(userData.email);
+            setEditName(userData.nameDisplay);
+        }
+    }, [userData]);
+
     const editEmailHandler = (e) => {
         setEditEmail(e.target.value);
     };
@@ -14,15 +33,57 @@ const MyProfile = ({ userData, setUserData, isLoading }) => {
     const EndEdit = (e) => {
         if (e.key === "Escape") {
             CancelEdit();
-        } else {
-            console.log(editEmail);
+        } else if (e.key === "Enter" || e === "Save") {
+            if (token) {
+                setIsLoading(true);
+                http.patch("user/update", {
+                    nameDisplay: editName,
+                    email: editEmail,
+                    photoUrl: editAvatar,
+                }).then((res) => {
+                    setUserData(res.data.data);
+                    setOldPassword("");
+                    setNewPassword("");
+                    setIsLoading(false);
+                });
+            }
         }
     };
     const CancelEdit = () => {
-        setEditEmail(userData.email);
-        setEmailEditting(false);
-        setEditName(userData.nameDisplay);
-        setNameEditting(false);
+        setIsEditing(false);
+    };
+
+    const updatePassword = () => {
+        if (oldPassword && newPassword && token) {
+            setIsLoading(true);
+            http.patch("user/update", {
+                // oldPassword: oldPassword,
+                password: newPassword,
+            }).then((res) => {
+                setUserData(res.data.data);
+                setIsLoading(false);
+            });
+        }
+    };
+
+    const handlePhoto = (file) => {
+        if (file) {
+            setIsLoading(true);
+            const date = Date.now();
+            const storageRef = ref(storage, `/avatar/${date}${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file, file.type);
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {},
+                (e) => {},
+                () => {
+                    getDownloadURL(storageRef).then((url) => {
+                        setIsLoading(false);
+                        setEditAvatar(url);
+                    });
+                }
+            );
+        }
     };
 
     return (
@@ -37,7 +98,7 @@ const MyProfile = ({ userData, setUserData, isLoading }) => {
                     </div>
                     <div className="row">
                         <div className="col-12 pb-5">
-                            <input type="file" />
+                            <input type="file" onChange={handlePhoto} disabled={!isEditing} />
                         </div>
                     </div>
                     <div className="row">
@@ -50,39 +111,18 @@ const MyProfile = ({ userData, setUserData, isLoading }) => {
                                     <div className="py-3 skeleton mt-2"></div>
                                 </div>
                             )}
-                            {!emailEditting && userData.email}
-                            {emailEditting && (
+                            {!isEditing && !isLoading && editEmail}
+                            {isEditing && !isLoading && (
                                 <input
                                     autoFocus
                                     type="text"
                                     className="w-100"
                                     value={editEmail}
                                     onChange={editEmailHandler}
-                                    onBlur={CancelEdit}
                                     onKeyUp={EndEdit}
                                 />
                             )}
                         </div>
-                        {!emailEditting && (
-                            <div
-                                className="col-auto "
-                                onClick={() => {
-                                    setEmailEditting(!emailEditting);
-                                }}
-                            >
-                                Thay đổi
-                            </div>
-                        )}
-                        {emailEditting && (
-                            <div
-                                className="col-auto "
-                                onClick={() => {
-                                    EndEdit();
-                                }}
-                            >
-                                Lưu
-                            </div>
-                        )}
                     </div>
                     <div className="row">
                         <div className="col-12 pb-3">Tên hiển thị</div>
@@ -95,38 +135,52 @@ const MyProfile = ({ userData, setUserData, isLoading }) => {
                                 </div>
                             )}
 
-                            {!nameEditting && userData.nameDisplay}
-                            {nameEditting && (
+                            {!isEditing && !isLoading && editName}
+                            {isEditing && !isLoading && (
                                 <input
                                     autoFocus
                                     type="text"
                                     className="w-100"
                                     value={editName}
                                     onChange={editNameHandler}
-                                    onBlur={CancelEdit}
                                     onKeyUp={EndEdit}
                                 />
                             )}
                         </div>
-                        {!nameEditting && (
-                            <div
-                                className="col-auto"
+                    </div>
+                </div>
+                <div className="row justify-content-end">
+                    <div className="col-auto mb-3 ">
+                        {!isEditing ? (
+                            <button
+                                className="btn btn-primary"
                                 onClick={() => {
-                                    setNameEditting(!nameEditting);
+                                    setIsEditing(true);
                                 }}
                             >
                                 Thay đổi
-                            </div>
-                        )}
-                        {nameEditting && (
-                            <div
-                                className="col-auto "
-                                onClick={() => {
-                                    EndEdit();
-                                }}
-                            >
-                                Lưu
-                            </div>
+                            </button>
+                        ) : (
+                            <>
+                                <button
+                                    className="btn btn-danger"
+                                    onClick={() => {
+                                        setIsEditing(false);
+                                        CancelEdit();
+                                    }}
+                                >
+                                    Hủy
+                                </button>
+                                <button
+                                    className="btn btn-success mr-3"
+                                    onClick={() => {
+                                        setIsEditing(false);
+                                        EndEdit("Save");
+                                    }}
+                                >
+                                    Lưu
+                                </button>
+                            </>
                         )}
                     </div>
                 </div>
@@ -138,16 +192,40 @@ const MyProfile = ({ userData, setUserData, isLoading }) => {
                             </div>
                         </div>
                         <div className="row justify-content-start">
-                            <h4 className="col-auto">
-                                Thay đổi mật khẩu
-                            </h4>
+                            <h4 className="col-auto">Thay đổi mật khẩu</h4>
                         </div>
                         <div className="row">
                             <div className="col-12 pb-2">Mật khẩu</div>
                         </div>
                         <div className="row ">
                             <div className="col-6 pb-2">
-                                <input type="text" className="w-100" />
+                                <div className="row">
+                                    <div className="col">
+                                        <input
+                                            type={showOldPassword ? "text" : "password"}
+                                            className="w-100"
+                                            onChange={(e) => {
+                                                setOldPassword(e.target.value);
+                                            }}
+                                            value={oldPassword}
+                                        />
+                                    </div>
+                                    <div className="col-auto" style={{ marginLeft: "-3.5rem" }}>
+                                        {showOldPassword ? (
+                                            <VisibilityOff
+                                                onClick={() => {
+                                                    setShowOldPassword(false);
+                                                }}
+                                            />
+                                        ) : (
+                                            <Visibility
+                                                onClick={() => {
+                                                    setShowOldPassword(true);
+                                                }}
+                                            />
+                                        )}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="row">
@@ -155,12 +233,45 @@ const MyProfile = ({ userData, setUserData, isLoading }) => {
                         </div>
                         <div className="row">
                             <div className="col-6 pb-3 ">
-                                <input type="text" className="w-100" />
+                                <div className="row">
+                                    <div className="col">
+                                        <input
+                                            type={showNewPassword ? "text" : "password"}
+                                            className="w-100"
+                                            onChange={(e) => {
+                                                setNewPassword(e.target.value);
+                                            }}
+                                            value={newPassword}
+                                        />
+                                    </div>
+                                    <div className="col-auto" style={{ marginLeft: "-3.5rem" }}>
+                                        {showNewPassword ? (
+                                            <VisibilityOff
+                                                onClick={() => {
+                                                    setShowNewPassword(false);
+                                                }}
+                                            />
+                                        ) : (
+                                            <Visibility
+                                                onClick={() => {
+                                                    setShowNewPassword(true);
+                                                }}
+                                            />
+                                        )}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-3 pb-2">
-                                <button className="btn bg-92AD95 w-100 text-white">Lưu</button>
+                                <button
+                                    className="btn btn-primary"
+                                    onClick={() => {
+                                        updatePassword();
+                                    }}
+                                >
+                                    Lưu
+                                </button>
                             </div>
                         </div>
                     </div>

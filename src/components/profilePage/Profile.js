@@ -1,43 +1,31 @@
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { http } from "../profile/config";
 import SkeletonItem from "../shared/SkeletonItem";
 import { Navigate } from "react-router-dom";
 import MyProfile from "./MyProfile";
 import SavedPost from "./SavedPost";
 import MyPost from "./MyPost";
+import AppCtx from "../../appContext";
 const Profile = () => {
-    localStorage.setItem(
-        "token",
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjM0YmFjNGU2YTVjZDZiYjZlMmJiMzkiLCJpYXQiOjE2NDc5MTk2NzksImV4cCI6MTY1MDUxMTY3OX0.PvAZEFiC9G0y_tRtI42MJrCpJHMPWOnRJ2EFIaSmB3Q"
-    );
-    const token = localStorage.getItem("token");
-
+    const appCtx = useContext(AppCtx);
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     const [isLoading, setIsLoading] = useState(true);
-    const [userData, setUserData] = useState("");
+    const [userData, setUserData] = useState("Loading");
     const [nav, setNav] = useState("MyProfile");
 
+    useEffect(() => {
+        if(!appCtx.userInfo){
+            setIsLoading(true);
+        }
+        setUserData(appCtx.userInfo);
+        setIsLoading(false);
+    }, [appCtx]);
+    console.log(appCtx.userInfo)
     const HandlelogOut = () => {
         localStorage.removeItem("token");
     };
-
-    useEffect(() => {
-        setIsLoading(true);
-        http.get("user/info", {
-            headers: {
-                tocken: token,
-            },
-        })
-            // .then(res=>{
-            //     res.json()
-            // })
-            .then((resJson) => {
-                setUserData(resJson["data"]["data"]);
-                setIsLoading(false);
-            });
-    }, [token]);
-
-    console.log(userData);
+    console.log(appCtx)
     if (!token) {
         return <Navigate to="/dang-nhap" replace />;
     }
@@ -56,7 +44,7 @@ const Profile = () => {
                                             <div className="col-10">
                                                 <div
                                                     className="ratio ratio-1x1 bg-secondary"
-                                                    style={{ backgroundImage: `url(${userData.avatar})` }}
+                                                    style={{ backgroundImage: `url(${userData.avatar})`, backgroundPosition: "center", backgroundSize: "cover" }}
                                                 ></div>
                                             </div>
                                         </div>
@@ -105,7 +93,7 @@ const Profile = () => {
                                                     setNav("SavedPost");
                                                 }}
                                             >
-                                                Tin đã lưu ({userData.listBookmark.length})
+                                                Tin đã lưu ({userData.listBookmark && userData.listBookmark.length})
                                             </div>
                                         </div>
                                         <div className="nav-item">
@@ -139,7 +127,15 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
-                {nav === "MyProfile" && <MyProfile userData={userData} setUserData={setUserData} isLoading={isLoading} />}
+                {nav === "MyProfile" && (
+                    <MyProfile
+                        userData={userData}
+                        setUserData={setUserData}
+                        isLoading={isLoading}
+                        setIsLoading={setIsLoading}
+                        appCtx={appCtx}
+                    />
+                )}
                 {nav === "SavedPost" && <SavedPost />}
                 {nav === "MyPost" && <MyPost />}
             </div>
