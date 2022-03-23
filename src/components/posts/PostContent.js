@@ -14,6 +14,7 @@ const PostContent = (props) => {
   const userLikeArr = data.usersLike;
   const [countLike,setCountLike] = useState(userLikeArr.length ? userLikeArr.length : 0);
   const [isLove, setIsLove] = useState(false);
+  const [justLiked, setJustLiked] = useState(false);
 
   useEffect(() => {
     if (userLikeArr.indexOf(userId) > -1) setIsLove(true);
@@ -22,19 +23,26 @@ const PostContent = (props) => {
   const handleLike = () => {
     
     if (token) {
+      setJustLiked(true);
+
+      const bodyData = {
+        "_id":data._id,
+        "userLike":[...userLikeArr,userId]
+      }
+
       fetch(`${COMMON.DOMAIN}posts/like`,{
         method: "PATCH",
         headers: {
           'Content-type':'application/json',
           'Authorization':"Bearer "+token
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(bodyData)
       })
       .then(res => res.json())
       .then(resJson => {
         if (resJson.message === "success") {
-          setIsLove(true);
           setCountLike(prev => prev + 1);
+          setIsLove(true);
         }
       });
     } else {
@@ -48,7 +56,7 @@ const PostContent = (props) => {
 
   return (
     <>
-      <div>
+      <div className="post-content">
         <h1>{data.title}</h1>
         <div className="d-flex align-items-center flex-start mt-3">
           <AccessAlarmsOutlinedIcon
@@ -93,7 +101,7 @@ const PostContent = (props) => {
             : 
               <FavoriteBorderOutlinedIcon
                 className="d-inline-block"
-                onClick={handleLike}
+                onClick={!justLiked ? handleLike : null}
               />
             }
           <div className="ms-2 d-inline-block h6 mb-0">

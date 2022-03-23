@@ -4,6 +4,7 @@ import MostFavorite from "./shared/MostFavorite";
 import PostContent from "./posts/PostContent";
 import {COMMON} from "./Common";
 import { Skeleton } from "@mui/material";
+import FloatingAction from "./shared/FloatingAction";
 
 const Detail = () => {
     const [postData, setPostData] = useState("");
@@ -17,18 +18,23 @@ const Detail = () => {
         });
     },[]);
 
-    return <div className="container py-5">
-        <div className="row">
-            <div className="col-md-9">
-                {
-                    postData ? <PostContent postContent={postData}/> : <PostDetailSkeleton/>
-                }
-            </div>
-            <div className="col-md-3">
-                <MostFavorite />
+    return <>
+        <FloatingAction />
+        <div className="container py-5">
+            <div className="row">
+                <div className="col-md-9">
+                    {
+                        postData ? <PostContent postContent={postData}/> : <PostDetailSkeleton/>
+                    }
+                </div>
+                <div className="col-md-3">
+                    <MostFavorite />
+                </div>
             </div>
         </div>
-    </div>
+    </>
+    
+    
 }
 
 const PostDetailSkeleton = () => {
