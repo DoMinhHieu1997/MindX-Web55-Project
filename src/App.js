@@ -72,10 +72,11 @@ function App() {
                 }}
             >
                 <Menu />
+                {/* <FoodRecommendation />
+        <TimeTable /> */}
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/cong-thuc" element={<Recipes />} />
-                    <Route path="/cong-thuc/:page" element={<Recipes />} />
                     <Route path="/lien-he" element={<Home />} />
                     <Route path="/gioi-thieu" element={<Home />} />
                     <Route path="/dang-nhap" element={<Login />} />
@@ -86,7 +87,7 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                 </Routes>
                 <Footer />
-                {/* <TimeTable /> */}
+
                 <Dialog
                     open={openLoginNotify}
                     onClose={handleClose}
