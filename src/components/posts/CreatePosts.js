@@ -12,6 +12,15 @@ import { Box } from "@mui/system";
 import AddIngredients from "./AddIngredients";
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
+import { initializeApp } from "firebase/app";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { firebaseConfig } from "../profile/config";
+import uploadImageFirebase from "./uploadImageFirebase";
 
 function CreatePosts({ onClose }) {
   const {
@@ -28,6 +37,8 @@ function CreatePosts({ onClose }) {
   const [cardItem, setCardItem] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const firebaseApp = initializeApp(firebaseConfig);
+  const storage = getStorage(firebaseApp);
 
   const handleClick = (toggle) => {
     setToggle(toggle);
@@ -50,7 +61,6 @@ function CreatePosts({ onClose }) {
       uploadPosts.current.ingredients = cardItem;
       http.post("/posts/create", uploadPosts.current).then((res) => {
         const id = res.data.data._id.toString();
-
         onClose();
         navigate(`/chi-tiet/${id}`);
         setLoading(false);
@@ -59,17 +69,24 @@ function CreatePosts({ onClose }) {
   };
   const handlePhoto = (file) => {
     if (file) {
-      const formData = new FormData();
-      formData.append("myFile", file);
-      file &&
-        http.post("/upload", formData).then((res) => {
-          const linkAvatar = res.data.data[res.data.data.length - 1];
-          uploadPosts.current.avatar = linkAvatar;
-          setValue("avatar", linkAvatar);
-        });
+      const date = Date.now();
+      const storageRef = ref(storage, `/avatar/${date}${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file, file.type);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (e)=>{},
+        () => {
+          getDownloadURL(storageRef).then((url) => {
+            console.log(url);
+            uploadPosts.current.avatar = url;
+            setValue("avatar", url);
+          });
+        }
+      );
     }
   };
-  console.log(uploadPosts);
+  // console.log(uploadPosts);
   return (
     <div>
       <Container
@@ -169,7 +186,8 @@ function CreatePosts({ onClose }) {
                   editor.plugins.get("FileRepository").createUploadAdapter = (
                     loader
                   ) => {
-                    return new uploadImageSever(loader);
+                    // return new uploadImageSever(loader);
+                    return new uploadImageFirebase(loader);
                   };
                 }}
               />

@@ -32,5 +32,13 @@ export const Logo = () => {
   );
 };
 
-
+export const firebaseConfig = {
+  apiKey: "AIzaSyCC2ptrgtydbhqN-Ns2sNEREqVMLQMc0pM",
+  authDomain: "test65-eb61e.firebaseapp.com",
+  databaseURL: "https://test65-eb61e.firebaseio.com",
+  projectId: "test65-eb61e",
+  storageBucket: "test65-eb61e.appspot.com",
+  messagingSenderId: "611505225653",
+  appId: "1:611505225653:web:ecaa42073573961aa423fc",
+};
 
