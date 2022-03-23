@@ -6,7 +6,7 @@ const Footer = () => {
             <div className="container">
                 <div className="row align-items-center justify-content-between">
                     <div className="col-12 col-md-3 mb-4 mb-md-0">
-                        <div className="logo rounded p-2 d-inline-block">
+                        <div className="logo rounded p-2 bg-06a682 d-inline-block">
                             <h2 className="text-white mb-0">COOKING HOLICS</h2>
                         </div>
                     </div>

@@ -42,7 +42,7 @@ const Menu = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <a
-            className="navbar-brand d-sm-none d-block logo p-2 rounded me-0"
+            className="navbar-brand d-sm-none d-block logo p-2 rounded bg-06a682 me-0"
             href="/"
           >
             <h6 className="text-white mb-0">COOKING HOLICS</h6>
@@ -72,13 +72,13 @@ const Menu = () => {
                 />
                 <NavLink
                   className="text-white fs-5 d-inline-block align-middle"
-                  to="/cong-thuc/"
+                  to="/cong-thuc"
                 >
                   Công thức
                 </NavLink>
               </li>
             </ul>
-            <div className="logo position-absolute top-50 d-none d-md-block start-50 translate-middle p-2 rounded">
+            <div className="logo position-absolute top-50 bg-dark d-none d-md-block start-50 translate-middle p-2 rounded">
               <h2 className="text-white mb-0">COOKING HOLICS</h2>
             </div>
             <div className="d-block d-md-none">

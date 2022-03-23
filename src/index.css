@@ -26,7 +26,6 @@ input:focus {
 .logo {
   font-family: "Lobster", cursive !important;
   border: 2px solid white;
-  background-color: #b36304;
 }
 .cursor-pointer {
   cursor: pointer;
