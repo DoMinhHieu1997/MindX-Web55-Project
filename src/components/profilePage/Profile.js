@@ -37,7 +37,7 @@ const Profile = () => {
             });
     }, [token]);
 
-    console.log(userData);
+    // console.log(userData);
     if (!token) {
         return <Navigate to="/dang-nhap" replace />;
     }
@@ -141,7 +141,7 @@ const Profile = () => {
                 </div>
                 {nav === "MyProfile" && <MyProfile userData={userData} setUserData={setUserData} isLoading={isLoading} />}
                 {nav === "SavedPost" && <SavedPost />}
-                {nav === "MyPost" && <MyPost />}
+                {nav === "MyPost" && <MyPost id={userData._id} />}
             </div>
         </div>
     );

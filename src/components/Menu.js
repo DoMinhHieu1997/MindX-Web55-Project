@@ -16,6 +16,7 @@ const Menu = () => {
 
   const handleSearch = () => {
     setInputValue("");
+    document.getElementById("test").click();
     navigate(`/tim-kiem?p=${inputValue.replace(" ", "-")}`);
   };
 
@@ -25,12 +26,16 @@ const Menu = () => {
       navigate(`/tim-kiem?p=${inputValue.replace(" ", "-")}`);
     }
   };
+  const handleToggle = () => {
+    document.getElementById("test").click();
+  };
 
   return (
     <div className="bg-06a682 py-2 py-md-3">
       <nav className="navbar navbar-expand-lg navbar-dark">
         <div className="container">
           <button
+            id="test"
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
@@ -53,7 +58,7 @@ const Menu = () => {
           >
             <div className="border-top border-light d-md-none mb-4"></div>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item me-4">
+              <li className="nav-item me-4" onClick={handleToggle}>
                 <HomeIcon
                   className="me-2 d-inline-block d-md-none align-middle"
                   style={{ color: "white" }}
@@ -65,7 +70,7 @@ const Menu = () => {
                   Trang chủ
                 </NavLink>
               </li>
-              <li className="nav-item mt-3 mt-sm-0">
+              <li className="nav-item mt-3 mt-sm-0" onClick={handleToggle}>
                 <ListAltIcon
                   className="me-2 d-inline-block d-md-none align-middle"
                   style={{ color: "white" }}
@@ -82,7 +87,7 @@ const Menu = () => {
               <h2 className="text-white mb-0">COOKING HOLICS</h2>
             </div>
             <div className="d-block d-md-none">
-              <Users />
+              <Users onClick={handleToggle} />
             </div>
             <div className="d-flex align-items-center mt-4 mt-sm-0">
               <div className="position-relative me-3 w-100">
@@ -104,7 +109,6 @@ const Menu = () => {
             <div className="d-none d-md-block">
               <Users />
             </div>
-    
           </div>
         </div>
       </nav>

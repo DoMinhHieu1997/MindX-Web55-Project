@@ -23,17 +23,12 @@ class uploadImageFirebase {
           const date = Date.now();
           const storageRef = ref(storage, `/content/${date}${file.name}`);
           const uploadTask = uploadBytesResumable(storageRef, file, file.type);
-          uploadTask.on(
-            "state_changed",
-            (snapshot) => {},
-            (e) => {},
-            () => {
-              getDownloadURL(storageRef).then((url) => {
-                this.setLoading(false);
-                resolve({ default: url });
-              });
-            }
-          );
+          uploadTask.on("state_changed", "", "", () => {
+            getDownloadURL(storageRef).then((url) => {
+              this.setLoading(false);
+              resolve({ default: url });
+            });
+          });
         })
     );
   }
