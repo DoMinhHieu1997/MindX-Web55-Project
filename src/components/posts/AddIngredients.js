@@ -5,19 +5,21 @@ import React, { useState } from "react";
 
 function AddIngredients({ label, setCardItem, cardItem }, ref) {
   const [nameIngredient, setIngredient] = useState("");
-  const [total, setTotal] = useState("");
+  const [total, setTotal] = useState(1);
   const [error, setError] = useState(false);
   const handleBtnAdd = () => {
-    if (nameIngredient && total ) {
-      setCardItem((prev) => [...prev, { nameIngredient, total}]);
+    if (nameIngredient 
+      // && total
+      ) {
+      setCardItem((prev) => [...prev, { nameIngredient, total:1}]);
       setError(false);
       setIngredient("");
       setTotal("");
-    
+    console.log('a');
     } else {
       setError({
         ingredienError: !nameIngredient,
-        totalError: !total,
+        // totalError: !total,
       });
     }
   };
@@ -39,7 +41,7 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
             error={(error?.ingredienError || label) && !cardItem[0]}
           />
           <TextField
-            sx={{ width: 295, mt: 1, height: 50 }}
+            sx={{ width: 295, mt: 1, height: 50 ,display:'none'}}
             label={
               (error?.totalError || label) && !cardItem[0]
                 ? "Nhập số lượng"
@@ -121,7 +123,7 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
                   left: 16,
                 }}
               >
-                {total} 
+                {/* {total}  */}
               </Card>
             </Card>
           );
