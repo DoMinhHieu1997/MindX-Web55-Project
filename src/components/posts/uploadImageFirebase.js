@@ -1,4 +1,3 @@
-import { http } from "../profile/config";
 import {
   getDownloadURL,
   getStorage,
@@ -19,11 +18,6 @@ class uploadImageFirebase {
         new Promise((resolve, reject) => {
           const firebaseApp = initializeApp(firebaseConfig);
           const storage = getStorage(firebaseApp);
-          //   const formData = new FormData();
-          //   formData.append("myFile", file);
-          //   http.post("/upload", formData).then((res) => {
-          //     resolve({ default: res.data.data[res.data.data.length - 1] });
-          //   });
 
           const date = Date.now();
           const storageRef = ref(storage, `/content/${date}${file.name}`);
@@ -31,10 +25,9 @@ class uploadImageFirebase {
           uploadTask.on(
             "state_changed",
             (snapshot) => {},
-            (e)=>{},
+            (e) => {},
             () => {
               getDownloadURL(storageRef).then((url) => {
-                  console.log(url);
                 resolve({ default: url });
               });
             }

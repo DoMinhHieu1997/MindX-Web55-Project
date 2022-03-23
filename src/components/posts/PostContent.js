@@ -70,7 +70,6 @@ const PostContent = (props) => {
                     <div className="">
                       <div className="h5 me-2">
                         <span>{item.nameIngredient}</span>
-                        <span> - {item.total + " " + item.unit}</span>
                       </div>
                     </div>
                   </li>

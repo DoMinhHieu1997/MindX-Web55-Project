@@ -3,7 +3,6 @@ import { Button, Container, Paper, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import Editor from "ckeditor5-custom-build/build/ckeditor";
-import uploadImageSever from "./uploadImageSever";
 import FeaturedPhoto from "./FeaturedPhoto";
 import { http } from "../profile/config";
 import "./posts.css";
@@ -78,7 +77,6 @@ function CreatePosts({ onClose }) {
         (e)=>{},
         () => {
           getDownloadURL(storageRef).then((url) => {
-            console.log(url);
             uploadPosts.current.avatar = url;
             setValue("avatar", url);
           });
@@ -86,7 +84,6 @@ function CreatePosts({ onClose }) {
       );
     }
   };
-  // console.log(uploadPosts);
   return (
     <div>
       <Container
