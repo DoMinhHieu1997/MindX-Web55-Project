@@ -58,9 +58,9 @@ const NewRecipe = ({ recipe }) => {
             </a>
             <div className="pb-2 pt-2 ps-3 position-absolute top-0 start-0 end-0 bg-linear">
                 {!isLove ? (
-                    <FavoriteBorderOutlinedIcon className="d-inline-block" onClick={handleLike} />
+                    <FavoriteBorderOutlinedIcon className="d-inline-block me-1" onClick={handleLike} />
                 ) : (
-                    <FavoriteIcon className="d-inline-block" style={{ color: "#d83737" }} onClick={handleDisLike} />
+                    <FavoriteIcon className="d-inline-block me-1" style={{ color: "#d83737" }} onClick={handleDisLike} />
                 )}
                 {totalLike} lượt thích
             </div>
