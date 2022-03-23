@@ -76,7 +76,7 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
               key={index}
               sx={{
                 width: 150,
-                height: 60,
+                minHeight: 60,
                 m: 1,
                 position: "relative",
                 display: "flex",
