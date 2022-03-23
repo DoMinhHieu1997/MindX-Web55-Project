@@ -56,7 +56,7 @@ const NewRecipe = ({ recipe }) => {
                     </div>
                 </div>
             </a>
-            <div className="pb-2 pt-2 ps-3 position-absolute top-0 start-0 end-0 bg-linear">
+            <div className="pb-2 pt-1 ps-2 position-absolute top-0 start-0 end-0 bg-linear">
                 {!isLove ? (
                     <FavoriteBorderOutlinedIcon className="d-inline-block" onClick={handleLike} />
                 ) : (
