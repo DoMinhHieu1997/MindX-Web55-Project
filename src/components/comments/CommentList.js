@@ -1,4 +1,4 @@
-import { useState,useEffect,useContext } from "react";
+import { useState,useEffect,useContext,useRef } from "react";
 import AppCtx from "../../appContext";
 import { Skeleton } from "@mui/material";
 import CommentItem from "./CommentItem";
@@ -16,6 +16,7 @@ const CommentList = (props) => {
   const [comment, setComment] = useState("");
   const [isError, setIsError] = useState(false);
   const [disableSend, setDisableSend] = useState(true);
+  const comVal = useRef(null);
   
   useEffect(() => {
     fetch(`${COMMON.DOMAIN}comments?postId=${props.postId}`)
@@ -40,6 +41,7 @@ const CommentList = (props) => {
   }
 
   const handleSendComment = () => {
+    
     if (token) {
       setDisableSend(true);
       if (comment) {
@@ -59,7 +61,10 @@ const CommentList = (props) => {
         .then(res => res.json())
         .then(resJson => {
           if (resJson.message === "success") {
+            const userName = appCtx.userInfo?.nameDisplay;
+            resJson.data.nameDisplay = userName;
             setComment(null);
+            comVal.current.value = "";
             setCommentList(prev => [...prev,resJson.data]);
           }
           setDisableSend(false);
@@ -82,6 +87,7 @@ const CommentList = (props) => {
         placeholder="Ý kiến của bạn..."
         aria-label="minimum height"
         minRows={3}
+        ref={comVal}
         defaultValue={comment ? comment : ""}
         className={"w-75 border rounded " + (isError ? " border-danger" : "border-secondary")}
         onChange={handleTextFieldChange}

@@ -10,6 +10,7 @@ const PostItem = (props) => {
   const token =  localStorage.getItem("token") || sessionStorage.getItem("token");
   const [isLove, setIsLove] = useState(false);
   const [totalLike, setTotalLike] = useState(props.data.usersLike.length ? props.data.usersLike.length : 0);
+  const [justLiked, setJustLiked] = useState(false);
 
   useEffect(() => {
     if (token) {
@@ -19,8 +20,10 @@ const PostItem = (props) => {
   },[userId])
   
   const handleLike = (event) => {
+
     if (token) {
-        const data = {
+      setJustLiked(true);
+      const data = {
         "_id":props.data._id,
         "userLike":[...props.data.usersLike,userId]
       }
@@ -53,7 +56,7 @@ const PostItem = (props) => {
       <div className="pb-2 pt-1 ps-2 position-absolute top-0 start-0 end-0 bg-linear">
         {
           !isLove 
-            ? <FavoriteBorderOutlinedIcon className="d-inline-block" onClick={handleLike}/>
+            ? <FavoriteBorderOutlinedIcon className="d-inline-block" onClick={!justLiked ? handleLike : null}/>
             : <FavoriteIcon className="d-inline-block" style={{color: "#d83737"}}/> 
         }
         <div className="ms-2 d-inline-block h6 mb-0">{totalLike} Lượt thích</div>

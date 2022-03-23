@@ -29,7 +29,7 @@ input:focus {
   background-color: darkred;
 }
 .new-recipes-try:hover {
-  box-shadow: .5px 5px 10px 10px rgba(0,0,0,.1);
+  box-shadow: 0.5px 5px 10px 10px rgba(0, 0, 0, 0.1);
 }
 .cursor-pointer {
   cursor: pointer;
@@ -102,6 +102,13 @@ input:focus {
 }
 .navbar-dark .navbar-toggler {
   border-color: rgb(255 255 255) !important;
+}
+.post-content figure > img {
+  width: 100%;
+}
+.post-content figure {
+  margin-left: auto;
+  margin-right: auto;
 }
 .ck-editor__editable {
   min-height: 15rem;

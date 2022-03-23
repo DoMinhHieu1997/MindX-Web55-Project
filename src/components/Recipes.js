@@ -28,7 +28,7 @@ const Recipes = () => {
     fetch(`${COMMON.DOMAIN}posts?s=${number ? 8*page : 8}&t=1&p=${number ? 1 : (page + 1)}`)
     .then((res) => res.json())
     .then((resJson) => {
-      if (resJson.data.length % 8 !== 0) setDisplayLoadMore(false);
+      if (resJson.data.length % 8 !== 0 || !resJson.data.length) setDisplayLoadMore(false);
       setList(prev => [...prev,...resJson.data]);
       setIsLoading(false);
     });

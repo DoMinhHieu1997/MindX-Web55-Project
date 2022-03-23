@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
     return <div>
-        <div className="bg-06a682 py-5">
+        <div className="bg-06a682 py-4">
             <div className="container">
                 <div className="row align-items-center justify-content-between">
                     <div className="col-12 col-md-3 mb-4 mb-md-0">
@@ -21,7 +21,6 @@ const Footer = () => {
                         </ul>
                     </div>
                 </div>
-                
             </div>
         </div>
         <div className="text-center py-2 text-white" style={{borderTop:"2px solid white",backgroundColor:"#000"}}>Copyright © 2022 Web55-Group3. All rights reserved.</div>
