@@ -2,7 +2,6 @@ import MostFavorite from "./shared/MostFavorite";
 import NewRecipe from "./shared/NewRecipe";
 import BlogList from "./shared/BlogList";
 import SkeletonItem from "./shared/SkeletonItem";
-import { Skeleton } from "@mui/material";
 import { COMMON } from "./Common";
 import { useState, useEffect } from "react";
 import FloatingAction from "./shared/FloatingAction";
@@ -48,8 +47,8 @@ const Home = () => {
                         </>
                     )}
                     {newRecipe &&
-                        newRecipe.data.map((recipe) => {
-                            return <NewRecipe recipe={recipe} />;
+                        newRecipe.data.map((recipe, key) => {
+                            return <div className="col-md-3 position-relative" key={key}><NewRecipe recipe={recipe} /></div>;
                         })}
                 </div>
 
@@ -166,8 +165,8 @@ const Home = () => {
                                 </>
                             )}
                             {blogs &&
-                                blogs.data.map((blog) => {
-                                    return <BlogList blog={blog} />;
+                                blogs.data.map((blog, key) => {
+                                    return <div className="col-md-6 mb-3 row"  key={key}><BlogList blog={blog} /></div>;
                                 })}
 
                             <div className="col-12">
