@@ -45,25 +45,28 @@ const NewRecipe = ({ recipe }) => {
     return (
         <div className="col-md-3 position-relative">
             <a href={"/chi-tiet/"+recipe._id} className="link-dark">
-                <div className="border rounded h-100">
+                <div className="rounded h-100 new-recipes-try">
                     <div className="row">
                         <div className="col-12">
-                            <div className="ratio ratio-1x1" style={{ backgroundImage: `url(${recipe.avatar})` }}></div>
+                            <div className="ratio ratio-4x3 rounded border" style={{ backgroundImage: `url(${recipe.avatar})` }}></div>
                         </div>
+                        <div className="py-2">
+                            <div className="ps-2">
+                                {!isLove ? (
+                                    <FavoriteBorderOutlinedIcon className="d-inline-block me-1" onClick={handleLike} />
+                                ) : (
+                                    <FavoriteIcon className="d-inline-block me-1" style={{ color: "#d83737" }} onClick={handleDisLike} />
+                                )}
+                                {totalLike} lượt thích
+                            </div>
+                        </div>
+                        <hr className="w-25 ms-4 mb-3 mt-1 text-dark" />
                         <div className="col-12">
-                            <h5 className="mx-3 my-2">{recipe.title}</h5>
+                            <h5 className="ps-2">{recipe.title}</h5>
                         </div>
                     </div>
                 </div>
             </a>
-            <div className="pb-2 pt-1 ps-2 position-absolute top-0 start-0 end-0 bg-linear">
-                {!isLove ? (
-                    <FavoriteBorderOutlinedIcon className="d-inline-block" onClick={handleLike} />
-                ) : (
-                    <FavoriteIcon className="d-inline-block" style={{ color: "#d83737" }} onClick={handleDisLike} />
-                )}
-                {totalLike} lượt thích
-            </div>
         </div>
     );
 };

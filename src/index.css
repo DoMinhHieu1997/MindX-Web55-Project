@@ -26,6 +26,10 @@ input:focus {
 .logo {
   font-family: "Lobster", cursive !important;
   border: 2px solid white;
+  background-color: darkred;
+}
+.new-recipes-try:hover {
+  box-shadow: .5px 5px 10px 10px rgba(0,0,0,.1);
 }
 .cursor-pointer {
   cursor: pointer;
