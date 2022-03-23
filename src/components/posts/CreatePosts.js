@@ -40,17 +40,19 @@ function CreatePosts({ onClose }) {
       uploadPosts.current.type = 2;
       uploadPosts.current.ingredients = [];
       http.post("/posts/create", uploadPosts.current).then((res) => {
+        const id = res.data.data._id.toString();
         onClose();
-        navigate("/cong-thuc");
+        navigate(`/chi-tiet/${id}`);
         setLoading(false);
       });
     } else {
       uploadPosts.current.type = 1;
       uploadPosts.current.ingredients = cardItem;
-      console.log(uploadPosts.current);
       http.post("/posts/create", uploadPosts.current).then((res) => {
+        const id = res.data.data._id.toString();
+
         onClose();
-        navigate("/cong-thuc");
+        navigate(`/chi-tiet/${id}`);
         setLoading(false);
       });
     }
