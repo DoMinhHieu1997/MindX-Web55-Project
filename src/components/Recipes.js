@@ -5,27 +5,38 @@ import SkeletonItem from "./shared/SkeletonItem";
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import {COMMON} from "./Common";
 import FloatingAction from "./shared/FloatingAction";
+import { useNavigate,useParams } from "react-router-dom";
 
 const Recipes = () => {
-  const [list, setList] = useState("");
+  const navigate = useNavigate();
+  const paramPage = useParams();
+  const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [displayLoadMore, setDisplayLoadMore] = useState(true);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(paramPage?.page ? paramPage.page : 1);
 
   const handleLoadMoreClick = () => {
+    navigate(`/cong-thuc/${page+1}`,{page:true});
+    getListRecipes(2);
     setPage(prev => prev + 1);
   }
 
-  useEffect(() => {
+  const getListRecipes = (type) => {
+    const number = type === 1;
+
     setIsLoading(true);
-    fetch(`${COMMON.DOMAIN}posts?s=8&t=1&p=${page}`)
-      .then((res) => res.json())
-      .then((resJson) => {
-        if (resJson.data.length < 8) setDisplayLoadMore(false);
-        setList(prev => [...prev,...resJson.data]);
-        setIsLoading(false);
-      });
-  }, [page]);
+    fetch(`${COMMON.DOMAIN}posts?s=${number ? 8*page : 8}&t=1&p=${number ? 1 : (page + 1)}`)
+    .then((res) => res.json())
+    .then((resJson) => {
+      if (resJson.data.length % 8 !== 0) setDisplayLoadMore(false);
+      setList(prev => [...prev,...resJson.data]);
+      setIsLoading(false);
+    });
+  }
+
+  useEffect(() => {
+    getListRecipes(1);
+  }, []);
 
   return <>
     <FloatingAction />
