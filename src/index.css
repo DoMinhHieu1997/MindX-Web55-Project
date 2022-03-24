@@ -147,7 +147,9 @@ input:focus {
 .nav-item {
   cursor: pointer;
 }
-
+.blog:hover{
+  border: 1px solid black;
+}
 /* animation */
 @keyframes loading {
   100% {
