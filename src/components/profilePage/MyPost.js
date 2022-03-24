@@ -3,25 +3,29 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Skeleton,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { http } from "../profile/config";
+import SkeletonItem from "../shared/SkeletonItem";
 
 const MyPost = ({ id }) => {
   const [data, setData] = useState([]);
   const [loadPage, setLoadingPage] = useState(6);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     http.get(`/posts/user?p=1&s=${loadPage}&t=1&userId=${id}`).then((res) => {
       setData(res.data.data);
+      setIsLoading(false);
     });
   }, [loadPage]);
   const handleLoadMore = () => {
+    setIsLoading(true);
     setLoadingPage((prev) => prev + 6);
   };
-  console.log(loadPage);
-  console.log("render",data);
+
   return (
     <div className="col-md-8 border ml-2">
       <div className="row">
@@ -51,9 +55,22 @@ const MyPost = ({ id }) => {
                 </div>
               );
             })}
+            {isLoading &&
+              Array(6)
+                .fill(1)
+                .map((post, i) => (
+                  <div key={i} className="col-lg-4 mb-5">
+                    <Skeleton variant="rectangular" height={200} />
+                    <Skeleton variant="text" height={80} />
+                  </div>
+                ))}
           </div>
           <div className="d-flex justify-content-center">
-            <Button hidden={data.length<loadPage} variant="outlined" onClick={handleLoadMore}>
+            <Button
+              hidden={data.length < loadPage}
+              variant="outlined"
+              onClick={handleLoadMore}
+            >
               Xem thêm
             </Button>
           </div>

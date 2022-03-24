@@ -21,7 +21,6 @@ const Profile = () => {
         setUserData(appCtx.userInfo);
         setIsLoading(false);
     }, [appCtx]);
-    console.log(appCtx.userInfo)
     const HandlelogOut = () => {
         localStorage.removeItem("token");
     };
