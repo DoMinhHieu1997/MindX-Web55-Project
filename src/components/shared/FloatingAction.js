@@ -1,19 +1,23 @@
-import { useState, useContext, useEffect } from "react";
-import AppCtx from "../../appContext";
+import { useState, useEffect } from "react";
 import LoupeIcon from "@mui/icons-material/Loupe";
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoardOutlined";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
-import { Modal, Tooltip } from "@mui/material";
-import React from "react";
+import { Modal, Tooltip, Dialog, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import CreatePosts from "../posts/CreatePosts";
 
 const FloatingAction = () => {
-  const appCtx = useContext(AppCtx);
   const token = localStorage.getItem("token") || sessionStorage.getItem("token");
   const [showActions, setShowActions] = useState(false);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openCreatePost, setOpenCreatePost] = useState(false);
+  const handleOpenCreatePost = () => setOpenCreatePost(true);
+  const handleCloseCreatePost = () => setOpenCreatePost(false);
+  const [openTable, setOpenTable] = useState(false);
+  const handleClickOpenTable = () => {
+    setOpenTable(true);
+  };
+  const handleCloseTable = () => {
+    setOpenTable(false);
+  };
 
   useEffect(() => {
     if (token) setShowActions(true);
@@ -29,7 +33,7 @@ const FloatingAction = () => {
             <LoupeIcon
               fontSize="large"
               onClick={() => {
-                handleOpen();
+                handleOpenCreatePost();
               }}
               style={{ color: "#6c757d" }}
             />
@@ -37,7 +41,9 @@ const FloatingAction = () => {
         </div>
         <div className="mt-3">
           <Tooltip title="Thời khóa biểu">
-            <DeveloperBoardIcon fontSize="large" style={{ color: "#6c757d" }} />
+            <DeveloperBoardIcon fontSize="large" onClick={() => {
+                handleClickOpenTable();
+              }} style={{ color: "#6c757d" }} />
           </Tooltip>
         </div>
         <div className="mt-3">
@@ -50,14 +56,24 @@ const FloatingAction = () => {
         </div>
       </div>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={openCreatePost}
+        onClose={handleCloseCreatePost}
         sx={{ paddingTop: 5, overflow: "scroll", marginX: 1 }}
       >
         <div>
-          <CreatePosts onClose={handleClose} setOpen={setOpen} />
+          <CreatePosts />
         </div>
       </Modal>
+
+      <Dialog open={openTable} onClose={handleCloseTable}>
+        <DialogTitle>Tạo thời khóa biểu</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Let Google help apps determine location. This means sending
+            anonymous location data to Google, even when no apps are running.
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };
