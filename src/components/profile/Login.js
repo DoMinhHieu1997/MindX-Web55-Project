@@ -48,7 +48,7 @@ function Login() {
       .then((res) => {
         data.keepLogin && localStorage.setItem("token", res.data.data.tocken);
         sessionStorage.setItem("token", res.data.data.tocken);
-        appCtx.setUserToken(res.data.data.tocken);
+        // appCtx.setUserToken(res.data.data.tocken);
         navigate("/");
       })
       .catch((error) => {
@@ -56,6 +56,11 @@ function Login() {
           setError("email", {
             type: "manual",
             message: "Email chưa kích hoạt",
+          });
+        }else if(error.response.data.data ==="Email is not existed"){
+          setError("email", {
+            type: "manual",
+            message: "Email chưa đăng ký",
           });
         } else if (error.response.data.data === "Password not correct") {
           setError("password", {

@@ -28,52 +28,47 @@ import {
 import { firebaseConfig } from "../profile/config";
 import uploadImageFirebase from "./uploadImageFirebase";
 
-function CreatePosts({ onClose },ref) {
-  
-const config = {
-	toolbar: {
-		items: [
-			'heading',
-			'|',
-			'bold',
-			'italic',
-			'imageUpload',
-			'link',
-			'bulletedList',
-			'numberedList',
-			'|',
-			// 'outdent',
-			// 'indent',
-			// '|',
-			'blockQuote',
-			'insertTable',
-			'undo',
-			'redo',
-		// 	'CKFinder',
-		// 	'imageInsert'
-		]
-	},
-	language: 'vi',
+function CreatePosts({ onClose }, refChild) {
+  const config = {
+    toolbar: {
+      items: [
+        "heading",
+        "|",
+        "bold",
+        "italic",
+        "imageUpload",
+        "link",
+        "bulletedList",
+        "numberedList",
+        "|",
+        // 'outdent',
+        // 'indent',
+        // '|',
+        "blockQuote",
+        "insertTable",
+        "undo",
+        "redo",
+        // 	'CKFinder',
+        // 	'imageInsert'
+      ],
+    },
+    language: "vi",
 
-	image: {
-		toolbar: [
-			'imageTextAlternative',
-			'imageStyle:inline',
-			'imageStyle:block',
-			'imageStyle:side',
-      'resizeImage:50',
-      'resizeImage:75',
-      'resizeImage:original',
-		]
-	},
-	table: {
-		contentToolbar: [
-			'tableColumn',
-			'tableRow',
-			'mergeTableCells'
-		]
-	}
-};
+    image: {
+      toolbar: [
+        "imageTextAlternative",
+        "imageStyle:inline",
+        "imageStyle:block",
+        "imageStyle:side",
+        "resizeImage:50",
+        "resizeImage:75",
+        "resizeImage:original",
+      ],
+    },
+    table: {
+      contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
+    },
+  };
   const {
     formState: { errors },
     trigger,
@@ -109,7 +104,7 @@ const config = {
         onClose();
         setLoading(false);
         setLoadingPage(false);
-        window.scroll(0,0)
+        window.scroll(0, 0);
         navigate(`/chi-tiet/${id}`);
       });
     } else {
@@ -120,168 +115,168 @@ const config = {
         onClose();
         setLoading(false);
         setLoadingPage(false);
-        window.scroll(0,0)
+        window.scroll(0, 0);
         navigate(`/chi-tiet/${id}`);
       });
     }
   };
   const handlePhoto = (file) => {
-    if (file) {
+    if (file.name) {
       setLoading(true);
       const date = Date.now();
       const storageRef = ref(storage, `/avatar/${date}${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file, file.type);
       uploadTask.on("state_changed", "", "", () => {
-        getDownloadURL(storageRef).then((url) => {
-          uploadPosts.current.avatar = url;
-          setLoading(false);
-          setValue("avatar", url);
-        });
+        getDownloadURL(storageRef)
+          .then((url) => {
+            uploadPosts.current.avatar = url;
+            setLoading(false);
+            setValue("avatar", url);
+          })
+          .catch((e) => console.log(e));
       });
     }
   };
 
   return (
-      <Container
-        maxWidth="md"
-        className="pb-3"
-        sx={{
-          bgcolor: "white",
-          // width: "100%",
-          // height: "100%",
-          borderRadius: 1.5,
-        }}
-      >
-        <Paper elevation={0}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Toggle toggle={toggle} handleClick={handleClick} />
+    <Container
+      maxWidth="md"
+      className="pb-3"
+      sx={{
+        bgcolor: "white",
+        // width: "100%",
+        // height: "100%",
+        borderRadius: 1.5,
+      }}
+    >
+      <Paper elevation={0}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Toggle toggle={toggle} handleClick={handleClick} />
+          <TextField
+            className="mt-4"
+            sx={{ margin: "10px 0" }}
+            error={!!errors.title?.message}
+            fullWidth
+            size="small"
+            label={errors.title?.message || "Tiêu đề"}
+            {...register("title", {
+              required: {
+                value: true,
+                message: "Nhập tiêu đề",
+              },
+              onBlur: () => trigger(),
+            })}
+          />
+          <TextField
+            className="mt-3"
+            error={!!errors.description?.message}
+            fullWidth
+            multiline
+            label={errors.description?.message || "Mô tả"}
+            {...register("description", {
+              required: {
+                value: true,
+                message: "Nhập mô tả",
+              },
+              onBlur: () => trigger(),
+            })}
+          />
+          <FeaturedPhoto
+            imgPreview={imgPreview}
+            setImgPreview={setImgPreview}
+            onChangeFile={handlePhoto}
+            label={errors.avatar?.message || false}
+            ref={refChild}
+            {...register("avatar", {
+              required: {
+                value: !imgPreview,
+                message: "Tải ảnh đại diện cho bài viết",
+              },
+            })}
+          />
+          {!toggle && (
+            <AddIngredients
+              label={errors.ingredients?.message || false}
+              setCardItem={setCardItem}
+              cardItem={cardItem}
+              {...register("ingredients", {
+                required: {
+                  value: !cardItem[0],
+                  message: "Nhập thêm nguyên liệu",
+                },
+              })}
+            />
+          )}
+          {!toggle && (
             <TextField
-              className="mt-4"
-              sx={{ margin: "10px 0" }}
-              error={!!errors.title?.message}
-              fullWidth
+              sx={{ width: 310 }}
+              error={!!errors.totalCalories?.message}
               size="small"
-              label={errors.title?.message || "Tiêu đề"}
-              {...register("title", {
+              type="number"
+              label={errors.totalCalories?.message || "Tổng lượng Calo"}
+              {...register("totalCalories", {
                 required: {
                   value: true,
-                  message: "Nhập tiêu đề",
+                  message: "Nhập tổng lượng Calo",
                 },
                 onBlur: () => trigger(),
               })}
             />
-            <TextField
-              className="mt-3"
-              error={!!errors.description?.message}
-              fullWidth
-              multiline
-              label={errors.description?.message || "Mô tả"}
-              {...register("description", {
-                required: {
-                  value: true,
-                  message: "Nhập mô tả",
-                },
-                onBlur: () => trigger(),
-              })}
-            />
-            <FeaturedPhoto
-              imgPreview={imgPreview}
-              setImgPreview={setImgPreview}
-              onChangeFile={handlePhoto}
-              label={errors.avatar?.message || false}
-              {...register("avatar", {
-                required: {
-                  value: !imgPreview,
-                  message: "Tải ảnh đại diện cho bài viết",
-                },
-              })}
-            />
-            {!toggle && (
-              <AddIngredients
-                label={errors.ingredients?.message || false}
-                setCardItem={setCardItem}
-                cardItem={cardItem}
-                {...register("ingredients", {
-                  required: {
-                    value: !cardItem[0],
-                    message: "Nhập thêm nguyên liệu",
-                  },
-                })}
-              />
-            )}
-            {!toggle && (
-              <TextField
-                sx={{ width:310}}
-                error={!!errors.totalCalories?.message}
-                size="small"
-                type="number"
-                label={errors.totalCalories?.message || "Tổng lượng Calo"}
-                {...register("totalCalories", {
-                  required: {
-                    value: true,
-                    message: "Nhập tổng lượng Calo",
-                  },
-                  onBlur: () => trigger(),
-                })}
-              />
-            )}
-            <h5 className="mt-4 mb-2 text-secondary">Nội dung bài viết</h5>
-            <Box sx={{ height: "100%", p: "10px 0" }}>
-              <CKEditor
+          )}
+          <h5 className="mt-4 mb-2 text-secondary">Nội dung bài viết</h5>
+          <Box sx={{ height: "100%", p: "10px 0" }}>
+            <CKEditor
               config={config}
-                editor={Editor}
-                data=""
-                onChange={(event, editor) => {
-                  const data = editor.getData();
-                  uploadPosts.current.content = data;
-                }}
-                required={true}
-                onReady={(editor) => {
-                  editor.plugins.get("FileRepository").createUploadAdapter = (
-                    loader
-                  ) => {
-                    // return new uploadImageSever(loader);
-                    return new uploadImageFirebase(loader, setLoading);
-                  };
-                }}
-              />
-            </Box>
-            {!uploadPosts.current.content && imgPreview && (
-              <p style={{ color: "#dc3545" }}>
-                Vui lòng viết nội dung bài viết
-              </p>
-            )}
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <LoadingButton
-                sx={{ margin: "10px 0" }}
-                type="submit"
-                variant="contained"
-                loading={loading}
-              >
-                Tạo bài viết
-              </LoadingButton>
-              <Backdrop
-                sx={{
-                  color: "#fff",
-                  zIndex: (theme) => theme.zIndex.drawer + 1,
-                }}
-                open={loadingPage}
-              >
-                <CircularProgress color="inherit" />
-              </Backdrop>
-              <Button
-                sx={{ margin: "10px 30px" }}
-                type="button"
-                variant="contained"
-                onClick={onClose}
-              >
-                hủy bỏ
-              </Button>
-            </Box>
-          </form>
-        </Paper>
-      </Container>
-    
+              editor={Editor}
+              data=""
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                uploadPosts.current.content = data;
+              }}
+              required={true}
+              onReady={(editor) => {
+                editor.plugins.get("FileRepository").createUploadAdapter = (
+                  loader
+                ) => {
+                  // return new uploadImageSever(loader);
+                  return new uploadImageFirebase(loader, setLoading);
+                };
+              }}
+            />
+          </Box>
+          {!uploadPosts.current.content && imgPreview && (
+            <p style={{ color: "#dc3545" }}>Vui lòng viết nội dung bài viết</p>
+          )}
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <LoadingButton
+              sx={{ margin: "10px 0" }}
+              type="submit"
+              variant="contained"
+              loading={loading}
+            >
+              Tạo bài viết
+            </LoadingButton>
+            <Backdrop
+              sx={{
+                color: "#fff",
+                zIndex: (theme) => theme.zIndex.drawer + 1,
+              }}
+              open={loadingPage}
+            >
+              <CircularProgress color="inherit" />
+            </Backdrop>
+            <Button
+              sx={{ margin: "10px 30px" }}
+              type="button"
+              variant="contained"
+              onClick={onClose}
+            >
+              hủy bỏ
+            </Button>
+          </Box>
+        </form>
+      </Paper>
+    </Container>
   );
 }
 
