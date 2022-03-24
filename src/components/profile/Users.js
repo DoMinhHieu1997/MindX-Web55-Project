@@ -23,7 +23,7 @@ function Users({ onClick }) {
   };
 
   const handleClickMenuItem = (value) => {
-    onClick && document.getElementById("test").click();
+    // onClick()
     value === "Đăng Nhập" && navigate("/dang-nhap");
     value === "Đăng Ký" && navigate("/dang-ky");
     value === "Thông Tin Tài Khoản" && navigate("/ho-so");

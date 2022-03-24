@@ -56,6 +56,11 @@ function Login() {
             type: "manual",
             message: "Email chưa kích hoạt",
           });
+        }else if(error.response.data.data ==="Email is not existed"){
+          setError("email", {
+            type: "manual",
+            message: "Email chưa đăng ký",
+          });
         } else if (error.response.data.data === "Password not correct") {
           setError("password", {
             type: "manual",

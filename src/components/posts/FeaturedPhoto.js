@@ -14,13 +14,13 @@ function FeaturedPhoto(
         setImgPreview(reader.result);
       };
       file && reader.readAsDataURL(file);
-      onChangeFile(e.target.files[0]);
+      onChangeFile(file);
     } else {
       label = true;
       setImgPreview(null);
     }
   };
-  
+ 
   return (
     <div className="mt-4">
       <Box

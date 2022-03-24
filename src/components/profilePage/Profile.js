@@ -1,6 +1,5 @@
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { useState, useEffect, useContext } from "react";
-import { http } from "../profile/config";
 import SkeletonItem from "../shared/SkeletonItem";
 import { Navigate } from "react-router-dom";
 import MyProfile from "./MyProfile";
@@ -42,7 +41,7 @@ const Profile = () => {
                                             <div className="col-10">
                                                 <div
                                                     className="ratio ratio-1x1 bg-secondary"
-                                                    style={{ backgroundImage: `url(${userData.avatar})`, backgroundPosition: "center", backgroundSize: "cover" }}
+                                                    style={{ backgroundImage: `url(${userData.photoUrl})`, backgroundPosition: "center", backgroundSize: "cover" }}
                                                 ></div>
                                             </div>
                                         </div>

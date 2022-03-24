@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { http } from "../profile/config";
 import SkeletonItem from "../shared/SkeletonItem";
 
@@ -15,6 +16,7 @@ const MyPost = ({ id }) => {
   const [data, setData] = useState([]);
   const [loadPage, setLoadingPage] = useState(6);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
   useEffect(() => {
     http.get(`/posts/user?p=1&s=${loadPage}&t=1&userId=${id}`).then((res) => {
       setData(res.data.data);
@@ -25,7 +27,6 @@ const MyPost = ({ id }) => {
     setIsLoading(true);
     setLoadingPage((prev) => prev + 6);
   };
-
   return (
     <div className="col-md-8 border ml-2">
       <div className="row">
@@ -34,7 +35,15 @@ const MyPost = ({ id }) => {
           <div className="row">
             {data.map((post, i) => {
               return (
-                <div className="col-lg-4 mb-5" key={i}>
+                <div
+                  className="col-lg-4 mb-5"
+                  key={i}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    window.scroll(0,0)
+                    navigate(`/chi-tiet/${post._id}`);
+                  }}
+                >
                   <Card sx={{ pb: 2 }}>
                     <CardMedia
                       component="img"
