@@ -50,7 +50,7 @@ const Recipes = () => {
       <div className="list-recipes row py-3">
         {
           list && list.map((item,index) => {
-            return <div key={index} className="col-6 col-md-3 mb-3"><PostItem data={item}/></div>
+            return <div key={index} className="col-12 col-md-3 mb-3"><PostItem data={item}/></div>
           })
         }
       </div>

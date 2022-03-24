@@ -26,12 +26,13 @@ const Menu = () => {
       navigate(`/tim-kiem?p=${inputValue.replace(" ", "-")}`);
     }
   };
+  
   const handleToggle = () => {
     document.getElementById("test").click();
   };
 
   return (
-    <div className="bg-06a682 py-2 py-md-3">
+    <div className="bg-06a682 py-2 py-md-2">
       <nav className="navbar navbar-expand-lg navbar-dark">
         <div className="container">
           <button
@@ -58,9 +59,25 @@ const Menu = () => {
           >
             <div className="border-top border-light d-md-none mb-4"></div>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item me-4" onClick={handleToggle}>
+              <li className="nav-item me-4 d-none d-md-block">
+                <NavLink
+                  className="text-white fs-5 d-inline-block align-middle"
+                  to="/"
+                >
+                  Trang chủ
+                </NavLink>
+              </li>
+              <li className="nav-item mt-3 mt-sm-0 d-none d-md-block">
+                <NavLink
+                  className="text-white fs-5 d-inline-block align-middle"
+                  to="/cong-thuc"
+                >
+                  Công thức
+                </NavLink>
+              </li>
+              <li className="nav-item me-4 d-md-none" onClick={handleToggle}>
                 <HomeIcon
-                  className="me-2 d-inline-block d-md-none align-middle"
+                  className="me-2 d-inline-block align-middle"
                   style={{ color: "white" }}
                 />
                 <NavLink
@@ -70,9 +87,9 @@ const Menu = () => {
                   Trang chủ
                 </NavLink>
               </li>
-              <li className="nav-item mt-3 mt-sm-0" onClick={handleToggle}>
+              <li className="nav-item mt-3 mt-sm-0 d-md-none" onClick={handleToggle}>
                 <ListAltIcon
-                  className="me-2 d-inline-block d-md-none align-middle"
+                  className="me-2 d-inline-block align-middle"
                   style={{ color: "white" }}
                 />
                 <NavLink
@@ -84,7 +101,7 @@ const Menu = () => {
               </li>
             </ul>
             <div className="logo position-absolute top-50 d-none d-md-block start-50 translate-middle p-2 rounded">
-              <h2 className="text-white mb-0">COOKING HOLICS</h2>
+              <h4 className="text-white mb-0">COOKING HOLICS</h4>
             </div>
             <div className="d-block d-md-none">
               <Users onClick={handleToggle} />

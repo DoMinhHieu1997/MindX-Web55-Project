@@ -1,4 +1,6 @@
-import {transferDate} from '../Common'
+import {transferDate} from '../Common';
+import { spliceString } from '../Common';
+
 const BlogList = ({blog}) => {
     return (
         <>
@@ -12,12 +14,13 @@ const BlogList = ({blog}) => {
             </div>
             <div className="col-md-7 px-0 ">
                 <a href={"/chi-tiet/"+blog._id}>
-                    <h5>{blog.title}</h5>
+                    <h5 className="text-dark text-06a682-hover">{blog.title}</h5>
                 </a>
-                <h6 className="text-secondary">{transferDate(blog.updatedAt)}</h6>
-                <div>{blog.description}</div>
+                <h6 className="text-secondary mt-3">{transferDate(blog.updatedAt)}</h6>
+                <div>{spliceString(blog.description,80)}</div>
             </div>
         </>
     );
 };
+
 export default BlogList;
