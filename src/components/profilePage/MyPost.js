@@ -9,14 +9,15 @@ import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { http } from "../profile/config";
 
-const MyPost = ({ id }) => {
+const MyPost = ({ userData }) => {
   const [data, setData] = useState([]);
   const [loadPage, setLoadingPage] = useState(6);
   useEffect(() => {
+    const id=userData._id
     http.get(`/posts/user?p=1&s=${loadPage}&t=1&userId=${id}`).then((res) => {
       setData(res.data.data);
     });
-  }, [loadPage]);
+  }, [loadPage,userData]);
   const handleLoadMore = () => {
     setLoadingPage((prev) => prev + 6);
   };
