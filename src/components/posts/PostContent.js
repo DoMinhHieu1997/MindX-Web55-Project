@@ -71,7 +71,7 @@ const PostContent = (props) => {
   const handleUnsave = () => {
     if (token) {
       setJustUnsave(true);
-      setListBK(prev => {prev.splice(prev.indexOf(postId,1))});
+      listBk.splice(listBk.indexOf(postId,1))
       console.log(listBk,"bỏ lưu");
 
       let bodyData = {
