@@ -101,7 +101,9 @@ const Menu = () => {
               </li>
             </ul>
             <div className="logo position-absolute top-50 d-none d-md-block start-50 translate-middle p-2 rounded">
-              <h4 className="text-white mb-0">COOKING HOLICS</h4>
+              <a href="/">
+                <h4 className="text-white mb-0">COOKING HOLICS</h4>
+              </a>
             </div>
             <div className="d-block d-md-none">
               <Users onClick={handleToggle} />

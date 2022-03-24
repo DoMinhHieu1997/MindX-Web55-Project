@@ -11,6 +11,7 @@ import RamenDiningIcon from '@mui/icons-material/RamenDining';
 
 const Home = () => {
     const [isLoading, setIsloading] = useState(true);
+    const [isLoadingFE, setIsLoadingFE] = useState(true);
     const [newRecipe, setNewRecipe] = useState("");
     const [blogs, setBlogs] = useState("");
     const [moreBlog, setMoreBlog] = useState(12);
@@ -26,12 +27,12 @@ const Home = () => {
     }, []);
 
     useEffect(() => {
-        setIsloading(true);
+        setIsLoadingFE(true);
         fetch(`${COMMON.DOMAIN}posts?t=2&p=1&s=${moreBlog}`)
             .then((res) => res.json())
             .then((resJson) => {
                 setBlogs(resJson);
-                setIsloading(false);
+                setIsLoadingFE(false);
             });
     }, [moreBlog]);
 
@@ -46,6 +47,11 @@ const Home = () => {
                     </a>
                 </div>
                 <div className="new-recipres row mt-4">
+                    {newRecipe &&
+                        newRecipe.data.map((recipe, index) => {
+                            return <div className="col-md-3 mb-4 mb-md-0 position-relative" key={index}><NewRecipe recipe={recipe} /></div>;
+                        })
+                    }
                     {isLoading && (
                         <>
                             <SkeletonItem type="2" />
@@ -54,10 +60,6 @@ const Home = () => {
                             <SkeletonItem type="2" />
                         </>
                     )}
-                    {newRecipe &&
-                        newRecipe.data.map((recipe, index) => {
-                            return <div className="col-md-3 mb-4 mb-md-0 position-relative" key={index}><NewRecipe recipe={recipe} /></div>;
-                        })}
                 </div>
 
                 <div className="row mt-5">
@@ -69,7 +71,12 @@ const Home = () => {
                             </a>
                         </div>
                         <div className="row">
-                            {isLoading && (
+                            {blogs &&
+                                blogs.data.map((blog, index) => {
+                                    return <div className="col-md-6 mb-3"  key={index}><BlogList blog={blog} /></div>;
+                                })
+                            }
+                            {isLoadingFE && (
                                 <>
                                     <FoodExSkeleton />
                                     <FoodExSkeleton />
@@ -81,11 +88,6 @@ const Home = () => {
                                     <FoodExSkeleton />
                                 </>
                             )}
-                            {blogs &&
-                                blogs.data.map((blog, index) => {
-                                    return <div className="col-md-6 mb-3"  key={index}><BlogList blog={blog} /></div>;
-                                })}
-
                             <div className="col-12 mt-3">
                                 <div className="row justify-content-center">
                                     <div className="col-auto">
