@@ -8,9 +8,9 @@ const FloatingAction = () => {
   const token =
     localStorage.getItem("token") || sessionStorage.getItem("token");
   const [showActions, setShowActions] = useState(false);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => setOpenModal(false);
 
   useEffect(() => {
     if (token) setShowActions(true);
@@ -40,11 +40,11 @@ const FloatingAction = () => {
         </div>
       </div>
       <Modal
-        open={open}
+        open={openModal}
         onClose={handleClose}
         sx={{ paddingTop: 5, overflow: "scroll", marginX: 1 }}
       >
-        <CreatePosts dataEdit={{}} onClose={handleClose} setOpen={setOpen} />
+        <CreatePosts dataEdit={{}} onClose={handleClose} setOpen={setOpenModal} />
       </Modal>
     </>
   );
