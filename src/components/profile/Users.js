@@ -1,6 +1,6 @@
 import { AccountCircleOutlined, Logout } from "@mui/icons-material";
 import { Menu, MenuItem } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isLogged } from "./config";
 import "./User.css";
@@ -23,7 +23,7 @@ function Users({ onClick }) {
   };
 
   const handleClickMenuItem = (value) => {
-    // onClick()
+    onClick&&document.getElementById('test').click()
     value === "Đăng Nhập" && navigate("/dang-nhap");
     value === "Đăng Ký" && navigate("/dang-ky");
     value === "Thông Tin Tài Khoản" && navigate("/ho-so");
