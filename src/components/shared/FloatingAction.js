@@ -21,7 +21,7 @@ const FloatingAction = () => {
   return (
     <>
       <div
-        className="position-fixed end-0 top-50 translate-middle-y me-3 z-index-3"
+        className="position-fixed end-0 top-50 translate-middle-y me-md-3 me-0 z-index-3 bg-white border py-2 px-1 rounded"
         hidden={!showActions}
       >
         <div>
@@ -35,17 +35,9 @@ const FloatingAction = () => {
             />
           </Tooltip>
         </div>
-        <div className="mt-3">
+        <div className="mt-4">
           <Tooltip title="Thời khóa biểu">
             <DeveloperBoardIcon fontSize="large" style={{ color: "#6c757d" }} />
-          </Tooltip>
-        </div>
-        <div className="mt-3">
-          <Tooltip title="Gợi ý món ăn">
-            <ContentPasteSearchIcon
-              fontSize="large"
-              style={{ color: "#6c757d" }}
-            />
           </Tooltip>
         </div>
       </div>

@@ -56,13 +56,13 @@ const Home = () => {
                     )}
                     {newRecipe &&
                         newRecipe.data.map((recipe, index) => {
-                            return <div className="col-md-3 position-relative" key={index}><NewRecipe recipe={recipe} /></div>;
+                            return <div className="col-md-3 mb-4 mb-md-0 position-relative" key={index}><NewRecipe recipe={recipe} /></div>;
                         })}
                 </div>
 
                 <div className="row mt-5">
                     <div className="food-experiens col-md-9">
-                        <div className="d-flex align-items-center mb-3">
+                        <div className="d-flex align-items-center mb-4">
                             <RamenDiningIcon fontSize="large" style={{color:"#444343"}}/>
                             <a href="/cong-thuc">
                                 <h3 className="mb-0 ms-2 text-dark">Trải nghiệm món ăn</h3> 
@@ -83,7 +83,7 @@ const Home = () => {
                             )}
                             {blogs &&
                                 blogs.data.map((blog, index) => {
-                                    return <div className="col-md-6 mb-3 row"  key={index}><BlogList blog={blog} /></div>;
+                                    return <div className="col-md-6 mb-3"  key={index}><BlogList blog={blog} /></div>;
                                 })}
 
                             <div className="col-12 mt-3">
