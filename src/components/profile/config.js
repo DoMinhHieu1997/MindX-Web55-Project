@@ -2,7 +2,7 @@ import axios from "axios";
 import {COMMON} from "../Common";
 
 
-// const host = "http://localhost:5000";
+// export const host = "http://localhost:5000";
 const host = COMMON.DOMAIN;
 
 export const http = axios.create({

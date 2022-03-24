@@ -84,18 +84,13 @@ function CreatePosts({ onClose }) {
       const date = Date.now();
       const storageRef = ref(storage, `/avatar/${date}${file.name}`);
       const uploadTask = uploadBytesResumable(storageRef, file, file.type);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {},
-        (e) => {},
-        () => {
-          getDownloadURL(storageRef).then((url) => {
-            uploadPosts.current.avatar = url;
-            setLoading(false);
-            setValue("avatar", url);
-          });
-        }
-      );
+      uploadTask.on("state_changed", "", "", () => {
+        getDownloadURL(storageRef).then((url) => {
+          uploadPosts.current.avatar = url;
+          setLoading(false);
+          setValue("avatar", url);
+        });
+      });
     }
   };
 

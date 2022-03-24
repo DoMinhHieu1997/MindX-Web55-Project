@@ -25,7 +25,6 @@ const Profile = () => {
     const HandlelogOut = () => {
         localStorage.removeItem("token");
     };
-    console.log(appCtx)
     if (!token) {
         return <Navigate to="/dang-nhap" replace />;
     }
@@ -137,7 +136,7 @@ const Profile = () => {
                     />
                 )}
                 {nav === "SavedPost" && <SavedPost />}
-                {nav === "MyPost" && <MyPost />}
+                {nav === "MyPost" && <MyPost id={userData._id} />}
             </div>
         </div>
     );
