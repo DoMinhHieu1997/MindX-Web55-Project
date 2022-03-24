@@ -6,7 +6,8 @@ import AppCtx from "../../appContext";
 import { isLogged } from "./config";
 import "./User.css";
 
-function Users({onClick}) {
+function Users() {
+
   const [anchorEl, setAnchorEl] = useState(null);
   const isLogin = isLogged();
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function Users({onClick}) {
   };
 
   const handleClickMenuItem = (value) => {
-    onClick()
+      document.getElementById("test").click();
     value === "Đăng Nhập" && navigate("/dang-nhap");
     value === "Đăng Ký" && navigate("/dang-ky");
     value === "Thông Tin Tài Khoản" && navigate("/ho-so");

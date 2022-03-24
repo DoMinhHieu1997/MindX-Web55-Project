@@ -16,7 +16,7 @@ const Menu = () => {
 
   const handleSearch = () => {
     setInputValue("");
-    document.getElementById("test").click();
+     document.getElementById("test").click();
     navigate(`/tim-kiem?p=${inputValue.replace(" ", "-")}`);
   };
 
@@ -86,7 +86,7 @@ const Menu = () => {
             <div className="logo position-absolute top-50 d-none d-md-block start-50 translate-middle p-2 rounded">
               <h2 className="text-white mb-0">COOKING HOLICS</h2>
             </div>
-            <div className="d-block d-md-none">
+            <div className="d-block d-lg-none">
               <Users onClick={handleToggle} />
             </div>
             <div className="d-flex align-items-center mt-4 mt-sm-0">
@@ -106,7 +106,7 @@ const Menu = () => {
                 />
               </div>
             </div>
-            <div className="d-none d-md-block">
+            <div className="d-none d-lg-block">
               <Users />
             </div>
           </div>
