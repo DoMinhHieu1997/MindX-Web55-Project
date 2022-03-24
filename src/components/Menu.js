@@ -16,7 +16,7 @@ const Menu = () => {
 
   const handleSearch = () => {
     setInputValue("");
-     document.getElementById("test").click();
+    document.getElementById("test").click();
     navigate(`/tim-kiem?p=${inputValue.replace(" ", "-")}`);
   };
 

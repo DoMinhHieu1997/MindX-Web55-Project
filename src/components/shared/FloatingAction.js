@@ -21,8 +21,9 @@ const FloatingAction = () => {
   return (
     <>
       <div
-        className="position-fixed end-0 top-50 translate-middle-y me-md-3 me-0 z-index-3 bg-white border py-2 px-1 rounded"
+        className="position-fixed end-0 me-md-3 me-0 z-index-3 bg-white border py-2 px-1 rounded"
         hidden={!showActions}
+        style={{top:"55%"}}
       >
         <div>
           <Tooltip title="Thêm bài viết / công thức">
