@@ -46,9 +46,9 @@ const FloatingAction = () => {
         onClose={handleClose}
         sx={{ paddingTop: 5, overflow: "scroll", marginX: 1 }}
       >
-        <div>
+        
           <CreatePosts onClose={handleClose} setOpen={setOpen} />
-        </div>
+        
       </Modal>
     </>
   );
