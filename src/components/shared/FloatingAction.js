@@ -9,7 +9,8 @@ import CreatePosts from "../posts/CreatePosts";
 
 const FloatingAction = () => {
   const appCtx = useContext(AppCtx);
-  const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+  const token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
   const [showActions, setShowActions] = useState(false);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -46,9 +47,7 @@ const FloatingAction = () => {
         onClose={handleClose}
         sx={{ paddingTop: 5, overflow: "scroll", marginX: 1 }}
       >
-        <div>
-          <CreatePosts onClose={handleClose} setOpen={setOpen} />
-        </div>
+        <CreatePosts onClose={handleClose} setOpen={setOpen} />
       </Modal>
     </>
   );
