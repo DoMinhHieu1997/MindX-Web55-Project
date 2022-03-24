@@ -48,7 +48,6 @@ function Login() {
       .then((res) => {
         data.keepLogin && localStorage.setItem("token", res.data.data.tocken);
         sessionStorage.setItem("token", res.data.data.tocken);
-        appCtx.setUserToken(res.data.data.tocken);
         navigate("/");
       })
       .catch((error) => {
