@@ -28,7 +28,7 @@ import {
 import { firebaseConfig } from "../profile/config";
 import uploadImageFirebase from "./uploadImageFirebase";
 
-function CreatePosts({ onClose }) {
+function CreatePosts({ onClose },ref) {
   
 const config = {
 	toolbar: {
@@ -285,4 +285,4 @@ const config = {
   );
 }
 
-export default CreatePosts;
+export default React.forwardRef(CreatePosts);
