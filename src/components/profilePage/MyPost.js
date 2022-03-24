@@ -6,11 +6,9 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { http } from "../profile/config";
-import SkeletonItem from "../shared/SkeletonItem";
 
 const MyPost = ({ id }) => {
   const [data, setData] = useState([]);

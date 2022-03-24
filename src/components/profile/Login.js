@@ -10,18 +10,16 @@ import {
   TextField,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { http, Logo } from "./config";
 import bglogin from "../../assets/bglogin.jpg";
-import AppCtx from "../../appContext";
 
 function Login() {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-  const appCtx = useContext(AppCtx);
 
   const {
     formState: { errors },
@@ -48,7 +46,6 @@ function Login() {
       .then((res) => {
         data.keepLogin && localStorage.setItem("token", res.data.data.tocken);
         sessionStorage.setItem("token", res.data.data.tocken);
-        // appCtx.setUserToken(res.data.data.tocken);
         navigate("/");
       })
       .catch((error) => {
