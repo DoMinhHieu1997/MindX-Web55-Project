@@ -12,8 +12,6 @@ import Profile from "./components/profilePage/Profile";
 import MyProfile from "./components/profilePage/MyProfile";
 import MyPost from "./components/profilePage/MyPost";
 import SavedPost from "./components/profilePage/SavedPost";
-import FoodRecommendation from "./components/shared/FoodRecommendation";
-import TimeTable from "./components/shared/TimeTable";
 import Search from "./components/Search";
 import AppCtx from "./appContext";
 import { COMMON } from "./components/Common";
@@ -28,7 +26,6 @@ import { useNavigate } from "react-router-dom";
 function App() {
     let navigate = useNavigate();
     const [userInfo, setUserInfo] = useState(null);
-    const [userToken, setUserToken] = useState(null);
     const [openLoginNotify, setOpenLoginNotify] = useState(false);
 
     const handleClose = () => {
@@ -44,7 +41,6 @@ function App() {
         const token = sessionStorage.getItem("token") || localStorage.getItem("token");
         
         if (token) {
-            setUserToken(token);
             fetch(`${COMMON.DOMAIN}user/info`, {
                 method: "GET",
                 headers: {
@@ -65,15 +61,11 @@ function App() {
                 value={{
                     userInfo: userInfo,
                     setUserInfo: setUserInfo,
-                    userToken: userToken,
-                    setUserToken: setUserToken,
                     openLoginNotify: openLoginNotify,
                     setOpenLoginNotify: setOpenLoginNotify,
                 }}
             >
                 <Menu />
-                {/* <FoodRecommendation />
-        <TimeTable /> */}
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/cong-thuc" element={<Recipes />} />

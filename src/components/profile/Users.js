@@ -1,17 +1,14 @@
 import { AccountCircleOutlined, Logout } from "@mui/icons-material";
 import { Menu, MenuItem } from "@mui/material";
-import React, {  useContext, useState } from "react";
+import React, {  useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AppCtx from "../../appContext";
 import { isLogged } from "./config";
 import "./User.css";
 
-function Users({onClick}) {
+function Users({ onClick }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const isLogin = isLogged();
   const navigate = useNavigate();
-  const appCtx = useContext(AppCtx);
-
 
   const options = !isLogin
     ? ["Đăng Nhập", "Đăng Ký"]
@@ -26,18 +23,17 @@ function Users({onClick}) {
   };
 
   const handleClickMenuItem = (value) => {
-    // onClick()
+    onClick&&document.getElementById('test').click()
     value === "Đăng Nhập" && navigate("/dang-nhap");
     value === "Đăng Ký" && navigate("/dang-ky");
     value === "Thông Tin Tài Khoản" && navigate("/ho-so");
     if (value === "Đăng Xuất") {
       sessionStorage.removeItem("token");
       localStorage.removeItem("token");
-      appCtx.setUserToken(null)
       navigate("/dang-nhap");
     }
   };
-  
+
   return (
     <div>
       <div className="user-menu desktop">

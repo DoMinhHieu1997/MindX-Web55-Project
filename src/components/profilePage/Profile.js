@@ -1,12 +1,13 @@
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { useState, useEffect, useContext } from "react";
 import SkeletonItem from "../shared/SkeletonItem";
-import { Navigate, NavLink, Outlet, useMatch } from "react-router-dom";
+import { Navigate, NavLink, useMatch, useNavigate } from "react-router-dom";
 import MyProfile from "./MyProfile";
 import SavedPost from "./SavedPost";
 import MyPost from "./MyPost";
 import AppCtx from "../../appContext";
 const Profile = () => {
+    const navigate = useNavigate();
     const appCtx = useContext(AppCtx);
     const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +29,11 @@ const Profile = () => {
     }, [appCtx]);
     const HandlelogOut = () => {
         localStorage.removeItem("token");
+        sessionStorage.removeItem("token")
+        navigate("/dang-nhap");
     };
+
+
 
     if (!token) {
         return <Navigate to="/dang-nhap" replace />;

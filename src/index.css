@@ -11,6 +11,9 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+div:focus-visible {
+  outline: none !important;
+}
 a {
   text-decoration: none;
 }
@@ -29,7 +32,7 @@ input:focus {
   background-color: darkred;
 }
 .new-recipes-try:hover {
-  box-shadow: 0.5px 5px 10px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0.5px 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 .cursor-pointer {
   cursor: pointer;
@@ -45,13 +48,16 @@ input:focus {
   font-weight: 800;
 }
 .card:hover {
-  border: 1px solid #adadad;
+  box-shadow: 0.5px 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 .card-title {
   color: black;
 }
-.card-title:hover {
+.normal-title:hover {
   color: #3e9294 !important;
+}
+.toplike-title:hover {
+  color: white !important;
 }
 .bg-3771c7 {
   background-color: #3771c7;
@@ -72,6 +78,9 @@ input:focus {
     rgba(255, 255, 255, 0.8435749299719888) 43%,
     rgba(255, 255, 255, 0) 100%
   );
+}
+.text-06a682-hover:hover {
+  color: #06a682 !important;
 }
 .icon {
   background-position: center;
@@ -109,6 +118,9 @@ input:focus {
 .post-content figure {
   margin-left: auto;
   margin-right: auto;
+}
+.text-shadow {
+  text-shadow: 2px 2px #5a5a5a;
 }
 .ck-editor__editable {
   min-height: 15rem;

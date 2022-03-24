@@ -10,8 +10,8 @@ const Footer = () => {
                             <h2 className="text-white mb-0">COOKING HOLICS</h2>
                         </div>
                     </div>
-                    <div className="col-12 col-md-3">
-                        <ul className="list-unstyled d-flex">
+                    <div className="col-12 col-md-3 text-center">
+                        <ul className="list-unstyled d-flex justify-content-center">
                             <li className="me-4">
                                 <NavLink className="text-white fs-5" to="/">Trang chủ</NavLink>
                             </li>
