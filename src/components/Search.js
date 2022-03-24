@@ -102,7 +102,7 @@ const Search = () => {
 
     return <>
         <FloatingAction />
-        <div className="container py-5 position-relative">
+        <div className="container py-5 mb-5 position-relative">
             {
                 isError && <Alert severity="error" className="d-inline-flex position-absolute top-0 end-0 mt-3">Mời nhập từ kháo để thực hiện tìm kiếm!</Alert>
             }

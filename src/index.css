@@ -45,13 +45,16 @@ input:focus {
   font-weight: 800;
 }
 .card:hover {
-  border: 1px solid #adadad;
+  outline: 2px solid #252525;
 }
 .card-title {
   color: black;
 }
-.card-title:hover {
+.normal-title:hover {
   color: #3e9294 !important;
+}
+.toplike-title:hover {
+  color: white !important;
 }
 .bg-3771c7 {
   background-color: #3771c7;

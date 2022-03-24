@@ -64,7 +64,7 @@ const PostItem = (props) => {
     </div>
     <div className={props.isTopLikeItem ? "card-body pb-2 position-absolute bottom-0 end-0 start-0 text-shadow" : "mt-2 px-2"}>
       <a href={"/chi-tiet/"+props.data._id}>
-        <h5 className={"card-title " + (props.isTopLikeItem ? "text-white" : "")}>{props.data.title}</h5>
+        <h5 className={"card-title " + (props.isTopLikeItem ? "text-white toplike-title" : "normal-title")}>{props.data.title}</h5>
       </a>
       {
         !props.isTopLikeItem && <p className="card-text pb-2">{spliceString(props.data.description,80)}</p>

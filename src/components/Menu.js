@@ -26,6 +26,7 @@ const Menu = () => {
       navigate(`/tim-kiem?p=${inputValue.replace(" ", "-")}`);
     }
   };
+  
   const handleToggle = () => {
     document.getElementById("test").click();
   };
