@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import CreatePosts from "../posts/CreatePosts";
 import { http } from "../profile/config";
 
-const MyPost = ({ id }) => {
+const MyPost = ({ userData }) => {
   const [data, setData] = useState([]);
   const [loadPage, setLoadingPage] = useState(6);
   const [isLoading, setIsLoading] = useState(true);
@@ -23,11 +23,12 @@ const MyPost = ({ id }) => {
 
   const handleClose = () => setOpen(false);
   useEffect(() => {
+    const id=userData._id
     http.get(`/posts/user?p=1&s=${loadPage}&t=1&userId=${id}`).then((res) => {
       setData(res.data.data);
       setIsLoading(false);
     });
-  }, [loadPage]);
+  }, [loadPage,userData]);
   const handleLoadMore = () => {
     setIsLoading(true);
     setLoadingPage((prev) => prev + 6);
