@@ -92,6 +92,7 @@ function CreatePosts({ onClose }, refChild) {
     setToggle(toggle);
     clearErrors();
   };
+  // console.log('a');
   const onSubmit = (data) => {
     setLoading(true);
     setLoadingPage(true);

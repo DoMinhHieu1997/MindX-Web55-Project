@@ -1,15 +1,14 @@
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig, http } from "../profile/config";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-const MyProfile = ({ userData, setUserData, isLoading, setIsLoading }) => {
+const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editEmail, setEditEmail] = useState("Loading...");
     const [editName, setEditName] = useState("Loading...");
-    const [editAvatar, setEditAvatar] = useState("Loading...");
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [showOldPassword, setShowOldPassword] = useState(false);
@@ -17,6 +16,8 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading }) => {
     const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     const firebaseApp = initializeApp(firebaseConfig);
     const storage = getStorage(firebaseApp);
+    const imageInputRef = useRef();
+
     useEffect(() => {
         if (userData) {
             setEditEmail(userData.email);
@@ -36,10 +37,12 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading }) => {
         } else if (e.key === "Enter" || e === "Save") {
             if (token) {
                 setIsLoading(true);
-                http.patch("user/update", {
-                    nameDisplay: editName,
-                    email: editEmail,
-                    photoUrl: editAvatar,
+                handleUploadPhoto().then((imageUrl) => {
+                    return http.patch("user/update", {
+                        nameDisplay: editName,
+                        email: editEmail,
+                        photoUrl: imageUrl,
+                    })
                 }).then((res) => {
                     setUserData(res.data.data);
                     setOldPassword("");
@@ -51,6 +54,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading }) => {
     };
     const CancelEdit = () => {
         setIsEditing(false);
+        setViewAva(userData.photoUrl);
     };
 
     const updatePassword = () => {
@@ -66,25 +70,39 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading }) => {
         }
     };
 
-    const handlePhoto = (file) => {
-        console.log(file);
-        if (file) {
-            setIsLoading(true);
-            const date = Date.now();
-            const storageRef = ref(storage, `/avatar/${date}.jpg`);
-            const uploadTask = uploadBytesResumable(storageRef, file);
-            uploadTask.on(
-                "state_changed",
-                (snapshot) => {},
-                (e) => {},
-                () => {
-                    getDownloadURL(storageRef).then((url) => {
-                        setIsLoading(false);
-                        setEditAvatar(url);
-                    });
-                }
-            );
+    const handleInputIMG = (e) => {
+        const file = e.target.files[0];
+        if (file.type === "image/png" || file.type === "image/gif" || file.type === "image/jpeg") {
+            console.log(file);
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => setViewAva(reader.result);
+            imageInputRef.current = file;
         }
+    };
+
+    const handleUploadPhoto = () => {
+        return new Promise(resolve => {
+            const file = imageInputRef.current;
+            if (file) {
+                setIsLoading(true);
+                const date = Date.now();
+                const storageRef = ref(storage, `/avatar/${date}.jpg`);
+                const uploadTask = uploadBytesResumable(storageRef, file);
+                uploadTask.on(
+                    "state_changed",
+                    (snapshot) => {},
+                    (e) => {},
+                    () => {
+                        getDownloadURL(storageRef).then((url) => {
+                            setIsLoading(false);
+                            setViewAva(url);
+                            resolve(url);
+                        });
+                    }
+                );
+            }
+        })
     };
 
     return (
@@ -99,7 +117,11 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading }) => {
                     </div>
                     <div className="row">
                         <div className="col-12 pb-5">
-                            <input type="file" onChange={(event) => handlePhoto(event.target.files[0])} disabled={!isEditing} />
+                            <input
+                                type="file"
+                                onChange={handleInputIMG}
+                                disabled={!isEditing}
+                            />
                         </div>
                     </div>
                     <div className="row">

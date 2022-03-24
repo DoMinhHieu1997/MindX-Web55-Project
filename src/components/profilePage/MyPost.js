@@ -6,23 +6,22 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { http } from "../profile/config";
-import SkeletonItem from "../shared/SkeletonItem";
 
-const MyPost = ({ id }) => {
+const MyPost = ({ userData }) => {
   const [data, setData] = useState([]);
   const [loadPage, setLoadingPage] = useState(6);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
+    const id=userData._id
     http.get(`/posts/user?p=1&s=${loadPage}&t=1&userId=${id}`).then((res) => {
       setData(res.data.data);
       setIsLoading(false);
     });
-  }, [loadPage]);
+  }, [loadPage,userData]);
   const handleLoadMore = () => {
     setIsLoading(true);
     setLoadingPage((prev) => prev + 6);

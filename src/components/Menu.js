@@ -14,9 +14,9 @@ const Menu = () => {
     setInputValue(event.target.value);
   };
 
-  const handleSearch = () => {
+  const handleSearch = (type) => {
     setInputValue("");
-    document.getElementById("test").click();
+    type&& document.getElementById("test").click();
     navigate(`/tim-kiem?p=${inputValue.replace(" ", "-")}`);
   };
 
@@ -119,9 +119,14 @@ const Menu = () => {
                   onKeyPress={handleKeyPress}
                 />
                 <SearchIcon
-                  className="position-absolute top-50 end-0 translate-middle-y me-2"
+                  className="position-absolute top-50 end-0 d-block d-md-none translate-middle-y me-2"
                   style={{ color: "#939393" }}
-                  onClick={handleSearch}
+                  onClick={()=>handleSearch(true)}
+                />
+                <SearchIcon
+                  className="position-absolute top-50 end-0 d-none d-md-block translate-middle-y me-2"
+                  style={{ color: "#939393" }}
+                  onClick={()=>handleSearch(false)}
                 />
               </div>
             </div>
