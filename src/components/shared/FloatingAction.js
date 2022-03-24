@@ -1,18 +1,14 @@
-import { useState, useContext, useEffect } from "react";
-import AppCtx from "../../appContext";
+import { useState,  useEffect } from "react";
 import LoupeIcon from "@mui/icons-material/Loupe";
 import DeveloperBoardIcon from "@mui/icons-material/DeveloperBoardOutlined";
-import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import { Modal, Tooltip } from "@mui/material";
-import React from "react";
 import CreatePosts from "../posts/CreatePosts";
 
 const FloatingAction = () => {
-  const appCtx = useContext(AppCtx);
   const token =
     localStorage.getItem("token") || sessionStorage.getItem("token");
   const [showActions, setShowActions] = useState(false);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -47,7 +43,7 @@ const FloatingAction = () => {
         onClose={handleClose}
         sx={{ paddingTop: 5, overflow: "scroll", marginX: 1 }}
       >
-        <CreatePosts onClose={handleClose} setOpen={setOpen} />
+        <CreatePosts dataEdit={{}} onClose={handleClose} setOpen={setOpen} />
       </Modal>
     </>
   );
