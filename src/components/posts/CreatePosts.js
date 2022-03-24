@@ -29,6 +29,51 @@ import { firebaseConfig } from "../profile/config";
 import uploadImageFirebase from "./uploadImageFirebase";
 
 function CreatePosts({ onClose }) {
+  
+const config = {
+	toolbar: {
+		items: [
+			'heading',
+			'|',
+			'bold',
+			'italic',
+			'imageUpload',
+			'link',
+			'bulletedList',
+			'numberedList',
+			'|',
+			// 'outdent',
+			// 'indent',
+			// '|',
+			'blockQuote',
+			'insertTable',
+			'undo',
+			'redo',
+		// 	'CKFinder',
+		// 	'imageInsert'
+		]
+	},
+	language: 'vi',
+
+	image: {
+		toolbar: [
+			'imageTextAlternative',
+			'imageStyle:inline',
+			'imageStyle:block',
+			'imageStyle:side',
+      'resizeImage:50',
+      'resizeImage:75',
+      'resizeImage:original',
+		]
+	},
+	table: {
+		contentToolbar: [
+			'tableColumn',
+			'tableRow',
+			'mergeTableCells'
+		]
+	}
+};
   const {
     formState: { errors },
     trigger,
@@ -62,9 +107,10 @@ function CreatePosts({ onClose }) {
       http.post("/posts/create", uploadPosts.current).then((res) => {
         const id = res.data.data._id.toString();
         onClose();
-        navigate(`/chi-tiet/${id}`);
         setLoading(false);
         setLoadingPage(false);
+        window.scroll(0,0)
+        navigate(`/chi-tiet/${id}`);
       });
     } else {
       uploadPosts.current.type = 1;
@@ -72,9 +118,10 @@ function CreatePosts({ onClose }) {
       http.post("/posts/create", uploadPosts.current).then((res) => {
         const id = res.data.data._id.toString();
         onClose();
-        navigate(`/chi-tiet/${id}`);
         setLoading(false);
         setLoadingPage(false);
+        window.scroll(0,0)
+        navigate(`/chi-tiet/${id}`);
       });
     }
   };
@@ -95,14 +142,13 @@ function CreatePosts({ onClose }) {
   };
 
   return (
-    <div>
       <Container
         maxWidth="md"
         className="pb-3"
         sx={{
           bgcolor: "white",
-          width: "100%",
-          height: "100%",
+          // width: "100%",
+          // height: "100%",
           borderRadius: 1.5,
         }}
       >
@@ -165,7 +211,7 @@ function CreatePosts({ onClose }) {
             )}
             {!toggle && (
               <TextField
-                sx={{ m: "10px 0" }}
+                sx={{ width:310}}
                 error={!!errors.totalCalories?.message}
                 size="small"
                 type="number"
@@ -182,6 +228,7 @@ function CreatePosts({ onClose }) {
             <h5 className="mt-4 mb-2 text-secondary">Nội dung bài viết</h5>
             <Box sx={{ height: "100%", p: "10px 0" }}>
               <CKEditor
+              config={config}
                 editor={Editor}
                 data=""
                 onChange={(event, editor) => {
@@ -234,7 +281,7 @@ function CreatePosts({ onClose }) {
           </form>
         </Paper>
       </Container>
-    </div>
+    
   );
 }
 

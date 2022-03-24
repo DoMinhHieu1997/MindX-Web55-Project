@@ -15,7 +15,6 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
       setError(false);
       setIngredient("");
       setTotal("");
-    console.log('a');
     } else {
       setError({
         ingredienError: !nameIngredient,
@@ -25,10 +24,10 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
   };
   return (
     <div className="my-4">
-      <Paper sx={{ m: "10px 0" }} elevation={4}>
-        <Box sx={{ display: "flex", flexWrap: "wrap", paddingX: 2 }}>
+      <div sx={{ m: "10px 0" }} elevation={4}>
+        <Box sx={{ display: "flex", flexWrap: "wrap", }}>
           <TextField
-            sx={{ pr: 2, mt: 1, height: 50, width: 310 }}
+            sx={{ mt: 1, height: 50, width: 310 ,mr:5}}
             ref={ref}
             value={nameIngredient}
             label={
@@ -53,16 +52,16 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
             type="number"
             error={(error?.totalError || label) && !cardItem[0]}
           />
-        </Box>
         <Button
           type="button"
           variant="contained"
           onClick={handleBtnAdd}
-          sx={{ width: 208, ml: 2, mb: 2, mt: 1 }}
+          sx={{ width: 310,  mb: 2, mt: 1 }}
         >
           Thêm
         </Button>{" "}
-      </Paper>
+        </Box>
+      </div>
       <Box
         sx={{
           display: "flex",
@@ -75,7 +74,7 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
             <Card
               key={index}
               sx={{
-                width: 150,
+                width: 140,
                 minHeight: 60,
                 m: 1,
                 position: "relative",
