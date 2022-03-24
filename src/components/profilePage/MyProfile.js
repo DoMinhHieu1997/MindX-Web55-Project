@@ -56,9 +56,9 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading }) => {
     const updatePassword = () => {
         if (oldPassword && newPassword && token) {
             setIsLoading(true);
-            http.patch("user/update", {
-                // oldPassword: oldPassword,
-                password: newPassword,
+            http.patch("auth/changepassword", {
+                password: oldPassword,
+                passwordNew: newPassword,
             }).then((res) => {
                 setUserData(res.data.data);
                 setIsLoading(false);
@@ -67,11 +67,12 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading }) => {
     };
 
     const handlePhoto = (file) => {
+        console.log(file);
         if (file) {
             setIsLoading(true);
             const date = Date.now();
-            const storageRef = ref(storage, `/avatar/${date}${file.name}`);
-            const uploadTask = uploadBytesResumable(storageRef, file, file.type);
+            const storageRef = ref(storage, `/avatar/${date}.jpg`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
             uploadTask.on(
                 "state_changed",
                 (snapshot) => {},
@@ -98,7 +99,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading }) => {
                     </div>
                     <div className="row">
                         <div className="col-12 pb-5">
-                            <input type="file" onChange={handlePhoto} disabled={!isEditing} />
+                            <input type="file" onChange={(event) => handlePhoto(event.target.files[0])} disabled={!isEditing} />
                         </div>
                     </div>
                     <div className="row">
