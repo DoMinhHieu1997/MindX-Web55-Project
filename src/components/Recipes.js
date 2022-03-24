@@ -35,7 +35,6 @@ const Recipes = () => {
   }
 
   useEffect(() => {
-    console.log(1);
     getListRecipes(1);
   }, []);
 
