@@ -6,7 +6,7 @@ import AppCtx from "../../appContext";
 import { isLogged } from "./config";
 import "./User.css";
 
-function Users() {
+function Users({onClick}) {
   const [anchorEl, setAnchorEl] = useState(null);
   const isLogin = isLogged();
   const navigate = useNavigate();
@@ -26,6 +26,7 @@ function Users() {
   };
 
   const handleClickMenuItem = (value) => {
+    onClick()
     value === "Đăng Nhập" && navigate("/dang-nhap");
     value === "Đăng Ký" && navigate("/dang-ky");
     value === "Thông Tin Tài Khoản" && navigate("/ho-so");
@@ -33,7 +34,7 @@ function Users() {
       sessionStorage.removeItem("token");
       localStorage.removeItem("token");
       appCtx.setUserToken(null)
-      navigate("/");
+      navigate("/dang-nhap");
     }
   };
   

@@ -5,21 +5,21 @@ import React, { useState } from "react";
 
 function AddIngredients({ label, setCardItem, cardItem }, ref) {
   const [nameIngredient, setIngredient] = useState("");
-  const [total, setTotal] = useState("");
-  const [unit, setUnit] = useState("");
+  const [total, setTotal] = useState(1);
   const [error, setError] = useState(false);
   const handleBtnAdd = () => {
-    if (nameIngredient && total && unit) {
-      setCardItem((prev) => [...prev, { nameIngredient, total, unit }]);
+    if (nameIngredient 
+      // && total
+      ) {
+      setCardItem((prev) => [...prev, { nameIngredient, total:1}]);
       setError(false);
       setIngredient("");
       setTotal("");
-      setUnit("");
+    console.log('a');
     } else {
       setError({
         ingredienError: !nameIngredient,
-        totalError: !total,
-        unitError: !unit,
+        // totalError: !total,
       });
     }
   };
@@ -28,7 +28,7 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
       <Paper sx={{ m: "10px 0" }} elevation={4}>
         <Box sx={{ display: "flex", flexWrap: "wrap", paddingX: 2 }}>
           <TextField
-            sx={{ pr: 2, mt: 2, height: 50, width: 300 }}
+            sx={{ pr: 2, mt: 1, height: 50, width: 310 }}
             ref={ref}
             value={nameIngredient}
             label={
@@ -41,7 +41,7 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
             error={(error?.ingredienError || label) && !cardItem[0]}
           />
           <TextField
-            sx={{ width: 150, mt: 2, height: 50 }}
+            sx={{ width: 295, mt: 1, height: 50 ,display:'none'}}
             label={
               (error?.totalError || label) && !cardItem[0]
                 ? "Nhập số lượng"
@@ -53,25 +53,12 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
             type="number"
             error={(error?.totalError || label) && !cardItem[0]}
           />
-          <TextField
-            sx={{ ml: 2, width: 120, mt: 2, mb: 2, height: 50 }}
-            label={
-              (error?.unitError || label) && !cardItem[0]
-                ? "Nhập đơn vị"
-                : "Đơn vị"
-            }
-            size="small"
-            value={unit}
-            onChange={(e) => setUnit(e.target.value)}
-            type="text"
-            error={(error?.unitError || label) && !cardItem[0]}
-          />
         </Box>
         <Button
           type="button"
           variant="contained"
           onClick={handleBtnAdd}
-          sx={{ width: 208, ml: 2, mb: 2 }}
+          sx={{ width: 208, ml: 2, mb: 2, mt: 1 }}
         >
           Thêm
         </Button>{" "}
@@ -89,7 +76,7 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
               key={index}
               sx={{
                 width: 150,
-                height: 60,
+                minHeight: 60,
                 m: 1,
                 position: "relative",
                 display: "flex",
@@ -136,7 +123,7 @@ function AddIngredients({ label, setCardItem, cardItem }, ref) {
                   left: 16,
                 }}
               >
-                {total} {unit}
+                {/* {total}  */}
               </Card>
             </Card>
           );

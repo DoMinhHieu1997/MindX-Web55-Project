@@ -1,9 +1,15 @@
 import React, { useRef, useState } from "react";
-import { Button, Container, Paper, TextField } from "@mui/material";
+import {
+  Backdrop,
+  Button,
+  CircularProgress,
+  Container,
+  Paper,
+  TextField,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import Editor from "ckeditor5-custom-build/build/ckeditor";
-import uploadImageSever from "./uploadImageSever";
 import FeaturedPhoto from "./FeaturedPhoto";
 import { http } from "../profile/config";
 import "./posts.css";
@@ -12,6 +18,15 @@ import { Box } from "@mui/system";
 import AddIngredients from "./AddIngredients";
 import { LoadingButton } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
+import { initializeApp } from "firebase/app";
+import {
+  getDownloadURL,
+  getStorage,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { firebaseConfig } from "../profile/config";
+import uploadImageFirebase from "./uploadImageFirebase";
 
 function CreatePosts({ onClose }) {
   const {
@@ -27,7 +42,11 @@ function CreatePosts({ onClose }) {
   const [imgPreview, setImgPreview] = useState(null);
   const [cardItem, setCardItem] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingPage, setLoadingPage] = useState(false);
+
   const navigate = useNavigate();
+  const firebaseApp = initializeApp(firebaseConfig);
+  const storage = getStorage(firebaseApp);
 
   const handleClick = (toggle) => {
     setToggle(toggle);
@@ -35,6 +54,7 @@ function CreatePosts({ onClose }) {
   };
   const onSubmit = (data) => {
     setLoading(true);
+    setLoadingPage(true);
     uploadPosts.current = { ...uploadPosts.current, ...data };
     if (toggle) {
       uploadPosts.current.type = 2;
@@ -44,32 +64,36 @@ function CreatePosts({ onClose }) {
         onClose();
         navigate(`/chi-tiet/${id}`);
         setLoading(false);
+        setLoadingPage(false);
       });
     } else {
       uploadPosts.current.type = 1;
       uploadPosts.current.ingredients = cardItem;
       http.post("/posts/create", uploadPosts.current).then((res) => {
         const id = res.data.data._id.toString();
-
         onClose();
         navigate(`/chi-tiet/${id}`);
         setLoading(false);
+        setLoadingPage(false);
       });
     }
   };
   const handlePhoto = (file) => {
     if (file) {
-      const formData = new FormData();
-      formData.append("myFile", file);
-      file &&
-        http.post("/upload", formData).then((res) => {
-          const linkAvatar = res.data.data[res.data.data.length - 1];
-          uploadPosts.current.avatar = linkAvatar;
-          setValue("avatar", linkAvatar);
+      setLoading(true);
+      const date = Date.now();
+      const storageRef = ref(storage, `/avatar/${date}${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file, file.type);
+      uploadTask.on("state_changed", "", "", () => {
+        getDownloadURL(storageRef).then((url) => {
+          uploadPosts.current.avatar = url;
+          setLoading(false);
+          setValue("avatar", url);
         });
+      });
     }
   };
-  console.log(uploadPosts);
+
   return (
     <div>
       <Container
@@ -169,7 +193,8 @@ function CreatePosts({ onClose }) {
                   editor.plugins.get("FileRepository").createUploadAdapter = (
                     loader
                   ) => {
-                    return new uploadImageSever(loader);
+                    // return new uploadImageSever(loader);
+                    return new uploadImageFirebase(loader, setLoading);
                   };
                 }}
               />
@@ -188,7 +213,15 @@ function CreatePosts({ onClose }) {
               >
                 Tạo bài viết
               </LoadingButton>
-
+              <Backdrop
+                sx={{
+                  color: "#fff",
+                  zIndex: (theme) => theme.zIndex.drawer + 1,
+                }}
+                open={loadingPage}
+              >
+                <CircularProgress color="inherit" />
+              </Backdrop>
               <Button
                 sx={{ margin: "10px 30px" }}
                 type="button"

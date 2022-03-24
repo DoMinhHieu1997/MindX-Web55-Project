@@ -47,7 +47,7 @@ const Home = () => {
                 }
                 {newRecipe &&
                     newRecipe.data.map((recipe) => {
-                        return <NewRecipe recipe={recipe} />;
+                        return <NewRecipe  recipe={recipe} />;
                     })}
             </div>
 
