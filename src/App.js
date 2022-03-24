@@ -65,15 +65,11 @@ function App() {
                 value={{
                     userInfo: userInfo,
                     setUserInfo: setUserInfo,
-                    userToken: userToken,
-                    setUserToken: setUserToken,
                     openLoginNotify: openLoginNotify,
                     setOpenLoginNotify: setOpenLoginNotify,
                 }}
             >
                 <Menu />
-                {/* <FoodRecommendation />
-        <TimeTable /> */}
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/cong-thuc" element={<Recipes />} />

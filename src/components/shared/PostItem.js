@@ -49,9 +49,13 @@ const PostItem = (props) => {
   }
 
   return <div className='card overflow-hidden h-100'>
-    <div className="position-relative rounded oveflow-hidden">
+    <div className="rounded oveflow-hidden">
       <a href={"/chi-tiet/"+props.data._id}>
-        <div className="ratio ratio-1x1 image-background" style={{backgroundImage:`url(${props.data.avatar})`}}></div>
+        <div className="ratio ratio-1x1 image-background" style={{backgroundImage:`url(${props.data.avatar})`}}>
+          {
+            props.isTopLikeItem && <div className="top-0 bottom-0 end-0 start-0" style={{backgroundColor:"rgba(0,0,0,.2)"}}></div>
+          }
+        </div>
       </a>
       <div className="p-1 mt-2 ms-2 position-absolute top-0 bg-06a682 rounded text-white">
         {
