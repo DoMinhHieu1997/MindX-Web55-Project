@@ -18,7 +18,7 @@ const BlogList = ({blog}) => {
                         <h5 className="text-dark text-06a682-hover d-none d-md-block">{blog.title}</h5>
                         <h6 className="text-dark text-06a682-hover d-md-block d-md-none">{blog.title}</h6>
                     </a>
-                    <h6 className="text-secondary mt-3">{transferDate(blog.updatedAt)}</h6>
+                    <h6 className="text-secondary mt-3 mt-md-2">{transferDate(blog.updatedAt)}</h6>
                     <div className="d-none d-md-block">{spliceString(blog.description,80)}</div>
                     <div className="d-md-block d-md-none">{spliceString(blog.description,50)}</div>
                 </div>

@@ -78,11 +78,11 @@ const Home = () => {
             <div className="row">
                 {blogs &&
                     blogs.data.map((blog, index) => {
-                    return (
-                        <div className="col-md-6 mb-3 row" key={index}>
-                        <BlogList blog={blog} />
-                        </div>
-                    );
+                        return (
+                            <div className="col-md-6 mb-3" key={index}>
+                            <BlogList blog={blog} />
+                            </div>
+                        );
                     })
                 }
                 {isLoadingFE && (
@@ -97,7 +97,7 @@ const Home = () => {
                         <FoodExSkeleton />
                     </>
                 )}
-              <div className="col-12 mt-3">
+              <div className="col-12 mt-md-3 mt-0">
                 <div className="row justify-content-center">
                   <div className="col-auto">
                     <button
