@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Backdrop,
   Button,
@@ -84,6 +84,10 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
   const [loading, setLoading] = useState(false);
   const [loadingPage, setLoadingPage] = useState(false);
   const [dataConten, setDataConten] = useState("");
+  const [valueTitle,setValueTitle]=useState('')
+  const [valueTotalCalo,setValueTotalCalo]=useState('')
+  const [valueDescription,setValueDescription]=useState('')
+  const [valueAvatar,setvalueAvatar]=useState(null)
   const {
     avatar,
     content,
@@ -95,12 +99,16 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
     _id,
     userId,
   } = dataEdit;
-  // console.log(dataEdit);
-
   useEffect(() => {
     type === 1 && setToggle(false);
   }, [type]);
-  useEffect(() => {}, []);
+  useLayoutEffect(() => {
+    ingredients&&setCardItem(ingredients)
+    title&&setValueTitle(title)
+    avatar&&setvalueAvatar(avatar)
+    totalCalories&&setValueTotalCalo(totalCalories)
+    description&&setValueDescription(description)
+  }, [ingredients]);
   const navigate = useNavigate();
   const firebaseApp = initializeApp(firebaseConfig);
   const storage = getStorage(firebaseApp);
@@ -116,9 +124,16 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
     setLoading(false);
     setLoadingPage(false);
     window.scroll(0, 0);
+    navigate(`/ho-so/bai-viet-cua-toi`);
     navigate(`/chi-tiet/${id}`);
   };
   const onSubmit = (data) => {
+    if(!data.title&&valueTitle){
+      data.title=valueTitle
+    }
+    if(!data.description&&valueDescription){
+      data.description=valueDescription
+    }
     setLoading(true);
     setLoadingPage(true);
     uploadPosts.current = { ...uploadPosts.current, ...data };
@@ -165,7 +180,6 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
       });
     }
   };
-
   return (
     <Container
       maxWidth="md"
@@ -184,14 +198,17 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
             error={!!errors.title?.message}
             fullWidth
             size="small"
-            value={title}
+            value={valueTitle}
             label={errors.title?.message || "Tiêu đề"}
             {...register("title", {
               required: {
-                value: true,
+                value: !valueTitle,
                 message: "Nhập tiêu đề",
               },
               onBlur: () => trigger(),
+              onChange:(e)=>{
+                setValueTitle(e.target.value)
+              }
             })}
           />
           <TextField
@@ -199,19 +216,21 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
             error={!!errors.description?.message}
             fullWidth
             multiline
-            value={description}
+            value={valueDescription}
             label={errors.description?.message || "Mô tả"}
             {...register("description", {
               required: {
-                value: true,
+                value: !valueDescription,
                 message: "Nhập mô tả",
               },
               onBlur: () => trigger(),
+              onChange:(e)=>setValueDescription(e.target.value)
             })}
           />
           <FeaturedPhoto
-            imgPreview={avatar || imgPreview}
+            imgPreview={imgPreview||valueAvatar}
             setImgPreview={setImgPreview}
+            loading={loading}
             onChangeFile={handlePhoto}
             label={errors.avatar?.message || false}
             ref={refChild}
@@ -220,13 +239,15 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
                 value: !imgPreview && !dataEdit._id,
                 message: "Tải ảnh đại diện cho bài viết",
               },
+              // onChange:(e)=>setImgPreview(e.target.file[0])
             })}
           />
           {!toggle && (
             <AddIngredients
               label={errors.ingredients?.message || false}
               setCardItem={setCardItem}
-              cardItem={ingredients || cardItem}
+              // cardItem={ingredients || cardItem}
+              cardItem={cardItem }
               {...register("ingredients", {
                 required: {
                   value: !cardItem[0] && !dataEdit._id,
@@ -241,7 +262,7 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
               error={!!errors.totalCalories?.message}
               size="small"
               type="number"
-              value={totalCalories}
+              value={valueTotalCalo}
               label={errors.totalCalories?.message || "Tổng lượng Calo"}
               {...register("totalCalories", {
                 required: {
@@ -249,6 +270,7 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
                   message: "Nhập tổng lượng Calo",
                 },
                 onBlur: () => trigger(),
+                onChange:(e)=>setValueTotalCalo(e.target.value)
               })}
             />
           )}
@@ -274,7 +296,7 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
               }}
             />
           </Box>
-          {!uploadPosts.current.content && imgPreview && (
+          {!uploadPosts.current.content && imgPreview &&!content&& (
             <p style={{ color: "#dc3545" }}>Vui lòng viết nội dung bài viết</p>
           )}
           <Box sx={{ display: "flex", justifyContent: "center" }}>
