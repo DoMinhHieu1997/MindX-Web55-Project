@@ -71,8 +71,7 @@ const PostContent = (props) => {
   const handleUnsave = () => {
     if (token) {
       setJustUnsave(true);
-      listBk.splice(listBk.indexOf(postId,1))
-      console.log(listBk,"bỏ lưu");
+      listBk.splice(listBk.indexOf(postId,1));
 
       let bodyData = {
         "listBookmark":[...listBk]
@@ -99,8 +98,6 @@ const PostContent = (props) => {
     }
   }
 
-  console.log(listBk);
-
   const handleSave = () => {
     if (token) {
       setJustSave(true);
@@ -108,7 +105,6 @@ const PostContent = (props) => {
       let bodyData = {
         "listBookmark":[...listBk,"622ce6f975faa48f08c2c35f"]
       }
-      console.log(listBk,"lưu");
 
       fetch(`${COMMON.DOMAIN}user/update`,{
         method: "PATCH",
