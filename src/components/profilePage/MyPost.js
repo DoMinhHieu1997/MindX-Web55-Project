@@ -27,7 +27,7 @@ const MyPost = ({ userData }) => {
     setLoadingPage((prev) => prev + 6);
   };
   return (
-    <div className="col-md-8 border ml-2">
+    <div className="col-md-8 border ml-2 ">
       <div className="row">
         <div className="col-12 p-4">
           <div className="h3">Danh sách bài viết</div>
@@ -35,7 +35,7 @@ const MyPost = ({ userData }) => {
             {data.map((post, i) => {
               return (
                 <div
-                  className="col-lg-4 mb-5"
+                  className="col-lg-4 mb-5 new-recipes-try"
                   key={i}
                   style={{ cursor: "pointer" }}
                   onClick={() => {
