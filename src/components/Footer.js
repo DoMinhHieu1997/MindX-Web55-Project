@@ -5,12 +5,12 @@ const Footer = () => {
         <div className="bg-06a682 py-4">
             <div className="container">
                 <div className="row align-items-center justify-content-between">
-                    <div className="col-12 col-md-3 mb-4 mb-md-0">
+                    <div className="col-12 col-md-5 col-lg-3 mb-4 mb-md-0 text-center">
                         <div className="logo rounded p-2 d-inline-block">
                             <h2 className="text-white mb-0">COOKING HOLICS</h2>
                         </div>
                     </div>
-                    <div className="col-12 col-md-3 text-center">
+                    <div className="col-12 col-md-5 col-lg-3 text-center">
                         <ul className="list-unstyled d-flex justify-content-center">
                             <li className="me-4">
                                 <NavLink className="text-white fs-5" to="/">Trang chủ</NavLink>
