@@ -75,6 +75,7 @@ function App() {
                     <Route path="/ho-so" element={<Profile />}>
                         <Route path="/ho-so/thong-tin" element={<MyProfile />} />
                         <Route path="/ho-so/bai-viet-cua-toi" element={<MyPost />} />
+                        <Route path="/ho-so/bai-viet-cua-toi/:page" element={<MyPost />} />
                         <Route path="/ho-so/bai-viet-da-luu" element={<SavedPost />} />
                     </Route>
                     <Route path="/chi-tiet/:id" element={<Detail />} />
