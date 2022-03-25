@@ -11,6 +11,7 @@ const PostItem = (props) => {
   const [isLove, setIsLove] = useState(false);
   const [totalLike, setTotalLike] = useState(props.data.usersLike.length ? props.data.usersLike.length : 0);
   const [justLiked, setJustLiked] = useState(false);
+  const [justDisliked, setJustDisliked] = useState(false);
 
   useEffect(() => {
     if (token) {
@@ -19,7 +20,7 @@ const PostItem = (props) => {
     }
   },[userId])
   
-  const handleLike = (event) => {
+  const handleLike = () => {
 
     if (token) {
       setJustLiked(true);
@@ -41,6 +42,41 @@ const PostItem = (props) => {
         if (resJson.message === "success") {
           setTotalLike(prev => prev + 1);
           setIsLove(true);
+          setJustLiked(false);
+        }
+      });
+    } else {
+      appCtx.setOpenLoginNotify(true);
+    }
+  }
+
+  const handleDisLike = () => {
+
+    if (token) {
+      setJustDisliked(true);
+      let index = props.data.usersLike.indexOf(userId);
+        const data = {
+          _id: props.data._id,
+          userLike:
+              index > 0
+                  ? [...props.data.usersLike.slice(0, index), ...props.data.usersLike.slice(index)]
+                  : [...props.data.usersLike],
+      };
+    
+      fetch(`${COMMON.DOMAIN}posts/like`,{
+        method: "PATCH",
+        headers: {
+          'Content-type':'application/json',
+          'Authorization':"Bearer "+token
+        },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(resJson => {
+        if (resJson.message === "success") {
+          setTotalLike(prev => prev - 1);
+          setIsLove(false);
+          setJustDisliked(false);
         }
       });
     } else {
@@ -61,7 +97,7 @@ const PostItem = (props) => {
         {
           !isLove 
             ? <FavoriteBorderOutlinedIcon style={{color:"white"}} className="d-inline-block" onClick={!justLiked ? handleLike : null}/>
-            : <FavoriteIcon className="d-inline-block" style={{color: "#d83737"}}/> 
+            : <FavoriteIcon className="d-inline-block" style={{color: "#d83737"}} onClick={!justDisliked ? handleDisLike : null}/> 
         }
         <div className="ms-2 d-inline-block h6 mb-0">{totalLike} Lượt thích</div>
       </div>

@@ -52,7 +52,7 @@ const MyPost = ({ userData }) => {
 
 
   return (
-    <div className="col-md-8 border ml-2">
+    <div className="col-md-8 border ml-2 ">
       <div className="row">
         <div className="col-12 p-4">
           <div className="h3">Danh sách bài viết</div>
