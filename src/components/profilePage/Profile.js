@@ -100,7 +100,7 @@ const Profile = () => {
                                             <NavLink to="/ho-so/bai-viet-cua-toi"
                                                 className="nav-link link-secondary m-2"
                                             >
-                                                Danh sách bài viết
+                                                Bài viết của tôi
                                             </NavLink>
                                         </div>
                                     </>

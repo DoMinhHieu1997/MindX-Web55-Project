@@ -5,80 +5,12 @@ const SavedPost = () => {
     if (!isLoading) {
         return (
             <div className="saved-post col-md-8 border ml-2">
+                
                 <div className="row">
                     <div className="col-12 m-2">
                         <div className="row">
                             <div className="col-3">
-                                <a href="">
-                                    <div className="ratio ratio-1x1 border rounded image-background new-recipes-try"></div>
-                                </a>
-                            </div>
-                            <div className="col-8 ps-0">
-                                <a href="">
-                                    <h5 className="text-dark text-06a682-hover d-none d-md-block">Title</h5>
-                                    <h6 className="text-dark text-06a682-hover d-md-block d-md-none">Title</h6>
-                                </a>
-                                <h6 className="text-secondary mt-3 mt-md-2">DD-MM-YYYY</h6>
-                                <div className="d-none d-md-block">Longggggggggggg</div>
-                                <div className="d-md-block d-md-none">Longggggggggggg</div>
-                            </div>
-                            <div className="d-flex col-1 pe-5 h-100 justify-content-center align-items-center">
-                                <BookmarkSharpIcon sx={{ fontSize: 40 }} color="primary" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12 m-2">
-                        <div className="row">
-                            <div className="col-3">
-                                <a>
-                                    <div className="ratio ratio-1x1 border rounded image-background new-recipes-try"></div>
-                                </a>
-                            </div>
-                            <div className="col-8 ps-0">
-                                <a href="">
-                                    <h5 className="text-dark text-06a682-hover d-none d-md-block">Title</h5>
-                                    <h6 className="text-dark text-06a682-hover d-md-block d-md-none">Title</h6>
-                                </a>
-                                <h6 className="text-secondary mt-3 mt-md-2">DD-MM-YYYY</h6>
-                                <div className="d-none d-md-block">Longggggggggggg</div>
-                                <div className="d-md-block d-md-none">Longggggggggggg</div>
-                            </div>
-                            <div className="d-flex col-1 pe-5 h-100 justify-content-center align-items-center">
-                                <BookmarkSharpIcon sx={{ fontSize: 40 }} color="primary" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12 m-2">
-                        <div className="row">
-                            <div className="col-3">
-                                <a>
-                                    <div className="ratio ratio-1x1 border rounded image-background new-recipes-try"></div>
-                                </a>
-                            </div>
-                            <div className="col-8 ps-0">
-                                <a href="">
-                                    <h5 className="text-dark text-06a682-hover d-none d-md-block">Title</h5>
-                                    <h6 className="text-dark text-06a682-hover d-md-block d-md-none">Title</h6>
-                                </a>
-                                <h6 className="text-secondary mt-3 mt-md-2">DD-MM-YYYY</h6>
-                                <div className="d-none d-md-block">Longggggggggggg</div>
-                                <div className="d-md-block d-md-none">Longggggggggggg</div>
-                            </div>
-                            <div className="d-flex col-1 pe-5 h-100 justify-content-center align-items-center">
-                                <BookmarkSharpIcon sx={{ fontSize: 40 }} color="primary" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12 m-2">
-                        <div className="row">
-                            <div className="col-3">
-                                <a>
+                                <a href="#">
                                     <div className="ratio ratio-1x1 border rounded image-background new-recipes-try"></div>
                                 </a>
                             </div>

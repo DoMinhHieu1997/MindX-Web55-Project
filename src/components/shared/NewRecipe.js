@@ -10,12 +10,15 @@ const NewRecipe = ({ recipe }) => {
     const userId = appCtx.userInfo?._id;
     const [isLove, setIsLove] = useState(false);
     const [totalLike, setTotalLike] = useState(recipe.usersLike.length ? recipe.usersLike.length : 0);
+    const [justLiked, setJustLiked] = useState(false);
+    const [justDisliked, setJustDisliked] = useState(false);
 
     useEffect(() => {
         setIsLove(recipe.usersLike.indexOf(userId) > -1 ? true : false);
     }, [recipe.usersLike,userId]);
     const handleLike = () => {
         if (token) {
+            setJustLiked(true)
             const data = {
                 _id: recipe._id,
                 userLike: [...recipe.usersLike, userId],
@@ -34,6 +37,7 @@ const NewRecipe = ({ recipe }) => {
                     if (resJson.message === "success") {
                         setTotalLike((prev) => prev + 1);
                         setIsLove(true);
+                        setJustLiked(false)
                     }
                 });
         } else {
@@ -43,6 +47,7 @@ const NewRecipe = ({ recipe }) => {
 
     const handleDisLike = () => {
         if (token) {
+            setJustDisliked(true)
             let index = recipe.usersLike.indexOf(userId);
             const data = {
                 _id: recipe._id,
@@ -65,6 +70,7 @@ const NewRecipe = ({ recipe }) => {
                     if (resJson.message === "success") {
                         setTotalLike((prev) => prev - 1);
                         setIsLove(false);
+                        setJustDisliked(false)
                     }
                 });
         } else {
@@ -89,13 +95,13 @@ const NewRecipe = ({ recipe }) => {
                             {!isLove ? (
                                 <FavoriteBorderOutlinedIcon
                                     className="ms-2 d-inline-block h6 mb-0"
-                                    onClick={handleLike}
+                                    onClick={!justLiked ? handleLike:null}
                                 />
                             ) : (
                                 <FavoriteIcon
                                     className="d-inline-block me-1"
                                     style={{ color: "#d83737" }}
-                                    onClick={handleDisLike}
+                                    onClick={!justDisliked ? handleDisLike: null}
                                 />
                             )}
                             <div className="ms-2 d-inline-block h6 mb-0">{totalLike} Lượt thích</div>

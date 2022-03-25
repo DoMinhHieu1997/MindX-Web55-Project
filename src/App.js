@@ -73,8 +73,8 @@ function App() {
                     <Route path="/dang-nhap" element={<Login />} />
                     <Route path="/dang-ky" element={<Register />} />
                     <Route path="/ho-so" element={<Profile />}>
-                        <Route path="/ho-so/thong-tin" element={<Profile />} />
-                        <Route path="/ho-so/bai-viet-cua-toi" element={<MyProfile />} />
+                        <Route path="/ho-so/thong-tin" element={<MyProfile />} />
+                        <Route path="/ho-so/bai-viet-cua-toi" element={<MyPost />} />
                         <Route path="/ho-so/bai-viet-da-luu" element={<SavedPost />} />
                     </Route>
                     <Route path="/chi-tiet/:id" element={<Detail />} />
