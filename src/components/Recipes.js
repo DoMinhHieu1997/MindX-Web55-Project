@@ -57,15 +57,13 @@ const Recipes = () => {
           <Skeleton />
         </div> : null
       }
-      {
-        <div className="text-center">
-          {
-            !isLoading && <Button hidden={list.length < paramPage?.page*8} variant="outlined" color="primary" onClick={handleLoadMoreClick}>
-              <div className="fw-bold">Hiển thị thêm công thức</div>
-            </Button>
-          }
-        </div>
-      }
+      <div className="text-center">
+        {
+          !isLoading && <Button hidden={list.length < paramPage?.page*8} variant="outlined" color="primary" onClick={handleLoadMoreClick}>
+            <div className="fw-bold">Hiển thị thêm công thức</div>
+          </Button>
+        }
+      </div>
     </div>
   </>
 }
