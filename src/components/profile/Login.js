@@ -85,8 +85,9 @@ function Login() {
                 margin: 15,
               }}
             >
+                
               <Logo />
-              <MyDiv>
+              <MyDiv style={{marginTop:55}}>
                 <TextField
                   error={!!errors.email}
                   type="text"
@@ -145,13 +146,13 @@ function Login() {
                 />
                 {errors.password && <Myp>{errors.password.message}</Myp>}
               </MyDiv>
-              <FormGroup>
+              {/* <FormGroup>
                 <FormControlLabel
                   {...register("keepLogin")}
                   control={<Checkbox />}
                   label="Duy trì đăng nhập"
                 />
-              </FormGroup>
+              </FormGroup> */}
               <MyDiv>
                 <Button
                   variant="contained"
