@@ -9,35 +9,48 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CreatePosts from "../posts/CreatePosts";
 import { http } from "../profile/config";
 
 const MyPost = ({ userData }) => {
   const [data, setData] = useState([]);
-  const [loadPage, setLoadingPage] = useState(6);
+  const [loadPage, setLoadingPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  const [open,setOpen]=useState(false)
-  const [dataEdit,setDataEdit]=useState('')
+  const [open, setOpen] = useState(false);
+  const [dataEdit, setDataEdit] = useState("");
 
+  const param = useParams();
   const handleClose = () => setOpen(false);
+
+  useEffect(()=>{
+    param.page&&setLoadingPage(param.page)
+    !param.page&&setLoadingPage(1)
+  },[param.page])
   useEffect(() => {
-    const id=userData._id
-    http.get(`/posts/user?p=1&s=${loadPage}&t=1&userId=${id}`).then((res) => {
-      setData(res.data.data);
-      setIsLoading(false);
-    });
-  }, [loadPage,userData]);
-  const handleLoadMore = () => {
-    setIsLoading(true);
-    setLoadingPage((prev) => prev + 6);
+    const id = userData._id;
+    http
+      .get(`/posts/user?p=1&s=${6 * loadPage}&p=2&t=1&userId=${id}`)
+      .then((res) => {
+        setData(res.data.data);
+        setIsLoading(false);
+      });
+    }, [loadPage, userData]);
+    
+    const handleLoadMore = () => {
+      setIsLoading(true);
+    setLoadingPage(prev=>+prev+1);
+    navigate(`/ho-so/bai-viet-cua-toi/${+loadPage + 1}`
+    // , { page: true }
+    );
   };
-  const handleEdit=(post)=>{
-    setDataEdit(post)
-    setOpen(true)
-  }
- 
+  const handleEdit = (post) => {
+    setDataEdit(post);
+    setOpen(true);
+  };
+
+
   return (
     <div className="col-md-8 border ml-2">
       <div className="row">
@@ -71,7 +84,11 @@ const MyPost = ({ userData }) => {
                     </CardContent>
                   </Card>
 
-                  <Button variant="outlined" sx={{ m: 1 }} onClick={()=>handleEdit(post)}>
+                  <Button
+                    variant="outlined"
+                    sx={{ m: 1 }}
+                    onClick={() => handleEdit(post)}
+                  >
                     <Edit /> Chỉnh sửa
                   </Button>
                 </div>
@@ -89,7 +106,7 @@ const MyPost = ({ userData }) => {
           </div>
           <div className="d-flex justify-content-center">
             <Button
-              hidden={data.length < loadPage}
+              hidden={data.length < loadPage*6}
               variant="outlined"
               onClick={handleLoadMore}
             >
@@ -103,7 +120,11 @@ const MyPost = ({ userData }) => {
         onClose={handleClose}
         sx={{ paddingTop: 5, overflow: "scroll", marginX: 1 }}
       >
-        <CreatePosts onClose={handleClose} dataEdit={dataEdit} setOpen={setOpen} />
+        <CreatePosts
+          onClose={handleClose}
+          dataEdit={dataEdit}
+          setOpen={setOpen}
+        />
       </Modal>
     </div>
   );
