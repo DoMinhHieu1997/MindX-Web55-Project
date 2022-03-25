@@ -1,11 +1,23 @@
 import BookmarkSharpIcon from "@mui/icons-material/BookmarkSharp";
-import { useState } from "react";
-const SavedPost = () => {
+import { http } from "../profile/config";
+import { useState, useEffect } from "react";
+const SavedPost = ({ userData }) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [userData2, setUserData2] = useState("loading");
+    // useEffect(() => {
+    //     if (userData) {
+    //         setUserData2(userData);
+    //         console.log(userData2.listBookmark);
+    //         http.post(`/posts/bookmark?bk=${userData2.listBookmark}&p=1&s=5`).then((res) => {
+    //             console.log(res);
+    //         });
+    //     }
+    // }, [userData, userData2]);
+    
+
     if (!isLoading) {
         return (
             <div className="saved-post col-md-8 border ml-2">
-                
                 <div className="row">
                     <div className="col-12 m-2">
                         <div className="row">

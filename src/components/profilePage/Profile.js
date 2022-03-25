@@ -130,7 +130,8 @@ const Profile = () => {
                         setViewAva={setViewAva}
                     />
                 )}
-                {matchBaiVietDaLuu && <SavedPost />}
+
+                {matchBaiVietDaLuu && userData && <SavedPost userData={userData} />}
                 {matchBaiVietCuaToi && userData && <MyPost userData={userData} />}
                 {/* <Outlet /> */}
             </div>

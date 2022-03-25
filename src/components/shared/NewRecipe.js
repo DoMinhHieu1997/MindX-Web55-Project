@@ -18,7 +18,7 @@ const NewRecipe = ({ recipe }) => {
 
             setIsLove(recipe.usersLike.indexOf(userId) > -1 ? true : false);
         }
-    }, [userId]);
+    }, [userId,recipe.usersLike, token]);
     const handleLike = () => {
         if (token) {
             setJustLiked(true);
