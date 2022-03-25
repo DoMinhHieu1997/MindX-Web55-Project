@@ -1,5 +1,4 @@
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import WarningIcon from "@mui/icons-material/Warning";
 import { useState, useEffect, useRef } from "react";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { initializeApp } from "firebase/app";
@@ -12,12 +11,8 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
     const [editName, setEditName] = useState("Loading...");
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
-    const [retypeNewPassword, setRetypeNewPassword] = useState("");
     const [showOldPassword, setShowOldPassword] = useState(false);
     const [showNewPassword, setShowNewPassword] = useState(false);
-    const [showRetypePassword, setShowRetypePassword] = useState(false);
-    const [passwordMessage, setPasswordMessage] = useState("");
-    const [isError, setIsError] = useState("");
     const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     const firebaseApp = initializeApp(firebaseConfig);
     const storage = getStorage(firebaseApp);
@@ -42,20 +37,18 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
         } else if (e.key === "Enter" || e === "Save") {
             if (token) {
                 setIsLoading(true);
-                handleUploadPhoto()
-                    .then((imageUrl) => {
-                        return http.patch("user/update", {
-                            nameDisplay: editName,
-                            email: editEmail,
-                            photoUrl: imageUrl,
-                        });
+                handleUploadPhoto().then((imageUrl) => {
+                    return http.patch("user/update", {
+                        nameDisplay: editName,
+                        email: editEmail,
+                        photoUrl: imageUrl,
                     })
-                    .then((res) => {
-                        setUserData(res.data.data);
-                        setOldPassword("");
-                        setNewPassword("");
-                        setIsLoading(false);
-                    });
+                }).then((res) => {
+                    setUserData(res.data.data);
+                    setOldPassword("");
+                    setNewPassword("");
+                    setIsLoading(false);
+                });
             }
         }
     };
@@ -65,17 +58,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
     };
 
     const updatePassword = () => {
-        if (oldPassword.length<6) {
-            setPasswordMessage("Mật khẩu chứa tối thiểu 6 kí tự");
-            setIsError("oldPassError");
-        } else if (newPassword.length<6) {
-            setPasswordMessage("Mật khẩu mới chứa tối thiểu 6 kí tự");
-            setIsError("newPassError");
-        } else if (newPassword !== retypeNewPassword) {
-            setPasswordMessage("Mật khẩu nhập lại không khớp, vui lòng kiểm tra lại");
-            setIsError("retypePassError");
-        } else if (oldPassword && newPassword && token && newPassword === retypeNewPassword) {
-            setPasswordMessage("");
+        if (oldPassword && newPassword && token) {
             setIsLoading(true);
             http.patch("auth/changepassword", {
                 password: oldPassword,
@@ -99,7 +82,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
     };
 
     const handleUploadPhoto = () => {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             const file = imageInputRef.current;
             if (file) {
                 setIsLoading(true);
@@ -119,7 +102,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                     }
                 );
             }
-        });
+        })
     };
 
     return (
@@ -134,7 +117,11 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                     </div>
                     <div className="row">
                         <div className="col-12 pb-5">
-                            <input type="file" onChange={handleInputIMG} disabled={!isEditing} />
+                            <input
+                                type="file"
+                                onChange={handleInputIMG}
+                                disabled={!isEditing}
+                            />
                         </div>
                     </div>
                     <div className="row">
@@ -231,7 +218,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                             <h4 className="col-auto">Thay đổi mật khẩu</h4>
                         </div>
                         <div className="row">
-                            <div className="col-12 pb-2">Mật khẩu cũ</div>
+                            <div className="col-12 pb-2">Mật khẩu</div>
                         </div>
                         <div className="row ">
                             <div className="col-6 pb-2">
@@ -239,13 +226,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                                     <div className="col">
                                         <input
                                             type={showOldPassword ? "text" : "password"}
-                                            className={
-                                                isError === "oldPassError" ? "w-100 border border-danger" : "w-100"
-                                            }
-                                            onFocus={() => {
-                                                setPasswordMessage("");
-                                                isError === "oldPassError" && setIsError("")
-                                            }}
+                                            className="w-100"
                                             onChange={(e) => {
                                                 setOldPassword(e.target.value);
                                             }}
@@ -267,9 +248,6 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                                             />
                                         )}
                                     </div>
-                                    {isError === "oldPassError" &&<div className="col-auto text-danger" style={{ marginLeft: "-4.5rem" }}>
-                                        <WarningIcon />
-                                    </div>}
                                 </div>
                             </div>
                         </div>
@@ -282,13 +260,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                                     <div className="col">
                                         <input
                                             type={showNewPassword ? "text" : "password"}
-                                            className={
-                                                isError === "newPassError" ? "w-100 border border-danger" : "w-100"
-                                            }
-                                            onFocus={() => {
-                                                setPasswordMessage("");
-                                                isError === "newPassError" && setIsError("")
-                                            }}
+                                            className="w-100"
                                             onChange={(e) => {
                                                 setNewPassword(e.target.value);
                                             }}
@@ -310,57 +282,8 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                                             />
                                         )}
                                     </div>
-                                    {isError === "newPassError" && <div className="col-auto text-danger" style={{ marginLeft: "-4.5rem" }}>
-                                        <WarningIcon />
-                                    </div>}
                                 </div>
                             </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 pb-2">Nhập lại mật khẩu mới</div>
-                        </div>
-                        <div className="row">
-                            <div className="col-6 pb-3 ">
-                                <div className="row">
-                                    <div className="col">
-                                        <input
-                                            type={showRetypePassword ? "text" : "password"}
-                                            className={
-                                                isError === "retypePassError" ? "w-100 border border-danger" : "w-100"
-                                            }
-                                            onFocus={() => {
-                                                setPasswordMessage("");
-                                                isError === "retypePassError" && setIsError("")
-                                            }}
-                                            onChange={(e) => {
-                                                setRetypeNewPassword(e.target.value);
-                                            }}
-                                            value={retypeNewPassword}
-                                        />
-                                    </div>
-                                    <div className="col-auto" style={{ marginLeft: "-3.5rem" }}>
-                                        {showRetypePassword ? (
-                                            <VisibilityOff
-                                                onClick={() => {
-                                                    setShowRetypePassword(false);
-                                                }}
-                                            />
-                                        ) : (
-                                            <Visibility
-                                                onClick={() => {
-                                                    setShowRetypePassword(true);
-                                                }}
-                                            />
-                                        )}
-                                    </div>
-                                    {isError === "retypePassError" && <div className="col-auto text-danger" style={{ marginLeft: "-4.5rem" }}>
-                                        <WarningIcon />
-                                    </div>}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-12 m-3 text-danger">{passwordMessage}</div>
                         </div>
                         <div className="row">
                             <div className="col-3 pb-2">
