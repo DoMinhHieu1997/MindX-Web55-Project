@@ -9,10 +9,11 @@ import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import RamenDiningIcon from "@mui/icons-material/RamenDining";
 
 const Home = () => {
-  const [isLoading, setIsloading] = useState(true);
-  const [newRecipe, setNewRecipe] = useState("");
-  const [blogs, setBlogs] = useState("");
-  const [moreBlog, setMoreBlog] = useState(12);
+    const [isLoading, setIsloading] = useState(true);
+    const [isLoadingFE, setIsLoadingFE] = useState(true);
+    const [newRecipe, setNewRecipe] = useState("");
+    const [blogs, setBlogs] = useState("");
+    const [moreBlog, setMoreBlog] = useState(12);
 
   useEffect(() => {
     setIsloading(true);
@@ -25,12 +26,12 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    setIsloading(true);
+    setIsLoadingFE(true);
     fetch(`${COMMON.DOMAIN}posts?t=2&p=1&s=${moreBlog}`)
       .then((res) => res.json())
       .then((resJson) => {
         setBlogs(resJson);
-        setIsloading(false);
+        setIsLoadingFE(false);
       });
   }, [moreBlog]);
 
@@ -69,34 +70,34 @@ const Home = () => {
         <div className="row mt-5">
           <div className="food-experiens col-md-9">
             <div className="d-flex align-items-center mb-3">
-              <RamenDiningIcon fontSize="large" style={{ color: "#444343" }} />
+              <RamenDiningIcon fontSize="large" style={{ color: "#c13a3a" }} />
               <a href="/cong-thuc">
                 <h3 className="mb-0 ms-2 text-dark">Trải nghiệm món ăn</h3>
               </a>
             </div>
             <div className="row">
-              {isLoading && (
-                <>
-                  <FoodExSkeleton />
-                  <FoodExSkeleton />
-                  <FoodExSkeleton />
-                  <FoodExSkeleton />
-                  <FoodExSkeleton />
-                  <FoodExSkeleton />
-                  <FoodExSkeleton />
-                  <FoodExSkeleton />
-                </>
-              )}
-              {blogs &&
-                blogs.data.map((blog, index) => {
-                  return (
-                    <div className="col-md-6 mb-3 row" key={index}>
-                      <BlogList blog={blog} />
-                    </div>
-                  );
-                })}
-
-              <div className="col-12 mt-3">
+                {blogs &&
+                    blogs.data.map((blog, index) => {
+                        return (
+                            <div className="col-md-6 mb-3" key={index}>
+                            <BlogList blog={blog} />
+                            </div>
+                        );
+                    })
+                }
+                {isLoadingFE && (
+                    <>
+                        <FoodExSkeleton />
+                        <FoodExSkeleton />
+                        <FoodExSkeleton />
+                        <FoodExSkeleton />
+                        <FoodExSkeleton />
+                        <FoodExSkeleton />
+                        <FoodExSkeleton />
+                        <FoodExSkeleton />
+                    </>
+                )}
+              <div className="col-12 mt-md-3 mt-0">
                 <div className="row justify-content-center">
                   <div className="col-auto">
                     <button

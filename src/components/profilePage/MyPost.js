@@ -1,31 +1,43 @@
+import { Edit } from "@mui/icons-material";
 import {
   Button,
   Card,
   CardContent,
   CardMedia,
+  Modal,
   Skeleton,
   Typography,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CreatePosts from "../posts/CreatePosts";
 import { http } from "../profile/config";
-import SkeletonItem from "../shared/SkeletonItem";
 
-const MyPost = ({ id }) => {
+const MyPost = ({ userData }) => {
   const [data, setData] = useState([]);
   const [loadPage, setLoadingPage] = useState(6);
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const [open,setOpen]=useState(false)
+  const [dataEdit,setDataEdit]=useState('')
+
+  const handleClose = () => setOpen(false);
   useEffect(() => {
+    const id=userData._id
     http.get(`/posts/user?p=1&s=${loadPage}&t=1&userId=${id}`).then((res) => {
       setData(res.data.data);
       setIsLoading(false);
     });
-  }, [loadPage]);
+  }, [loadPage,userData]);
   const handleLoadMore = () => {
     setIsLoading(true);
     setLoadingPage((prev) => prev + 6);
   };
-
+  const handleEdit=(post)=>{
+    setDataEdit(post)
+    setOpen(true)
+  }
+ 
   return (
     <div className="col-md-8 border ml-2">
       <div className="row">
@@ -35,7 +47,13 @@ const MyPost = ({ id }) => {
             {data.map((post, i) => {
               return (
                 <div className="col-lg-4 mb-5" key={i}>
-                  <Card sx={{ pb: 2 }}>
+                  <Card
+                    sx={{ pb: 2, cursor: "pointer" }}
+                    onClick={() => {
+                      window.scroll(0, 0);
+                      navigate(`/chi-tiet/${post._id}`);
+                    }}
+                  >
                     <CardMedia
                       component="img"
                       height="200"
@@ -52,6 +70,10 @@ const MyPost = ({ id }) => {
                       </Typography>
                     </CardContent>
                   </Card>
+
+                  <Button variant="outlined" sx={{ m: 1 }} onClick={()=>handleEdit(post)}>
+                    <Edit /> Chỉnh sửa
+                  </Button>
                 </div>
               );
             })}
@@ -76,6 +98,13 @@ const MyPost = ({ id }) => {
           </div>
         </div>
       </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        sx={{ paddingTop: 5, overflow: "scroll", marginX: 1 }}
+      >
+        <CreatePosts onClose={handleClose} dataEdit={dataEdit} setOpen={setOpen} />
+      </Modal>
     </div>
   );
 };

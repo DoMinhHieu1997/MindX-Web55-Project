@@ -12,8 +12,6 @@ import Profile from "./components/profilePage/Profile";
 import MyProfile from "./components/profilePage/MyProfile";
 import MyPost from "./components/profilePage/MyPost";
 import SavedPost from "./components/profilePage/SavedPost";
-import FoodRecommendation from "./components/shared/FoodRecommendation";
-import TimeTable from "./components/shared/TimeTable";
 import Search from "./components/Search";
 import AppCtx from "./appContext";
 import { COMMON } from "./components/Common";
@@ -28,7 +26,6 @@ import { useNavigate } from "react-router-dom";
 function App() {
     let navigate = useNavigate();
     const [userInfo, setUserInfo] = useState(null);
-    const [userToken, setUserToken] = useState(null);
     const [openLoginNotify, setOpenLoginNotify] = useState(false);
 
     const handleClose = () => {
@@ -44,7 +41,6 @@ function App() {
         const token = sessionStorage.getItem("token") || localStorage.getItem("token");
         
         if (token) {
-            setUserToken(token);
             fetch(`${COMMON.DOMAIN}user/info`, {
                 method: "GET",
                 headers: {
@@ -65,22 +61,22 @@ function App() {
                 value={{
                     userInfo: userInfo,
                     setUserInfo: setUserInfo,
-                    userToken: userToken,
-                    setUserToken: setUserToken,
                     openLoginNotify: openLoginNotify,
                     setOpenLoginNotify: setOpenLoginNotify,
                 }}
             >
                 <Menu />
-                {/* <FoodRecommendation />
-        <TimeTable /> */}
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/cong-thuc" element={<Recipes />} />
                     <Route path="/cong-thuc/:page" element={<Recipes />} />
                     <Route path="/dang-nhap" element={<Login />} />
                     <Route path="/dang-ky" element={<Register />} />
-                    <Route path="/ho-so" element={<Profile />}></Route>
+                    <Route path="/ho-so" element={<Profile />}>
+                        <Route path="/ho-so/thong-tin" element={<Profile />} />
+                        <Route path="/ho-so/bai-viet-cua-toi" element={<MyProfile />} />
+                        <Route path="/ho-so/bai-viet-da-luu" element={<SavedPost />} />
+                    </Route>
                     <Route path="/chi-tiet/:id" element={<Detail />} />
                     <Route path="/tim-kiem" element={<Search />} />
                     <Route path="*" element={<NotFound />} />

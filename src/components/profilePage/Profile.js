@@ -1,32 +1,44 @@
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { useState, useEffect, useContext } from "react";
-import { http } from "../profile/config";
 import SkeletonItem from "../shared/SkeletonItem";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink, useMatch, useNavigate } from "react-router-dom";
 import MyProfile from "./MyProfile";
 import SavedPost from "./SavedPost";
 import MyPost from "./MyPost";
 import AppCtx from "../../appContext";
 const Profile = () => {
+    const navigate = useNavigate();
     const appCtx = useContext(AppCtx);
     const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     const [isLoading, setIsLoading] = useState(true);
-    const [userData, setUserData] = useState("Loading");
-    const [nav, setNav] = useState("MyProfile");
+    const [userData, setUserData] = useState(null);
+    const [viewAva, setViewAva] = useState(null);
+    
+    const matchThongTin = useMatch("/ho-so/thong-tin");
+    const matchBaiVietCuaToi = useMatch("/ho-so/bai-viet-cua-toi");
+    const matchBaiVietDaLuu = useMatch("/ho-so/bai-viet-da-luu");
 
     useEffect(() => {
-        if(!appCtx.userInfo){
+        if (!appCtx.userInfo) {
             setIsLoading(true);
+            return;
         }
         setUserData(appCtx.userInfo);
         setIsLoading(false);
+        setViewAva(appCtx.userInfo.photoUrl);
     }, [appCtx]);
     const HandlelogOut = () => {
         localStorage.removeItem("token");
+        sessionStorage.removeItem("token")
+        navigate("/dang-nhap");
     };
+
+
+
     if (!token) {
         return <Navigate to="/dang-nhap" replace />;
     }
+    
     return (
         <div className="container py-5">
             <div className="position-fixed top-50 end-0"></div>
@@ -42,7 +54,11 @@ const Profile = () => {
                                             <div className="col-10">
                                                 <div
                                                     className="ratio ratio-1x1 bg-secondary"
-                                                    style={{ backgroundImage: `url(${userData.avatar})`, backgroundPosition: "center", backgroundSize: "cover" }}
+                                                    style={{
+                                                        backgroundImage: `url(${viewAva})`,
+                                                        backgroundPosition: "center",
+                                                        backgroundSize: "cover",
+                                                    }}
                                                 ></div>
                                             </div>
                                         </div>
@@ -67,46 +83,25 @@ const Profile = () => {
                                 {userData && !isLoading && (
                                     <>
                                         <div className="nav-item">
-                                            <div
-                                                className={
-                                                    nav === "MyProfile"
-                                                        ? "nav-link link-secondary m-2 active"
-                                                        : "nav-link link-secondary m-2"
-                                                }
-                                                onClick={() => {
-                                                    setNav("MyProfile");
-                                                }}
+                                            <NavLink to="/ho-so/thong-tin"
+                                                className="nav-link link-secondary m-2"
                                             >
                                                 Tài khoản của tôi
-                                            </div>
+                                            </NavLink>
                                         </div>
                                         <div className="nav-item">
-                                            <div
-                                                className={
-                                                    nav === "SavedPost"
-                                                        ? "nav-link link-secondary m-2 active"
-                                                        : "nav-link link-secondary m-2"
-                                                }
-                                                onClick={() => {
-                                                    setNav("SavedPost");
-                                                }}
+                                            <NavLink to="/ho-so/bai-viet-da-luu"
+                                                className="nav-link link-secondary m-2"
                                             >
                                                 Tin đã lưu ({userData.listBookmark && userData.listBookmark.length})
-                                            </div>
+                                            </NavLink>
                                         </div>
                                         <div className="nav-item">
-                                            <div
-                                                className={
-                                                    nav === "MyPost"
-                                                        ? "nav-link link-secondary m-2 active"
-                                                        : "nav-link link-secondary m-2"
-                                                }
-                                                onClick={() => {
-                                                    setNav("MyPost");
-                                                }}
+                                            <NavLink to="/ho-so/bai-viet-cua-toi"
+                                                className="nav-link link-secondary m-2"
                                             >
                                                 Danh sách bài viết
-                                            </div>
+                                            </NavLink>
                                         </div>
                                     </>
                                 )}
@@ -125,17 +120,19 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
-                {nav === "MyProfile" && (
+                {matchThongTin && (
                     <MyProfile
                         userData={userData}
                         setUserData={setUserData}
                         isLoading={isLoading}
                         setIsLoading={setIsLoading}
                         appCtx={appCtx}
+                        setViewAva={setViewAva}
                     />
                 )}
-                {nav === "SavedPost" && <SavedPost />}
-                {nav === "MyPost" && <MyPost id={userData._id} />}
+                {matchBaiVietDaLuu && <SavedPost />}
+                {matchBaiVietCuaToi && userData && <MyPost userData={userData} />}
+                {/* <Outlet /> */}
             </div>
         </div>
     );
