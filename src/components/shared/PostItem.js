@@ -3,7 +3,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState,useContext,useEffect } from 'react';
 import AppCtx from "../../appContext";
 import {COMMON,spliceString} from '../Common';
-import { NavLink } from 'react-router-dom';
 
 const PostItem = (props) => {
   const appCtx = useContext(AppCtx);
@@ -12,7 +11,6 @@ const PostItem = (props) => {
   const [isLove, setIsLove] = useState(false);
   const [totalLike, setTotalLike] = useState(props.data.usersLike.length ? props.data.usersLike.length : 0);
   const [justLiked, setJustLiked] = useState(false);
-  const [justDisliked, setJustDisliked] = useState(false);
 
   useEffect(() => {
     if (token) {
@@ -21,11 +19,11 @@ const PostItem = (props) => {
     }
   },[userId])
   
-  const handleLike = () => {
+  const handleLike = (event) => {
 
     if (token) {
       setJustLiked(true);
-      let data = {
+      const data = {
         "_id":props.data._id,
         "userLike":[...props.data.usersLike,userId]
       }
@@ -43,41 +41,6 @@ const PostItem = (props) => {
         if (resJson.message === "success") {
           setTotalLike(prev => prev + 1);
           setIsLove(true);
-          setJustLiked(false);
-        }
-      });
-    } else {
-      appCtx.setOpenLoginNotify(true);
-    }
-  }
-
-  const handleDisLike = () => {
-
-    if (token) {
-      setJustDisliked(true);
-      let index = props.data.usersLike.indexOf(userId);
-      const data = {
-        "_id": props.data._id,
-        "userLike":
-          index > 0
-          ? [...props.data.usersLike.slice(0, index), ...props.data.usersLike.slice(index)]
-          : [...props.data.usersLike]
-      };
-    
-      fetch(`${COMMON.DOMAIN}posts/like`,{
-        method: "PATCH",
-        headers: {
-          'Content-type':'application/json',
-          'Authorization':"Bearer "+token
-        },
-        body: JSON.stringify(data)
-      })
-      .then(res => res.json())
-      .then(resJson => {
-        if (resJson.message === "success") {
-          setTotalLike(prev => prev - 1);
-          setIsLove(false);
-          setJustDisliked(false);
         }
       });
     } else {
@@ -87,26 +50,26 @@ const PostItem = (props) => {
 
   return <div className='card overflow-hidden h-100'>
     <div className="rounded oveflow-hidden">
-      <NavLink to={"/chi-tiet/"+props.data._id}>
+      <a href={"/chi-tiet/"+props.data._id}>
         <div className="ratio ratio-1x1 image-background" style={{backgroundImage:`url(${props.data.avatar})`}}>
           {
             props.isTopLikeItem && <div className="top-0 bottom-0 end-0 start-0" style={{backgroundColor:"rgba(0,0,0,.2)"}}></div>
           }
         </div>
-      </NavLink>
+      </a>
       <div className="p-1 mt-2 ms-2 position-absolute top-0 bg-06a682 rounded text-white">
         {
           !isLove 
             ? <FavoriteBorderOutlinedIcon style={{color:"white"}} className="d-inline-block" onClick={!justLiked ? handleLike : null}/>
-            : <FavoriteIcon className="d-inline-block" style={{color: "#d83737"}} onClick={!justDisliked ? handleDisLike : null}/> 
+            : <FavoriteIcon className="d-inline-block" style={{color: "#d83737"}}/> 
         }
         <div className="ms-2 d-inline-block h6 mb-0">{totalLike} Lượt thích</div>
       </div>
     </div>
     <div className={props.isTopLikeItem ? "card-body pb-2 position-absolute bottom-0 end-0 start-0 text-shadow" : "mt-2 px-2"}>
-      <NavLink to={"/chi-tiet/"+props.data._id}>
+      <a href={"/chi-tiet/"+props.data._id}>
         <h5 className={"card-title " + (props.isTopLikeItem ? "text-white toplike-title" : "normal-title")}>{props.data.title}</h5>
-      </NavLink>
+      </a>
       {
         !props.isTopLikeItem && <p className="card-text pb-2">{spliceString(props.data.description,80)}</p>
       }
