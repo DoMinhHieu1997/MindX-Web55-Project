@@ -37,9 +37,10 @@ function App() {
         navigate("/dang-nhap");
     };
 
+    const token = sessionStorage.getItem("token") || localStorage.getItem("token");
+
     useEffect(() => {
-        const token = sessionStorage.getItem("token") || localStorage.getItem("token");
-        
+        console.log("useEffect app.js");
         if (token) {
             fetch(`${COMMON.DOMAIN}user/info`, {
                 method: "GET",
@@ -53,8 +54,7 @@ function App() {
                 setUserInfo(resJson.data);
             });
         }
-
-    }, []);
+    }, [token]);
 
     return (
         <div className="App">
