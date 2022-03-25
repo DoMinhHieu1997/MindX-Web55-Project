@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Backdrop,
   Button,
@@ -28,7 +28,7 @@ import {
 import { firebaseConfig } from "../profile/config";
 import uploadImageFirebase from "./uploadImageFirebase";
 
-function CreatePosts({ onClose }, refChild) {
+function CreatePosts({ onClose, dataEdit }, refChild) {
   const config = {
     toolbar: {
       items: [
@@ -83,7 +83,24 @@ function CreatePosts({ onClose }, refChild) {
   const [cardItem, setCardItem] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingPage, setLoadingPage] = useState(false);
+  const [dataConten, setDataConten] = useState("");
+  const {
+    avatar,
+    content,
+    description,
+    ingredients,
+    title,
+    totalCalories,
+    type,
+    _id,
+    userId,
+  } = dataEdit;
+  // console.log(dataEdit);
 
+  useEffect(() => {
+    type === 1 && setToggle(false);
+  }, [type]);
+  useEffect(() => {}, []);
   const navigate = useNavigate();
   const firebaseApp = initializeApp(firebaseConfig);
   const storage = getStorage(firebaseApp);
@@ -92,33 +109,43 @@ function CreatePosts({ onClose }, refChild) {
     setToggle(toggle);
     clearErrors();
   };
-  // console.log('a');
+
+  const endFetch = (res) => {
+    const id = res.data.data._id.toString();
+    onClose();
+    setLoading(false);
+    setLoadingPage(false);
+    window.scroll(0, 0);
+    navigate(`/chi-tiet/${id}`);
+  };
   const onSubmit = (data) => {
     setLoading(true);
     setLoadingPage(true);
     uploadPosts.current = { ...uploadPosts.current, ...data };
+    const fetchApi = () => {
+      if (dataEdit._id) {
+        !data.avatar[0] && (uploadPosts.current.avatar = avatar);
+        !data.content &&
+          (uploadPosts.current.content = dataConten ? dataConten : content);
+        uploadPosts.current._id = _id;
+        uploadPosts.current.userId = userId;
+        http.patch("posts/update", uploadPosts.current).then((res) => {
+          endFetch(res);
+        });
+      } else {
+        http.post("/posts/create", uploadPosts.current).then((res) => {
+          endFetch(res);
+        });
+      }
+    };
     if (toggle) {
       uploadPosts.current.type = 2;
       uploadPosts.current.ingredients = [];
-      http.post("/posts/create", uploadPosts.current).then((res) => {
-        const id = res.data.data._id.toString();
-        onClose();
-        setLoading(false);
-        setLoadingPage(false);
-        window.scroll(0, 0);
-        navigate(`/chi-tiet/${id}`);
-      });
+      fetchApi();
     } else {
       uploadPosts.current.type = 1;
       uploadPosts.current.ingredients = cardItem;
-      http.post("/posts/create", uploadPosts.current).then((res) => {
-        const id = res.data.data._id.toString();
-        onClose();
-        setLoading(false);
-        setLoadingPage(false);
-        window.scroll(0, 0);
-        navigate(`/chi-tiet/${id}`);
-      });
+      fetchApi();
     }
   };
   const handlePhoto = (file) => {
@@ -145,8 +172,6 @@ function CreatePosts({ onClose }, refChild) {
       className="pb-3"
       sx={{
         bgcolor: "white",
-        // width: "100%",
-        // height: "100%",
         borderRadius: 1.5,
       }}
     >
@@ -159,6 +184,7 @@ function CreatePosts({ onClose }, refChild) {
             error={!!errors.title?.message}
             fullWidth
             size="small"
+            value={title}
             label={errors.title?.message || "Tiêu đề"}
             {...register("title", {
               required: {
@@ -173,6 +199,7 @@ function CreatePosts({ onClose }, refChild) {
             error={!!errors.description?.message}
             fullWidth
             multiline
+            value={description}
             label={errors.description?.message || "Mô tả"}
             {...register("description", {
               required: {
@@ -183,14 +210,14 @@ function CreatePosts({ onClose }, refChild) {
             })}
           />
           <FeaturedPhoto
-            imgPreview={imgPreview}
+            imgPreview={avatar || imgPreview}
             setImgPreview={setImgPreview}
             onChangeFile={handlePhoto}
             label={errors.avatar?.message || false}
             ref={refChild}
             {...register("avatar", {
               required: {
-                value: !imgPreview,
+                value: !imgPreview && !dataEdit._id,
                 message: "Tải ảnh đại diện cho bài viết",
               },
             })}
@@ -199,10 +226,10 @@ function CreatePosts({ onClose }, refChild) {
             <AddIngredients
               label={errors.ingredients?.message || false}
               setCardItem={setCardItem}
-              cardItem={cardItem}
+              cardItem={ingredients || cardItem}
               {...register("ingredients", {
                 required: {
-                  value: !cardItem[0],
+                  value: !cardItem[0] && !dataEdit._id,
                   message: "Nhập thêm nguyên liệu",
                 },
               })}
@@ -214,6 +241,7 @@ function CreatePosts({ onClose }, refChild) {
               error={!!errors.totalCalories?.message}
               size="small"
               type="number"
+              value={totalCalories}
               label={errors.totalCalories?.message || "Tổng lượng Calo"}
               {...register("totalCalories", {
                 required: {
@@ -229,11 +257,12 @@ function CreatePosts({ onClose }, refChild) {
             <CKEditor
               config={config}
               editor={Editor}
-              data=""
               onChange={(event, editor) => {
                 const data = editor.getData();
                 uploadPosts.current.content = data;
+                setDataConten(data);
               }}
+              data={content}
               required={true}
               onReady={(editor) => {
                 editor.plugins.get("FileRepository").createUploadAdapter = (
@@ -255,7 +284,7 @@ function CreatePosts({ onClose }, refChild) {
               variant="contained"
               loading={loading}
             >
-              Tạo bài viết
+              {dataEdit._id ? "Sửa bài viết" : "Tạo bài viết"}
             </LoadingButton>
             <Backdrop
               sx={{

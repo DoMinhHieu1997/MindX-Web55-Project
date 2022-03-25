@@ -6,37 +6,35 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import {COMMON} from "./Common";
 import FloatingAction from "./shared/FloatingAction";
 import { useNavigate,useParams } from "react-router-dom";
+import { ConstructionOutlined, Preview } from "@mui/icons-material";
 
 const Recipes = () => {
   const navigate = useNavigate();
   const paramPage = useParams();
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [displayLoadMore, setDisplayLoadMore] = useState(true);
-  const [page, setPage] = useState(paramPage?.page ? paramPage.page : 1);
 
   const handleLoadMoreClick = () => {
-    navigate(`/cong-thuc/${page+1}`,{page:true});
-    getListRecipes(2);
-    setPage(prev => prev + 1);
-  }
-
-  const getListRecipes = (type) => {
-    const number = type === 1;
-
-    setIsLoading(true);
-    fetch(`${COMMON.DOMAIN}posts?s=${number ? 8*page : 8}&t=1&p=${number ? 1 : (page + 1)}`)
-    .then((res) => res.json())
-    .then((resJson) => {
-      if (resJson.data.length % 8 !== 0 || !resJson.data.length) setDisplayLoadMore(false);
-      setList(prev => [...prev,...resJson.data]);
-      setIsLoading(false);
-    });
+    navigate(`/cong-thuc/${!paramPage.page ? 2 : paramPage.page*1 + 1}`,{page:true});
   }
 
   useEffect(() => {
-    getListRecipes(1);
-  }, []);
+    if (!paramPage.page) {
+      getListRecipes(1);
+    } else {
+      getListRecipes(paramPage.page*1);
+    }
+  },[paramPage])
+
+  const getListRecipes = (pageNum) => {
+    setIsLoading(true);
+    fetch(`${COMMON.DOMAIN}posts?s=${8*pageNum}&t=1&p=1`)
+    .then((res) => res.json())
+    .then((resJson) => {
+      setList([...resJson.data]);
+      setIsLoading(false);
+    });
+  }
 
   return <>
     <FloatingAction />
@@ -50,7 +48,7 @@ const Recipes = () => {
       <div className="list-recipes row py-3">
         {
           list && list.map((item,index) => {
-            return <div key={index} className="col-12 col-md-3 mb-3"><PostItem data={item}/></div>
+              return <div key={index} className="col-12 col-md-3 mb-3"><PostItem data={item}/></div>
           })
         }
       </div>
@@ -60,10 +58,9 @@ const Recipes = () => {
         </div> : null
       }
       {
-        displayLoadMore &&
         <div className="text-center">
           {
-            !isLoading && <Button variant="outlined" color="primary" onClick={handleLoadMoreClick}>
+            !isLoading && <Button hidden={list.length < paramPage?.page*8} variant="outlined" color="primary" onClick={handleLoadMoreClick}>
               <div className="fw-bold">Hiển thị thêm công thức</div>
             </Button>
           }

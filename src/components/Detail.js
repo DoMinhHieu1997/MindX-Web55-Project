@@ -33,8 +33,6 @@ const Detail = () => {
             </div>
         </div>
     </>
-    
-    
 }
 
 const PostDetailSkeleton = () => {
