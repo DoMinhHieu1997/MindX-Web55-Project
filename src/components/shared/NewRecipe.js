@@ -3,6 +3,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState, useEffect, useContext } from "react";
 import AppCtx from "../../appContext";
 import { COMMON } from "../Common";
+
 const NewRecipe = ({ recipe }) => {
     const appCtx = useContext(AppCtx);
     const token = localStorage.getItem("token") || sessionStorage.getItem("token");
