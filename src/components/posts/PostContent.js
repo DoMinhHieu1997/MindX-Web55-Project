@@ -21,6 +21,7 @@ const PostContent = (props) => {
   const [countLike,setCountLike] = useState(userLikeArr.length ? userLikeArr.length : 0);
   const [isLove, setIsLove] = useState(false);
   const [justLiked, setJustLiked] = useState(false);
+  const [justDisliked, setJustDisliked] = useState(false);
   const [justSave, setJustSave] = useState(false);
   const [justUnsave, setJustUnsave] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
@@ -61,12 +62,46 @@ const PostContent = (props) => {
         if (resJson.message === "success") {
           setCountLike(prev => prev + 1);
           setIsLove(true);
+          setJustLiked(false);
         }
       });
     } else {
       appCtx.setOpenLoginNotify(true);
     }
-  };
+  }
+
+  const handleDisLike = () => {
+    if (token) {
+      setJustDisliked(true);
+      let index = userLikeArr.indexOf(userId);
+      const bodyData = {
+        "_id":postId,
+        "userLike":
+          index > 0
+          ? [...userLikeArr.slice(0,index),...userLikeArr.slice(index)]
+          : [...userLikeArr]
+      };
+
+      fetch(`${COMMON.DOMAIN}posts/like`,{
+        method: "PATCH",
+        headers: {
+          'Content-type':'application/json',
+          'Authorization':"Bearer "+token
+        },
+        body: JSON.stringify(bodyData)
+      })
+      .then(res => res.json())
+      .then(resJson => {
+        if (resJson.message === "success") {
+          setCountLike(prev => prev - 1);
+          setIsLove(false);
+          setJustDisliked(false);
+        }
+      });
+    } else {
+      appCtx.setOpenLoginNotify(true);
+    }
+  }
 
   const handleUnsave = () => {
     if (token) {
@@ -185,6 +220,7 @@ const PostContent = (props) => {
               <FavoriteIcon
                 className="d-inline-block"
                 style={{ color: "#d83737" }}
+                onClick={!justDisliked ? handleDisLike : null}
               />
             : 
               <FavoriteBorderOutlinedIcon
