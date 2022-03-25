@@ -58,9 +58,9 @@ function Users({ onClick }) {
             onClick={() => handleClickMenuItem(value)}
           >
             {value === "Đăng Xuất" ? (
-              <Logout className="me-2 d-inline-block d-md-none align-middle" />
+              <Logout className="me-2 d-inline-block d-lg-none align-middle" />
             ) : (
-              <AccountCircleOutlined className="me-2 d-inline-block d-md-none align-middle" />
+              <AccountCircleOutlined className="me-2 d-inline-block d-lg-none align-middle" />
             )}
             {value}
           </div>
