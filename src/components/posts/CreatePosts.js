@@ -84,10 +84,10 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
   const [loading, setLoading] = useState(false);
   const [loadingPage, setLoadingPage] = useState(false);
   const [dataConten, setDataConten] = useState("");
-  const [valueTitle,setValueTitle]=useState('')
-  const [valueTotalCalo,setValueTotalCalo]=useState('')
-  const [valueDescription,setValueDescription]=useState('')
-  const [valueAvatar,setvalueAvatar]=useState(null)
+  const [valueTitle, setValueTitle] = useState("");
+  const [valueTotalCalo, setValueTotalCalo] = useState("");
+  const [valueDescription, setValueDescription] = useState("");
+  const [valueAvatar, setvalueAvatar] = useState(null);
   const {
     avatar,
     content,
@@ -102,13 +102,14 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
   useEffect(() => {
     type === 1 && setToggle(false);
   }, [type]);
-  useLayoutEffect(() => {
-    ingredients&&setCardItem(ingredients)
-    title&&setValueTitle(title)
-    avatar&&setvalueAvatar(avatar)
-    totalCalories&&setValueTotalCalo(totalCalories)
-    description&&setValueDescription(description)
-  }, [ingredients]);
+  useEffect(() => {
+    ingredients && setCardItem(ingredients);
+    title && setValueTitle(title);
+    avatar && setvalueAvatar(avatar);
+    totalCalories && setValueTotalCalo(totalCalories);
+    description && setValueDescription(description);
+    return true
+  }, [ingredients, title, avatar, totalCalories, description]);
   const navigate = useNavigate();
   const firebaseApp = initializeApp(firebaseConfig);
   const storage = getStorage(firebaseApp);
@@ -128,11 +129,11 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
     navigate(`/chi-tiet/${id}`);
   };
   const onSubmit = (data) => {
-    if(!data.title&&valueTitle){
-      data.title=valueTitle
+    if (!data.title && valueTitle) {
+      data.title = valueTitle;
     }
-    if(!data.description&&valueDescription){
-      data.description=valueDescription
+    if (!data.description && valueDescription) {
+      data.description = valueDescription;
     }
     setLoading(true);
     setLoadingPage(true);
@@ -206,9 +207,9 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
                 message: "Nhập tiêu đề",
               },
               onBlur: () => trigger(),
-              onChange:(e)=>{
-                setValueTitle(e.target.value)
-              }
+              onChange: (e) => {
+                setValueTitle(e.target.value);
+              },
             })}
           />
           <TextField
@@ -224,11 +225,11 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
                 message: "Nhập mô tả",
               },
               onBlur: () => trigger(),
-              onChange:(e)=>setValueDescription(e.target.value)
+              onChange: (e) => setValueDescription(e.target.value),
             })}
           />
           <FeaturedPhoto
-            imgPreview={imgPreview||valueAvatar}
+            imgPreview={imgPreview || valueAvatar}
             setImgPreview={setImgPreview}
             loading={loading}
             onChangeFile={handlePhoto}
@@ -247,7 +248,7 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
               label={errors.ingredients?.message || false}
               setCardItem={setCardItem}
               // cardItem={ingredients || cardItem}
-              cardItem={cardItem }
+              cardItem={cardItem}
               {...register("ingredients", {
                 required: {
                   value: !cardItem[0] && !dataEdit._id,
@@ -270,7 +271,7 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
                   message: "Nhập tổng lượng Calo",
                 },
                 onBlur: () => trigger(),
-                onChange:(e)=>setValueTotalCalo(e.target.value)
+                onChange: (e) => setValueTotalCalo(e.target.value),
               })}
             />
           )}
@@ -283,6 +284,7 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
                 const data = editor.getData();
                 uploadPosts.current.content = data;
                 setDataConten(data);
+                console.log('/',data);
               }}
               data={content}
               required={true}
@@ -296,7 +298,7 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
               }}
             />
           </Box>
-          {!uploadPosts.current.content && imgPreview &&!content&& (
+          {!uploadPosts.current.content && imgPreview && !content && (
             <p style={{ color: "#dc3545" }}>Vui lòng viết nội dung bài viết</p>
           )}
           <Box sx={{ display: "flex", justifyContent: "center" }}>
