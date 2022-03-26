@@ -26,6 +26,7 @@ const PostContent = (props) => {
   );
   const [isLove, setIsLove] = useState(false);
   const [justLiked, setJustLiked] = useState(false);
+  const [justDisLiked, setJustDisLiked] = useState(false);
   const [justSave, setJustSave] = useState(false);
   const [justUnsave, setJustUnsave] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
@@ -50,7 +51,7 @@ const PostContent = (props) => {
       setJustLiked(true);
 
       const bodyData = {
-        _id: data._id,
+        _id: postId,
         userLike: [...userLikeArr, userId],
       };
 
@@ -67,12 +68,46 @@ const PostContent = (props) => {
           if (resJson.message === "success") {
             setCountLike((prev) => prev + 1);
             setIsLove(true);
+            setJustLiked(false);
           }
         });
     } else {
       appCtx.setOpenLoginNotify(true);
     }
   };
+
+  const handleDisLiked = () => {
+    console.log("dislike");
+    if (token) {
+      setJustDisLiked(true);
+      const index = userLikeArr.indexOf(userId);
+      const bodyData = {
+        "_id":postId,
+        "userLike": index > 0
+          ? [...userLikeArr.slice(0,index),...userLikeArr.slice(index)]
+          : [...userLikeArr]
+      }
+    
+      fetch(`${COMMON.DOMAIN}posts/like`,{
+        method: "PATCH",
+        headers: {
+          'Content-type':'application/json',
+          'Authorization':"Bearer "+token
+        },
+        body: JSON.stringify(bodyData)
+      })
+      .then(res => res.json())
+      .then(resJson => {
+        if (resJson.message === "success") {
+          setCountLike(prev => prev - 1);
+          setIsLove(false);
+          setJustDisLiked(false);
+        }
+      });
+    } else {
+      appCtx.setOpenLoginNotify(true);
+    }
+  }
 
   const handleUnsave = () => {
     if (token) {
@@ -167,7 +202,7 @@ const PostContent = (props) => {
               <Edit
                 className=" border rounded-circle p-1"
                 fontSize="large"
-                sx={{ color: "#06A700" ,mr:2}}
+                sx={{ color: "#1373b7" ,mr:2}}
                 onClick={handleOpen}
               />
             )}
@@ -215,6 +250,7 @@ const PostContent = (props) => {
             <FavoriteIcon
               className="d-inline-block"
               style={{ color: "#d83737" }}
+              onClick = {!justDisLiked ? handleDisLiked : null}
             />
           ) : (
             <FavoriteBorderOutlinedIcon

@@ -40,23 +40,23 @@ function App() {
   const token =
     sessionStorage.getItem("token") || localStorage.getItem("token");
 
-  useEffect(() => {
-    if (token) {
-      fetch(`${COMMON.DOMAIN}user/info`, {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: "Bearer " + token,
-        },
-      })
-        .then((res) => res.json())
-        .then((resJson) => {
-          setUserInfo(resJson.data);
-        });
-    } else {
-      setUserInfo(null);
-    }
-  }, [token]);
+    useEffect(() => {
+        if (token) {
+            fetch(`${COMMON.DOMAIN}user/info`, {
+                method: "GET",
+                headers: {
+                    "Content-type": "application/json",
+                    Authorization: "Bearer " + token,
+                },
+            })
+            .then((res) => res.json())
+            .then((resJson) => {
+                setUserInfo(resJson.data);
+            });
+        } else {
+            setUserInfo(null);
+        }
+    }, [token]);
 
   return (
     <div className="App">

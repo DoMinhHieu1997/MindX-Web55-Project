@@ -4,31 +4,29 @@ import {
   Logout,
 } from "@mui/icons-material";
 import { Avatar, Menu, MenuItem } from "@mui/material";
-import React, { useContext, useEffect, useLayoutEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AppCtx from "../../appContext";
 import { isLogged } from "./config";
 import "./User.css";
 
-function Users({ onClick ,userInfo}) {
-  // const authCtx = useContext(AppCtx);
+function Users({ onClick }) {
+  const authCtx = useContext(AppCtx);
   const [anchorEl, setAnchorEl] = useState(null);
   const isLogin = isLogged();
   const navigate = useNavigate();
   const [avatar, setAvatar] = useState("");
   const [nameAvatar, setNameAvatar] = useState("");
   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-  const authCtx = userInfo||{};
-  
+  console.log(authCtx);
   const photo = authCtx.userInfo?.photoUrl;
   const nameUser = authCtx.userInfo?.nameDisplay;
-  useLayoutEffect(() => {
-    console.log(photo);
+  useEffect(() => {
     nameUser && setNameAvatar(nameUser[0]);
     photo && setAvatar(photo);
     // nameUser ? setNameAvatar(nameUser[0]) : setNameAvatar("");
     // photo ? setAvatar(photo) : setAvatar("");
-  }, [authCtx]);
+  }, [photo]);
   const options = !isLogin
     ? ["Đăng Nhập", "Đăng Ký"]
     : ["Thông Tin Tài Khoản", "Đăng Xuất"];
@@ -56,8 +54,8 @@ function Users({ onClick ,userInfo}) {
     <div>
       <div className="user-menu desktop" onClick={handleClick}>
         {!isLogin && <Avatar width={30}></Avatar>}
-        {isLogin && photo&&authCtx && <Avatar src={avatar} alt="" width={30} />}
-        {isLogin && !photo&&authCtx && (
+        {isLogin && photo && <Avatar src={avatar} alt="" width={30} />}
+        {isLogin && !photo && (
           <Avatar width={30} sx={{ bgcolor: `${randomColor}` }}>
             {nameAvatar}
           </Avatar>
