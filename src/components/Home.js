@@ -103,7 +103,7 @@ const Home = () => {
                     <button
                       className="btn btn-primary px-5 bg-white border-secondary text-secondary"
                       onClick={() => {
-                        setMoreBlog((prev) => prev + 2);
+                        setMoreBlog(prev => prev + 10);
                       }}
                     >
                       Xem thêm
