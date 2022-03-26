@@ -21,12 +21,12 @@ const SavedPost = ({ userData }) => {
             });
         }
     }, [userData, postLength, ]);
-    useEffect(() => {
-        if(userData){
+    // useEffect(() => {
+    //     if(userData){
 
-            setIssaved(indexOf() > -1 ? true : false);
-        }
-    }, [recipe.usersLike,userId]);
+    //         setIssaved(indexOf() > -1 ? true : false);
+    //     }
+    // }, [recipe.usersLike,userId]);
 
     const handleSavePost = ()=>{
 
