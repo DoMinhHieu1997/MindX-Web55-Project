@@ -18,7 +18,6 @@ const Recipes = () => {
   }
 
   useEffect(() => {
-    console.log("recipes");
     if (!paramPage.page) {
       getListRecipes(1);
     } else {

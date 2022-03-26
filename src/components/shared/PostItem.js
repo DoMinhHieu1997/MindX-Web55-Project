@@ -41,6 +41,7 @@ const PostItem = (props) => {
       .then(res => res.json())
       .then(resJson => {
         if (resJson.message === "success") {
+          console.log(resJson);
           setTotalLike(prev => prev + 1);
           setIsLove(true);
           setJustLiked(false);
@@ -74,6 +75,7 @@ const PostItem = (props) => {
       .then(res => res.json())
       .then(resJson => {
         if (resJson.message === "success") {
+          console.log(resJson);
           setTotalLike(prev => prev - 1);
           setIsLove(false);
           setJustDisLiked(false);

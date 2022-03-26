@@ -16,7 +16,7 @@ const Detail = () => {
         .then((resJson) => {
             setPostData(resJson);
         });
-    },[]);
+    },[postId]);
 
     return <>
         <FloatingAction />
