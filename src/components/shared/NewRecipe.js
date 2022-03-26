@@ -14,7 +14,10 @@ const NewRecipe = ({ recipe }) => {
     const [justDisliked, setJustDisliked] = useState(false);
 
     useEffect(() => {
-        setIsLove(recipe.usersLike.indexOf(userId) > -1 ? true : false);
+        if(token){
+
+            setIsLove(recipe.usersLike.indexOf(userId) > -1 ? true : false);
+        }
     }, [recipe.usersLike,userId]);
     const handleLike = () => {
         if (token) {
