@@ -7,13 +7,11 @@ function FeaturedPhoto(
   ref
 ) {
   const handleInputIMG = (e) => {
-    console.log(e.target.files[0]);
     const file = e.target.files[0];
     if (file.type === "image/png" || "image/gif" || "image/jpeg") {
       let reader = new FileReader();
       reader.onloadend = () => {
         setImgPreview(reader.result);
-        console.log(reader);
       };
       file && reader.readAsDataURL(file);
       onChangeFile(file);

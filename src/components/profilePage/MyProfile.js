@@ -90,7 +90,6 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
     const handleInputIMG = (e) => {
         const file = e.target.files[0];
         if (file.type === "image/png" || file.type === "image/gif" || file.type === "image/jpeg") {
-            console.log(file);
             let reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = () => setViewAva(reader.result);

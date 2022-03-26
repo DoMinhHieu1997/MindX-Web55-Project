@@ -77,7 +77,6 @@ const PostContent = (props) => {
   };
 
   const handleDisLiked = () => {
-    console.log("dislike");
     if (token) {
       setJustDisLiked(true);
       const index = userLikeArr.indexOf(userId);
