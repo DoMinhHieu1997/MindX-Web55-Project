@@ -7,7 +7,6 @@ import { Button, TextField } from "@mui/material";
 import { COMMON } from "../Common";
 
 const CommentItem = (props) => {
-  console.log(props);
   const appCtx = useContext(AppCtx);
   const userId = appCtx.userInfo?._id;
   const token = sessionStorage.getItem("token") || localStorage.getItem("token");
@@ -82,9 +81,6 @@ const CommentItem = (props) => {
           </div>
         }
       </div>
-    }
-    {
-      console.log(canUpdate)
     }
     {
       canUpdate
