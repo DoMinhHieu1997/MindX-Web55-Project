@@ -20,8 +20,10 @@ const Recipes = () => {
 
   useEffect(() => {
     if (!paramPage.page) {
+      document.title='Công thức'
       getListRecipes(1);
     } else {
+      document.title='Công thức page '+paramPage.page
       getListRecipes(paramPage.page*1);
     }
   },[paramPage])

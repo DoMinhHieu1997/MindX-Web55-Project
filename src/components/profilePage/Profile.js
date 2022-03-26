@@ -23,6 +23,7 @@ const Profile = () => {
   const matchBaiVietDaLuu = useMatch("/ho-so/bai-viet-da-luu");
 
   useEffect(() => {
+    document.title='Hồ sơ'
     if (!appCtx.userInfo) {
       setIsLoading(true);
       return;

@@ -25,10 +25,17 @@ const MyPost = ({ userData }) => {
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    param.page && setLoadingPage(param.page);
-    !param.page && setLoadingPage(1);
+    if (param.page) {
+      document.title = "Bài viết của tôi trang " + param.page;
+      setLoadingPage(param.page);
+    }
+    if (!param.page) {
+      document.title = "Bài viết của tôi";
+      setLoadingPage(1);
+    }
   }, [param.page]);
   useEffect(() => {
+    document.title = "Bài viết của tôi trang " + param.page;
     const id = userData._id;
     http
       .get(`/posts/user?p=1&s=${6 * loadPage}&p=2&t=1&userId=${id}`)

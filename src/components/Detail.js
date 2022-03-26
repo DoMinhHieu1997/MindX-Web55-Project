@@ -17,7 +17,6 @@ const Detail = () => {
             setPostData(resJson);
         });
     },[postId.id]);
-
     return <>
         <FloatingAction />
         <div className="container py-5">

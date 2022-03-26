@@ -35,16 +35,22 @@ const PostContent = (props) => {
   const handleOpen = () => setOpenModal(true);
 
   useEffect(() => {
-    if (userLikeArr.indexOf(userId) > -1) setIsLove(true);
-  }, [userId,data]);
-
+    if (userLikeArr.indexOf(userId) > -1) {
+      setIsLove(true);
+    }else{
+      setIsLove(false)
+    }
+  }, [userId, data, userLikeArr]);
+  useEffect(() => {
+    setCountLike(userLikeArr.length ? userLikeArr.length : 0);
+  },[userLikeArr]);
   useEffect(() => {
     if (bookmark)
       if (bookmark.indexOf(postId) > -1) {
         setIsSaved(true);
         setListBK(bookmark);
       }
-  }, [bookmark,data]);
+  }, [bookmark, data,postId]);
 
   const handleLike = () => {
     if (token) {
@@ -81,32 +87,33 @@ const PostContent = (props) => {
       setJustDisLiked(true);
       const index = userLikeArr.indexOf(userId);
       const bodyData = {
-        "_id":postId,
-        "userLike": index > 0
-          ? [...userLikeArr.slice(0,index),...userLikeArr.slice(index)]
-          : [...userLikeArr]
-      }
-    
-      fetch(`${COMMON.DOMAIN}posts/like`,{
+        _id: postId,
+        userLike:
+          index > 0
+            ? [...userLikeArr.slice(0, index), ...userLikeArr.slice(index)]
+            : [...userLikeArr],
+      };
+
+      fetch(`${COMMON.DOMAIN}posts/like`, {
         method: "PATCH",
         headers: {
-          'Content-type':'application/json',
-          'Authorization':"Bearer "+token
+          "Content-type": "application/json",
+          Authorization: "Bearer " + token,
         },
-        body: JSON.stringify(bodyData)
+        body: JSON.stringify(bodyData),
       })
-      .then(res => res.json())
-      .then(resJson => {
-        if (resJson.message === "success") {
-          setCountLike(prev => prev - 1);
-          setIsLove(false);
-          setJustDisLiked(false);
-        }
-      });
+        .then((res) => res.json())
+        .then((resJson) => {
+          if (resJson.message === "success") {
+            setCountLike((prev) => prev - 1);
+            setIsLove(false);
+            setJustDisLiked(false);
+          }
+        });
     } else {
       appCtx.setOpenLoginNotify(true);
     }
-  }
+  };
 
   const handleUnsave = () => {
     if (token) {
@@ -184,8 +191,8 @@ const PostContent = (props) => {
           setOpen={setOpenModal}
         />
       </Modal>
-      <div  className="post-content">
-        <h1 >{data.title}</h1>
+      <div className="post-content">
+        <h1>{data.title}</h1>
         <div className="d-flex justify-content-between align-items-center mt-3">
           <div className="d-flex align-items-center flex-start">
             <AccessAlarmsOutlinedIcon
@@ -201,7 +208,7 @@ const PostContent = (props) => {
               <Edit
                 className=" border rounded-circle p-1"
                 fontSize="large"
-                sx={{ color: "#1373b7" ,mr:2}}
+                sx={{ color: "#1373b7", mr: 2 }}
                 onClick={handleOpen}
               />
             )}
@@ -249,7 +256,7 @@ const PostContent = (props) => {
             <FavoriteIcon
               className="d-inline-block"
               style={{ color: "#d83737" }}
-              onClick = {!justDisLiked ? handleDisLiked : null}
+              onClick={!justDisLiked ? handleDisLiked : null}
             />
           ) : (
             <FavoriteBorderOutlinedIcon
