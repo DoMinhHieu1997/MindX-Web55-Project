@@ -6,6 +6,7 @@ const AppCtx = createContext({
   openLoginNotify:null,
   setUserInfo: () => {},
   setOpenLoginNotify: () => {},
+  setUserToken: () => {}
 });
 
 export default AppCtx; 
