@@ -89,69 +89,75 @@ const PostItem = (props) => {
   };
 
   return (
-    <div className="card overflow-hidden h-100" onClick={()=>window.scroll(0,0)}>
-      <NavLink
-        to={`/chi-tiet/${props.data._id}/`}
-        className="rounded oveflow-hidden"
-      >
-        <div>
-          <div
-            className="ratio ratio-1x1 image-background"
-            style={{ backgroundImage: `url(${props.data.avatar})` }}
-          >
-            {props.isTopLikeItem && (
-              <div
-                className="top-0 bottom-0 end-0 start-0"
-                style={{ backgroundColor: "rgba(0,0,0,.2)" }}
-              ></div>
-            )}
-          </div>
-        </div>
-        <div className="p-1 mt-2 ms-2 position-absolute top-0 bg-06a682 rounded text-white">
-          {!isLove ? (
-            <FavoriteBorderOutlinedIcon
-              style={{ color: "white" }}
-              className="d-inline-block"
-              onClick={!justLiked ? handleLike : null}
-            />
-          ) : (
-            <FavoriteIcon
-              className="d-inline-block"
-              style={{ color: "#d83737" }}
-              onClick={!justDisLiked ? handleDisLiked : null}
-            />
-          )}
-          <div className="ms-2 d-inline-block h6 mb-0">
-            {totalLike} Lượt thích
-          </div>
-        </div>
-      </NavLink>
+    <NavLink to={`/chi-tiet/${props.data._id}/`}>
       <div
-        className={
-          props.isTopLikeItem
-            ? "card-body pb-2 position-absolute bottom-0 end-0 start-0 text-shadow"
-            : "mt-2 px-2"
-        }
+        className="card overflow-hidden h-100"
+        key={props.data._id}
+        onClick={() => window.scroll(0, 0)}
       >
-        <NavLink to={`/chi-tiet/${props.data._id}/`}>
-          <h5
-            className={
-              "card-title " +
-              (props.isTopLikeItem
-                ? "text-white toplike-title"
-                : "normal-title")
-            }
-          >
-            {props.data.title}
-          </h5>
-        </NavLink>
-        {!props.isTopLikeItem && (
-          <p className="card-text pb-2">
-            {spliceString(props.data.description, 80)}
-          </p>
-        )}
+        {/* <NavLink
+          to={`/chi-tiet/${props.data._id}/`}
+          className="rounded oveflow-hidden"
+        > */}
+          <div>
+            <div
+              className="ratio ratio-1x1 image-background"
+              style={{ backgroundImage: `url(${props.data.avatar})` }}
+            >
+              {props.isTopLikeItem && (
+                <div
+                  className="top-0 bottom-0 end-0 start-0"
+                  style={{ backgroundColor: "rgba(0,0,0,.2)" }}
+                ></div>
+              )}
+            </div>
+          </div>
+          <div className="p-1 mt-2 ms-2 position-absolute top-0 bg-06a682 rounded text-white">
+            {!isLove ? (
+              <FavoriteBorderOutlinedIcon
+                style={{ color: "white" }}
+                className="d-inline-block"
+                onClick={!justLiked ? handleLike : null}
+              />
+            ) : (
+              <FavoriteIcon
+                className="d-inline-block"
+                style={{ color: "#d83737" }}
+                onClick={!justDisLiked ? handleDisLiked : null}
+              />
+            )}
+            <div className="ms-2 d-inline-block h6 mb-0">
+              {totalLike} Lượt thích
+            </div>
+          </div>
+        {/* </NavLink> */}
+        <div
+          className={
+            props.isTopLikeItem
+              ? "card-body pb-2 position-absolute bottom-0 end-0 start-0 text-shadow"
+              : "mt-2 px-2"
+          }
+        >
+          {/* <NavLink to={`/chi-tiet/${props.data._id}/`}> */}
+            <h5
+              className={
+                "card-title " +
+                (props.isTopLikeItem
+                  ? "text-white toplike-title"
+                  : "normal-title")
+              }
+            >
+              {props.data.title}
+            </h5>
+          {/* </NavLink> */}
+          {!props.isTopLikeItem && (
+            <p className="card-text pb-2">
+              {spliceString(props.data.description, 80)}
+            </p>
+          )}
+        </div>
       </div>
-    </div>
+    </NavLink>
   );
 };
 

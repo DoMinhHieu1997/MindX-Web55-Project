@@ -169,7 +169,7 @@ const PostContent = (props) => {
 
   useEffect(() => {
     document.getElementById("html-content").innerHTML = data.content;
-  }, []);
+  }, [postId]);
 
   return (
     <>
