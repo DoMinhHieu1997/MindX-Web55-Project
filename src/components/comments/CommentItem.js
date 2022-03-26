@@ -18,9 +18,13 @@ const CommentItem = (props) => {
   const [disableUpdate, setDisableUpdate] = useState(false);
 
   useEffect(() => {
-    if (props.data.userId.indexOf(userId) > -1)
+    if (props.data.userId.indexOf(userId) > -1) {
       setCanUpdate(true);
-  },[userId])
+    } else {
+      setCanUpdate(false);
+    }
+    setContent(props.data.content);
+  },[userId,props])
 
   const toggleUpdate = () => {
     setIsUpdating(!isUpdating);
