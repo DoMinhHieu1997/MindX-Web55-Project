@@ -36,8 +36,16 @@ const PostContent = (props) => {
   const handleOpen = () => setOpenModal(true);
 
   useEffect(() => {
-    if (userLikeArr.indexOf(userId) > -1) setIsLove(true);
-  }, [userId,data]);
+    if (userLikeArr.indexOf(userId) > -1) {
+      setIsLove(true);
+    } else {
+      setIsLove(false);
+    }
+  }, [userId,data,userLikeArr]);
+
+  useEffect(() => {
+    setCountLike(userLikeArr.length ? userLikeArr.length : 0);
+  },[userLikeArr]);
 
   useEffect(() => {
     if (bookmark)

@@ -96,16 +96,15 @@ const PostItem = (props) => {
 
 
   return (
-    <NavLink to={`/chi-tiet/${props.data._id}/`}>
       <div
         className="card overflow-hidden h-100"
         key={props.data._id}
         onClick={() => window.scroll(0, 0)}
       >
-        {/* <NavLink
+        <NavLink
           to={`/chi-tiet/${props.data._id}/`}
           className="rounded oveflow-hidden"
-        > */}
+        >
           <div>
             <div
               className="ratio ratio-1x1 image-background"
@@ -137,7 +136,7 @@ const PostItem = (props) => {
               {totalLike} Lượt thích
             </div>
           </div>
-        {/* </NavLink> */}
+        </NavLink>
         <div
           className={
             props.isTopLikeItem
@@ -146,7 +145,7 @@ const PostItem = (props) => {
 
           }
         >
-          {/* <NavLink to={`/chi-tiet/${props.data._id}/`}> */}
+          <NavLink to={`/chi-tiet/${props.data._id}/`}>
             <h5
               className={
                 "card-title " +
@@ -157,7 +156,7 @@ const PostItem = (props) => {
             >
               {props.data.title}
             </h5>
-          {/* </NavLink> */}
+          </NavLink>
           {!props.isTopLikeItem && (
             <p className="card-text pb-2">
               {spliceString(props.data.description, 80)}
@@ -166,7 +165,6 @@ const PostItem = (props) => {
         </div>
 
       </div>
-    </NavLink>
   );
 };
 
