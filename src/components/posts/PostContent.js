@@ -37,7 +37,7 @@ const PostContent = (props) => {
 
   useEffect(() => {
     if (userLikeArr.indexOf(userId) > -1) setIsLove(true);
-  }, [userId]);
+  }, [userId,data]);
 
   useEffect(() => {
     if (bookmark)
@@ -45,7 +45,7 @@ const PostContent = (props) => {
         setIsSaved(true);
         setListBK(bookmark);
       }
-  }, [bookmark]);
+  }, [bookmark,data]);
 
   const handleLike = () => {
     if (token) {
@@ -78,7 +78,6 @@ const PostContent = (props) => {
   };
 
   const handleDisLiked = () => {
-    console.log("dislike");
     if (token) {
       setJustDisLiked(true);
       const index = userLikeArr.indexOf(userId);
@@ -171,7 +170,7 @@ const PostContent = (props) => {
 
   useEffect(() => {
     document.getElementById("html-content").innerHTML = data.content;
-  }, []);
+  }, [postId]);
 
   return (
     <>
@@ -186,8 +185,8 @@ const PostContent = (props) => {
           setOpen={setOpenModal}
         />
       </Modal>
-      <div className="post-content">
-        <h1>{data.title}</h1>
+      <div  className="post-content">
+        <h1 >{data.title}</h1>
         <div className="d-flex justify-content-between align-items-center mt-3">
           <div className="d-flex align-items-center flex-start">
             <AccessAlarmsOutlinedIcon
