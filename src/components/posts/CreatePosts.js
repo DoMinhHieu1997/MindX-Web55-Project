@@ -103,12 +103,15 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
     type === 1 && setToggle(false);
   }, [type]);
   useEffect(() => {
+    let unmounted = false;
     ingredients && setCardItem(ingredients);
     title && setValueTitle(title);
     avatar && setvalueAvatar(avatar);
     totalCalories && setValueTotalCalo(totalCalories);
     description && setValueDescription(description);
-    return true
+    return () => {
+      unmounted = true;
+    };
   }, [ingredients, title, avatar, totalCalories, description]);
   const navigate = useNavigate();
   const firebaseApp = initializeApp(firebaseConfig);

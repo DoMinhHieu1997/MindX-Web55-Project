@@ -43,7 +43,7 @@ const MyPost = ({ userData }) => {
     setLoadingPage((prev) => +prev + 1);
     navigate(
       `/ho-so/bai-viet-cua-toi/${+loadPage + 1}`
-      // , { page: true }
+      , { page: true }
     );
   };
   const handleEdit = (post) => {

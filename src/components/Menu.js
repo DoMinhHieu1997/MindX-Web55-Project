@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 
-const Menu = () => {
+const Menu = ({userInfo}) => {
   let navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
 
@@ -106,7 +106,7 @@ const Menu = () => {
               </a>
             </div>
             <div className="d-block d-lg-none">
-              <Users onClick={handleToggle} />
+              <Users userInfo={{}} onClick={handleToggle} />
             </div>
             <div className="d-flex align-items-center mt-4 mt-lg-0">
               <div className="position-relative me-3 w-100">
@@ -131,7 +131,7 @@ const Menu = () => {
               </div>
             </div>
             <div className="d-none d-lg-block">
-              <Users />
+              <Users userInfo={userInfo}/>
             </div>
           </div>
         </div>
