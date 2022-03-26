@@ -24,10 +24,10 @@ const MyPost = ({ userData }) => {
   const param = useParams();
   const handleClose = () => setOpen(false);
 
-  useEffect(()=>{
-    param.page&&setLoadingPage(param.page)
-    !param.page&&setLoadingPage(1)
-  },[param.page])
+  useEffect(() => {
+    param.page && setLoadingPage(param.page);
+    !param.page && setLoadingPage(1);
+  }, [param.page]);
   useEffect(() => {
     const id = userData._id;
     http
@@ -36,13 +36,14 @@ const MyPost = ({ userData }) => {
         setData(res.data.data);
         setIsLoading(false);
       });
-    }, [loadPage, userData]);
-    
-    const handleLoadMore = () => {
-      setIsLoading(true);
-    setLoadingPage(prev=>+prev+1);
-    navigate(`/ho-so/bai-viet-cua-toi/${+loadPage + 1}`
-    // , { page: true }
+  }, [loadPage, userData]);
+
+  const handleLoadMore = () => {
+    setIsLoading(true);
+    setLoadingPage((prev) => +prev + 1);
+    navigate(
+      `/ho-so/bai-viet-cua-toi/${+loadPage + 1}`
+      // , { page: true }
     );
   };
   const handleEdit = (post) => {
@@ -50,50 +51,53 @@ const MyPost = ({ userData }) => {
     setOpen(true);
   };
 
-
   return (
     <div className="col-md-8 border ml-2">
       <div className="row">
         <div className="col-12 p-4">
           <div className="h3">Danh sách bài viết</div>
           <div className="row">
-            {data.map((post, i) => {
-              return (
-                <div className="col-lg-4 mb-5" key={i}>
-                  <Card
-                    sx={{ pb: 2, cursor: "pointer" }}
-                    onClick={() => {
-                      window.scroll(0, 0);
-                      navigate(`/chi-tiet/${post._id}`);
-                    }}
-                  >
-                    <CardMedia
-                      component="img"
-                      height="200"
-                      image={post.avatar}
-                    />
+            {data.length === 0 && !isLoading && (
+              <div className="">Bạn chưa đăng bài viết</div>
+            )}
+            {data.length > 0 &&
+              data.map((post, i) => {
+                return (
+                  <div className="col-lg-4 mb-5" key={i}>
+                    <Card
+                      sx={{ pb: 2, cursor: "pointer" }}
+                      onClick={() => {
+                        window.scroll(0, 0);
+                        navigate(`/chi-tiet/${post._id}`);
+                      }}
+                    >
+                      <CardMedia
+                        component="img"
+                        height="200"
+                        image={post.avatar}
+                      />
 
-                    <CardContent sx={{ height: 80 }}>
-                      <Typography
-                        sx={{ fontWeight: "medium", mb: 3 }}
-                        variant="p"
-                        component="div"
-                      >
-                        {post.title}
-                      </Typography>
-                    </CardContent>
-                  </Card>
+                      <CardContent sx={{ height: 80 }}>
+                        <Typography
+                          sx={{ fontWeight: "medium", mb: 3 }}
+                          variant="p"
+                          component="div"
+                        >
+                          {post.title}
+                        </Typography>
+                      </CardContent>
+                    </Card>
 
-                  <Button
-                    variant="outlined"
-                    sx={{ m: 1 }}
-                    onClick={() => handleEdit(post)}
-                  >
-                    <Edit /> Chỉnh sửa
-                  </Button>
-                </div>
-              );
-            })}
+                    <Button
+                      variant="outlined"
+                      sx={{ m: 1 }}
+                      onClick={() => handleEdit(post)}
+                    >
+                      <Edit /> Chỉnh sửa
+                    </Button>
+                  </div>
+                );
+              })}
             {isLoading &&
               Array(6)
                 .fill(1)
@@ -106,7 +110,7 @@ const MyPost = ({ userData }) => {
           </div>
           <div className="d-flex justify-content-center">
             <Button
-              hidden={data.length < loadPage*6}
+              hidden={data.length < loadPage * 6}
               variant="outlined"
               onClick={handleLoadMore}
             >
