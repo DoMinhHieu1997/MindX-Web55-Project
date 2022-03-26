@@ -3,7 +3,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState,useContext,useEffect } from 'react';
 import AppCtx from "../../appContext";
 import {COMMON,spliceString} from '../Common';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink} from 'react-router-dom';
+import Detail from '../Detail';
 
 const PostItem = (props) => {
   const appCtx = useContext(AppCtx);
@@ -103,9 +104,10 @@ const PostItem = (props) => {
       </div>
     </div>
     <div className={props.isTopLikeItem ? "card-body pb-2 position-absolute bottom-0 end-0 start-0 text-shadow" : "mt-2 px-2"}>
-      <NavLink to={"/chi-tiet/"+props.data._id}>
+      <Link exact={true} to={"/chi-tiet/"+props.data._id}>
+        
         <h5 className={"card-title " + (props.isTopLikeItem ? "text-white toplike-title" : "normal-title")}>{props.data.title}</h5>
-      </NavLink>
+      </Link>
       {
         !props.isTopLikeItem && <p className="card-text pb-2">{spliceString(props.data.description,80)}</p>
       }
@@ -113,4 +115,4 @@ const PostItem = (props) => {
   </div>
 }
 
-export default PostItem;
+export default (PostItem);
