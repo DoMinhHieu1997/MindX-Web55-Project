@@ -13,7 +13,6 @@ const Detail = () => {
   const [clickEdit, SetClickEdit] = useState(true);
   const postId = useParams();
 
-  console.log(clickEdit);
   useEffect(() => {
     fetch(`${COMMON.DOMAIN}posts/detail?id=` + postId.id)
       .then((res) => res.json())

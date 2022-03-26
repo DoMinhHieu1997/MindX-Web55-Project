@@ -124,7 +124,7 @@ function CreatePosts({ onClose, dataEdit ,SetClickEdit}, refChild) {
 
   const endFetch = (res) => {
     const id = res.data.data._id.toString();
-    SetClickEdit(prev=>!prev)
+    SetClickEdit&& SetClickEdit(prev=>!prev)
     onClose();
     setLoading(false);
     setLoadingPage(false);
