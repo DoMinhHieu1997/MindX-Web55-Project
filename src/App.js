@@ -52,6 +52,8 @@ function App() {
             .then((resJson) => {
                 setUserInfo(resJson.data);
             });
+        } else {
+            setUserInfo(null);
         }
     }, [token]);
 
