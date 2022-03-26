@@ -284,7 +284,6 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
                 const data = editor.getData();
                 uploadPosts.current.content = data;
                 setDataConten(data);
-                console.log('/',data);
               }}
               data={content}
               required={true}
