@@ -184,8 +184,8 @@ const PostContent = (props) => {
           setOpen={setOpenModal}
         />
       </Modal>
-      <div className="post-content">
-        <h1>{data.title}</h1>
+      <div  className="post-content">
+        <h1 >{data.title}</h1>
         <div className="d-flex justify-content-between align-items-center mt-3">
           <div className="d-flex align-items-center flex-start">
             <AccessAlarmsOutlinedIcon
