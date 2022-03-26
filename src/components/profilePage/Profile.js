@@ -16,10 +16,13 @@ const Profile = () => {
     const [viewAva, setViewAva] = useState(null);
     
     const matchThongTin = useMatch("/ho-so/thong-tin");
-    const matchBaiVietCuaToi = useMatch("/ho-so/bai-viet-cua-toi");
+    const matchPage = useMatch("/ho-so/bai-viet-cua-toi/:page");
+    const matchProfile = useMatch("/ho-so/bai-viet-cua-toi");
+    const matchBaiVietCuaToi = matchPage || matchProfile;
     const matchBaiVietDaLuu = useMatch("/ho-so/bai-viet-da-luu");
 
     useEffect(() => {
+        let unmounted = false;
         if (!appCtx.userInfo) {
             setIsLoading(true);
             return;
@@ -27,6 +30,9 @@ const Profile = () => {
         setUserData(appCtx.userInfo);
         setIsLoading(false);
         setViewAva(appCtx.userInfo.photoUrl);
+        return () => {
+          unmounted = true;
+        };
     }, [appCtx]);
     const HandlelogOut = () => {
         localStorage.removeItem("token");
@@ -131,7 +137,6 @@ const Profile = () => {
                         setViewAva={setViewAva}
                     />
                 )}
-                {console.log(userData)}
                 {matchBaiVietDaLuu && userData && <SavedPost userData={userData} />}
                 {matchBaiVietCuaToi && userData && <MyPost userData={userData} />}
                 {/* <Outlet /> */}

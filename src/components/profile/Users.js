@@ -1,6 +1,5 @@
 import {
   AccountCircleOutlined,
-  CircleOutlined,
   Logout,
 } from "@mui/icons-material";
 import { Avatar, Menu, MenuItem } from "@mui/material";
@@ -18,15 +17,16 @@ function Users({ onClick }) {
   const [avatar, setAvatar] = useState("");
   const [nameAvatar, setNameAvatar] = useState("");
   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-  console.log(authCtx);
   const photo = authCtx.userInfo?.photoUrl;
   const nameUser = authCtx.userInfo?.nameDisplay;
   useEffect(() => {
+    let unmounted = false;
     nameUser && setNameAvatar(nameUser[0]);
     photo && setAvatar(photo);
-    // nameUser ? setNameAvatar(nameUser[0]) : setNameAvatar("");
-    // photo ? setAvatar(photo) : setAvatar("");
-  }, [photo]);
+    return () => {
+      unmounted = true;
+    };
+  }, [photo,nameUser]);
   const options = !isLogin
     ? ["Đăng Nhập", "Đăng Ký"]
     : ["Thông Tin Tài Khoản", "Đăng Xuất"];
