@@ -48,11 +48,15 @@ const PostContent = (props) => {
   },[userLikeArr]);
 
   useEffect(() => {
-    if (bookmark)
+    if (bookmark) {
       if (bookmark.indexOf(postId) > -1) {
+        console.log(111);
         setIsSaved(true);
         setListBK(bookmark);
+      } else {
+        setIsSaved(false);
       }
+    }
   }, [bookmark,data]);
 
   const handleLike = () => {
@@ -137,6 +141,7 @@ const PostContent = (props) => {
         .then((res) => res.json())
         .then((resJson) => {
           if (resJson.message === "success") {
+            console.log(resJson);
             setJustUnsave(false);
             setIsSaved(false);
             setListBK(resJson.data.listBookmark);
@@ -152,7 +157,7 @@ const PostContent = (props) => {
       setJustSave(true);
 
       let bodyData = {
-        listBookmark: [...listBk, "622ce6f975faa48f08c2c35f"],
+        listBookmark: [...listBk,postId],
       };
 
       fetch(`${COMMON.DOMAIN}user/update`, {
@@ -166,6 +171,7 @@ const PostContent = (props) => {
         .then((res) => res.json())
         .then((resJson) => {
           if (resJson.message === "success") {
+            console.log(resJson);
             setJustSave(false);
             setIsSaved(true);
             setListBK(resJson.data.listBookmark);
