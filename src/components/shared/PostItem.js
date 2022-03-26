@@ -2,8 +2,10 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState, useContext, useEffect } from "react";
 import AppCtx from "../../appContext";
+
 import { COMMON, spliceString } from "../Common";
 import { NavLink } from "react-router-dom";
+
 
 const PostItem = (props) => {
   const appCtx = useContext(AppCtx);
@@ -39,6 +41,7 @@ const PostItem = (props) => {
         },
         body: JSON.stringify(data),
       })
+
         .then((res) => res.json())
         .then((resJson) => {
           if (resJson.message === "success") {
@@ -47,6 +50,7 @@ const PostItem = (props) => {
             setJustLiked(false);
           }
         });
+
     } else {
       appCtx.setOpenLoginNotify(true);
     }
@@ -75,6 +79,7 @@ const PostItem = (props) => {
         },
         body: JSON.stringify(data),
       })
+
         .then((res) => res.json())
         .then((resJson) => {
           if (resJson.message === "success") {
@@ -83,10 +88,12 @@ const PostItem = (props) => {
             setJustDisLiked(false);
           }
         });
+
     } else {
       appCtx.setOpenLoginNotify(true);
     }
   };
+
 
   return (
     <NavLink to={`/chi-tiet/${props.data._id}/`}>
@@ -136,6 +143,7 @@ const PostItem = (props) => {
             props.isTopLikeItem
               ? "card-body pb-2 position-absolute bottom-0 end-0 start-0 text-shadow"
               : "mt-2 px-2"
+
           }
         >
           {/* <NavLink to={`/chi-tiet/${props.data._id}/`}> */}
@@ -156,9 +164,11 @@ const PostItem = (props) => {
             </p>
           )}
         </div>
+
       </div>
     </NavLink>
   );
 };
+
 
 export default PostItem;

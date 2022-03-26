@@ -108,10 +108,10 @@ const Search = () => {
             }
             <h3 className="text-center mb-4 text-uppercase fw-normal">Tìm kiếm</h3>
             <div className="p-3 mb-5 bg-body mx-auto text-center">
-                <div className="w-75 d-inline-block align-middle me-4">
+                <div className="col-lg-8 col-12 d-inline-block align-middle me-4">
                     <TextField id="filled-basic" variant="filled" fullWidth label="Nhập từ khóa..." className="rounded" onChange={handleTextFieldChange} onKeyPress={handleKeypress} value={searchValue}/>
                 </div>
-                <div className="d-inline-block align-middle">
+                <div className="d-inline-block align-middle mt-3 mt-lg-0">
                     <Button onClick={handleClick} variant="outlined" startIcon={<SearchIcon />}>
                     Tìm kiếm
                     </Button>
@@ -132,20 +132,17 @@ const Search = () => {
             <div className="row mt-5">
                 {
                     searchResponse && searchResponse.map((item) => {
-                        return <div className="col-2 col-md-3 mb-3"><PostItem data={item} isTopLikeItem={true}/></div>
+                        return <div className="col-12 col-lg-3 mb-3"><PostItem data={item} isTopLikeItem={true}/></div>
                     })
                 }
                 {
                     isLoading &&  <>
-                        <div className="col-12 row">
-                            <SkeletonItem />
-                            <SkeletonItem />
-                            <SkeletonItem />
-                            <SkeletonItem />
-                            <SkeletonItem />
-                            <SkeletonItem />
-                            <SkeletonItem />
-                            <SkeletonItem />
+                        <div className="row">
+                            {
+                                Array(8).fill(0).map((item,index) => {
+                                    return <SkeletonItem key={index}/>
+                                })
+                            }
                         </div>
                     </>    
                 }
