@@ -9,8 +9,8 @@ const FloatingAction = () => {
     localStorage.getItem("token") || sessionStorage.getItem("token");
   const [showActions, setShowActions] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
+  const handleOpen = () => setOpenModal(true);
 
   useEffect(() => {
     if (token) setShowActions(true);

@@ -48,18 +48,18 @@ const Menu = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <a
-            className="navbar-brand d-sm-none d-block logo p-2 rounded me-0"
+            className="navbar-brand d-lg-none d-block logo p-2 rounded me-0"
             href="/"
           >
             <h6 className="text-white mb-0">COOKING HOLICS</h6>
           </a>
           <div
-            className="collapse navbar-collapse mt-3 mt-md-0"
+            className="collapse navbar-collapse mt-3 mt-lg-0"
             id="navbarTogglerDemo03"
           >
             <div className="border-top border-light d-md-none mb-4"></div>
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item me-4 d-none d-md-block">
+              <li className="nav-item me-4 d-none d-lg-block">
                 <NavLink
                   className="text-white fs-5 d-inline-block align-middle"
                   to="/"
@@ -67,7 +67,7 @@ const Menu = () => {
                   Trang chủ
                 </NavLink>
               </li>
-              <li className="nav-item mt-3 mt-sm-0 d-none d-md-block">
+              <li className="nav-item mt-3 mt-sm-0 d-none d-lg-block">
                 <NavLink
                   className="text-white fs-5 d-inline-block align-middle"
                   to="/cong-thuc"
@@ -75,7 +75,7 @@ const Menu = () => {
                   Công thức
                 </NavLink>
               </li>
-              <li className="nav-item me-4 d-md-none" onClick={handleToggle}>
+              <li className="nav-item me-4 d-lg-none" onClick={handleToggle}>
                 <HomeIcon
                   className="me-2 d-inline-block align-middle"
                   style={{ color: "white" }}
@@ -87,7 +87,7 @@ const Menu = () => {
                   Trang chủ
                 </NavLink>
               </li>
-              <li className="nav-item mt-3 mt-sm-0 d-md-none" onClick={handleToggle}>
+              <li className="nav-item mt-3 mt-sm-0 d-lg-none" onClick={handleToggle}>
                 <ListAltIcon
                   className="me-2 d-inline-block align-middle"
                   style={{ color: "white" }}
@@ -100,7 +100,7 @@ const Menu = () => {
                 </NavLink>
               </li>
             </ul>
-            <div className="logo position-absolute top-50 d-none d-md-block start-50 translate-middle p-2 rounded">
+            <div className="logo position-absolute top-50 d-none d-lg-block start-50 translate-middle p-2 rounded">
               <a href="/">
                 <h4 className="text-white mb-0">COOKING HOLICS</h4>
               </a>
@@ -108,7 +108,7 @@ const Menu = () => {
             <div className="d-block d-lg-none">
               <Users onClick={handleToggle} />
             </div>
-            <div className="d-flex align-items-center mt-4 mt-sm-0">
+            <div className="d-flex align-items-center mt-4 mt-lg-0">
               <div className="position-relative me-3 w-100">
                 <input
                   type="text"
