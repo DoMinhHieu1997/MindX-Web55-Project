@@ -130,7 +130,6 @@ const Profile = () => {
                         setViewAva={setViewAva}
                     />
                 )}
-                {console.log(userData)}
                 {matchBaiVietDaLuu && userData && <SavedPost userData={userData} />}
                 {matchBaiVietCuaToi && userData && <MyPost userData={userData} />}
                 {/* <Outlet /> */}
