@@ -16,6 +16,7 @@ const PostContent = (props) => {
   const userId = appCtx.userInfo?._id;
   const token =
     localStorage.getItem("token") || sessionStorage.getItem("token");
+    const  SetClickEdit=props.SetClickEdit
   const data = props.postContent.data;
   const creator = data.userId;
   const postId = data._id;
@@ -177,7 +178,7 @@ const PostContent = (props) => {
 
   useEffect(() => {
     document.getElementById("html-content").innerHTML = data.content;
-  }, [postId]);
+  }, [data.content]);
 
   return (
     <>
@@ -188,6 +189,7 @@ const PostContent = (props) => {
       >
         <CreatePosts
           dataEdit={props.postContent.data}
+          SetClickEdit={SetClickEdit}
           onClose={handleClose}
           setOpen={setOpenModal}
         />

@@ -7,7 +7,6 @@ import { Button, TextField } from "@mui/material";
 import { COMMON } from "../Common";
 
 const CommentItem = (props) => {
-  console.log(props);
   const appCtx = useContext(AppCtx);
   const userId = appCtx.userInfo?._id;
   const token = sessionStorage.getItem("token") || localStorage.getItem("token");
@@ -19,9 +18,13 @@ const CommentItem = (props) => {
   const [disableUpdate, setDisableUpdate] = useState(false);
 
   useEffect(() => {
-    if (props.data.userId.indexOf(userId) > -1)
+    if (props.data.userId.indexOf(userId) > -1) {
       setCanUpdate(true);
-  },[userId])
+    } else {
+      setCanUpdate(false);
+    }
+    setContent(props.data.content);
+  },[userId,props])
 
   const toggleUpdate = () => {
     setIsUpdating(!isUpdating);
@@ -82,9 +85,6 @@ const CommentItem = (props) => {
           </div>
         }
       </div>
-    }
-    {
-      console.log(canUpdate)
     }
     {
       canUpdate
