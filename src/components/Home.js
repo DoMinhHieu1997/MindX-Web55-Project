@@ -104,7 +104,7 @@ const Home = () => {
                     <button
                       className="btn btn-primary px-5 bg-white border-secondary text-secondary"
                       onClick={() => {
-                        setMoreBlog((prev) => prev + 2);
+                        setMoreBlog(prev => prev + 10);
                       }}
                     >
                       Xem thêm
@@ -125,16 +125,18 @@ const Home = () => {
 
 const FoodExSkeleton = () => {
   return (
-    <div className="col-md-6 mb-3 row align-items-stretch">
-      <div className="col-md-5">
-        <div className="skeleton h-100"></div>
-      </div>
-      <div className="col-md-7 px-0">
-        <div className="d-flex flex-column h-100">
-          <div className="pb-3 skeleton mt-2" />
-          <div className="pb-3 skeleton mt-2" />
-          <div className="pb-3 skeleton mt-2" />
-          <div className="pb-3 skeleton mt-2 flex-grow-1" />
+    <div className="col-md-6 mb-3  align-items-stretch">
+      <div className="row">
+        <div className="col-md-5">
+          <div className="skeleton h-100"></div>
+        </div>
+        <div className="col-md-7 px-0">
+          <div className="d-flex flex-column h-100">
+            <div className="pb-3 skeleton mt-2" />
+            <div className="pb-3 skeleton mt-2" />
+            <div className="pb-3 skeleton mt-2" />
+            <div className="pb-3 skeleton mt-2 flex-grow-1" />
+          </div>
         </div>
       </div>
     </div>

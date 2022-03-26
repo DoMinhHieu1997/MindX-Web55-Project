@@ -17,6 +17,7 @@ const PostContent = (props) => {
   const token =
     localStorage.getItem("token") || sessionStorage.getItem("token");
   const data = props.postContent.data;
+  const creator = data.userId;
   const postId = data._id;
   const userLikeArr = data.usersLike;
   const bookmark = appCtx.userInfo?.listBookmark;
@@ -203,7 +204,7 @@ const PostContent = (props) => {
               {transferDate(data.createdAt)}
             </div>
           </div>
-          <div className="d-flex">
+          <div className="d-flex cursor-pointer">
             {props?.postContent.data.userId === userId && (
               <Edit
                 className=" border rounded-circle p-1"
@@ -212,18 +213,22 @@ const PostContent = (props) => {
                 onClick={handleOpen}
               />
             )}
-            <div className="me-md-4 me-0 border rounded-circle p-1">
-              <Tooltip title="Lưu bài viết">
-                {isSaved ? (
-                  <BookmarkIcon
-                    onClick={!justUnsave ? handleUnsave : null}
-                    style={{ color: "#1373b7" }}
-                  />
-                ) : (
-                  <BookmarkAddIcon onClick={!justSave ? handleSave : null} />
-                )}
-              </Tooltip>
-            </div>
+            {
+              creator !== userId
+                && 
+                <div className="me-md-4 me-0 border rounded-circle p-1  cursor-pointer">  
+                  <Tooltip title="Lưu bài viết">
+                    {isSaved ? (
+                      <BookmarkIcon
+                        onClick={!justUnsave ? handleUnsave : null}
+                        style={{ color: "#1373b7" }}
+                      />
+                    ) : (
+                      <BookmarkAddIcon onClick={!justSave ? handleSave : null} />
+                    )}
+                  </Tooltip>
+                </div>
+            }
           </div>
         </div>
         {data.description && (
