@@ -23,7 +23,6 @@ const Profile = () => {
   const matchBaiVietDaLuu = useMatch("/ho-so/bai-viet-da-luu");
 
   useEffect(() => {
-    let unmounted = false;
     if (!appCtx.userInfo) {
       setIsLoading(true);
       return;
@@ -31,9 +30,6 @@ const Profile = () => {
     setUserData(appCtx.userInfo);
     setIsLoading(false);
     setViewAva(appCtx.userInfo.photoUrl);
-    return () => {
-      unmounted = true;
-    };
   }, [appCtx]);
   const HandlelogOut = () => {
     localStorage.removeItem("token");

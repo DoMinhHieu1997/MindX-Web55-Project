@@ -103,14 +103,12 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
     type === 1 && setToggle(false);
   }, [type]);
   useEffect(() => {
-    let unmounted = false;
-    ingredients && setCardItem(ingredients);
-    title && setValueTitle(title);
-    avatar && setvalueAvatar(avatar);
-    totalCalories && setValueTotalCalo(totalCalories);
-    description && setValueDescription(description);
     return () => {
-      unmounted = true;
+      ingredients && setCardItem(ingredients);
+      title && setValueTitle(title);
+      avatar && setvalueAvatar(avatar);
+      totalCalories && setValueTotalCalo(totalCalories);
+      description && setValueDescription(description);
     };
   }, [ingredients, title, avatar, totalCalories, description]);
   const navigate = useNavigate();
