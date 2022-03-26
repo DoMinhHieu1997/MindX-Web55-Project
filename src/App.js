@@ -40,6 +40,7 @@ function App() {
     const token = sessionStorage.getItem("token") || localStorage.getItem("token");
 
     useEffect(() => {
+        console.log("useEffect app.js");
         if (token) {
             fetch(`${COMMON.DOMAIN}user/info`, {
                 method: "GET",

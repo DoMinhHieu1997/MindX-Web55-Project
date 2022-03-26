@@ -1,7 +1,6 @@
 import BookmarkSharpIcon from "@mui/icons-material/BookmarkSharp";
-import { http } from "../profile/config";
-import { useState, useEffect } from "react";
-const SavedPost = ({ userData }) => {
+import { useState } from "react";
+const SavedPost = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [userData2, setUserData2] = useState("loading");
     // useEffect(() => {
@@ -17,6 +16,7 @@ const SavedPost = ({ userData }) => {
     if (!isLoading) {
         return (
             <div className="saved-post col-md-8 border ml-2">
+                
                 <div className="row">
                     <div className="col-12 m-2">
                         <div className="row">
