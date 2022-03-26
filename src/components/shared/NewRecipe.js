@@ -6,7 +6,7 @@ import { COMMON } from "../Common";
 
 const NewRecipe = ({ recipe }) => {
     const appCtx = useContext(AppCtx);
-    const token =  localStorage.getItem("token") || sessionStorage.getItem("token");
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     const userId = appCtx.userInfo?._id;
     const [isLove, setIsLove] = useState(false);
     const [totalLike, setTotalLike] = useState(recipe.usersLike.length ? recipe.usersLike.length : 0);
@@ -14,18 +14,14 @@ const NewRecipe = ({ recipe }) => {
     const [justDisliked, setJustDisliked] = useState(false);
 
     useEffect(() => {
-        if(token){
-
-            setIsLove(recipe.usersLike.indexOf(userId) > -1 ? true : false);
-        }
-    }, [userId,recipe.usersLike, token]);
+        setIsLove(recipe.usersLike.indexOf(userId) > -1 ? true : false);
+    }, [recipe.usersLike,userId]);
     const handleLike = () => {
         if (token) {
-            setJustLiked(true);
-            let index = recipe.usersLike.indexOf(userId);
+            setJustLiked(true)
             const data = {
                 _id: recipe._id,
-                userLike: index<0 ? [...recipe.usersLike, userId]:[...recipe.usersLike],
+                userLike: [...recipe.usersLike, userId],
             };
 
             fetch(`${COMMON.DOMAIN}posts/like`, {
@@ -41,7 +37,7 @@ const NewRecipe = ({ recipe }) => {
                     if (resJson.message === "success") {
                         setTotalLike((prev) => prev + 1);
                         setIsLove(true);
-                        setJustLiked(false);
+                        setJustLiked(false)
                     }
                 });
         } else {
@@ -51,12 +47,12 @@ const NewRecipe = ({ recipe }) => {
 
     const handleDisLike = () => {
         if (token) {
-            setJustDisliked(true);
+            setJustDisliked(true)
             let index = recipe.usersLike.indexOf(userId);
             const data = {
                 _id: recipe._id,
                 userLike:
-                    index >= 0
+                    index > 0
                         ? [...recipe.usersLike.slice(0, index), ...recipe.usersLike.slice(index)]
                         : [...recipe.usersLike],
             };
@@ -74,13 +70,14 @@ const NewRecipe = ({ recipe }) => {
                     if (resJson.message === "success") {
                         setTotalLike((prev) => prev - 1);
                         setIsLove(false);
-                        setJustDisliked(false);
+                        setJustDisliked(false)
                     }
                 });
         } else {
             appCtx.setOpenLoginNotify(true);
         }
     };
+
     return (
         <>
             <div className="rounded h-100 new-recipes-try">
@@ -95,17 +92,16 @@ const NewRecipe = ({ recipe }) => {
                     </a>
                     <div className="py-2">
                         <div className="ps-2">
-                            {!isLove && (
+                            {!isLove ? (
                                 <FavoriteBorderOutlinedIcon
                                     className="ms-2 d-inline-block h6 mb-0"
-                                    onClick={!justLiked ? handleLike : null}
+                                    onClick={!justLiked ? handleLike:null}
                                 />
-                            )}
-                            {isLove && (
+                            ) : (
                                 <FavoriteIcon
                                     className="d-inline-block me-1"
                                     style={{ color: "#d83737" }}
-                                    onClick={!justDisliked ? handleDisLike : null}
+                                    onClick={!justDisliked ? handleDisLike: null}
                                 />
                             )}
                             <div className="ms-2 d-inline-block h6 mb-0">{totalLike} Lượt thích</div>

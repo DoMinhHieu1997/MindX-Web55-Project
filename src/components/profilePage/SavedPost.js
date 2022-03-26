@@ -13,7 +13,6 @@ const SavedPost = ({ userData }) => {
     //         });
     //     }
     // }, [userData, userData2]);
-    
 
     if (!isLoading) {
         return (
@@ -39,106 +38,14 @@ const SavedPost = ({ userData }) => {
                                 <BookmarkSharpIcon sx={{ fontSize: 40 }} color="primary" />
                             </div>
                         </div>
+
                     </div>
-                </div>
-            </div>
-        );
-    } else {
-        return (
-            <div className="saved-post col-md-8 border ml-2">
-                <div className="row">
-                    <div className="col-12 m-2">
-                        <div className="row">
-                            <div className="col-3">
-                                <div className="skeleton h-100"></div>
-                            </div>
-                            <div className="col-8">
-                                <div className="d-flex flex-column h-100">
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2 flex-grow-1" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12 m-2">
-                        <div className="row">
-                            <div className="col-3">
-                                <div className="skeleton h-100"></div>
-                            </div>
-                            <div className="col-8">
-                                <div className="d-flex flex-column h-100">
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2 flex-grow-1" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12 m-2">
-                        <div className="row">
-                            <div className="col-3">
-                                <div className="skeleton h-100"></div>
-                            </div>
-                            <div className="col-8">
-                                <div className="d-flex flex-column h-100">
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2 flex-grow-1" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12 m-2">
-                        <div className="row">
-                            <div className="col-3">
-                                <div className="skeleton h-100"></div>
-                            </div>
-                            <div className="col-8">
-                                <div className="d-flex flex-column h-100">
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2 flex-grow-1" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12 m-2">
-                        <div className="row">
-                            <div className="col-3">
-                                <div className="skeleton h-100"></div>
-                            </div>
-                            <div className="col-8">
-                                <div className="d-flex flex-column h-100">
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2" />
-                                    <div className="pb-3 skeleton mt-2 flex-grow-1" />
-                                </div>
-                            </div>
-                        </div>
+                    <div className="row justify-content-center">
+                        <div className="col-auto border border-dark rounded-pill lh-lg mt-4">Xem thêm</div>
                     </div>
                 </div>
             </div>
         );
     }
 };
-
 export default SavedPost;
