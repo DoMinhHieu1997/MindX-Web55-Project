@@ -31,7 +31,15 @@ input[type=number] {
   --ck-inline-image-style-spacing: calc(var(--ck-image-style-spacing) / 2);
   --ck-todo-list-checkmark-size: 16px;
 }
-
+.cke_editable {
+  font-size: 13px;
+  line-height: 1.6em;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 .ck-balloon-panel{z-index:9999 !important}
 
 /* ckeditor5-basic-styles/theme/code.css */
