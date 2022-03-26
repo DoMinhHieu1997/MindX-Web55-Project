@@ -24,20 +24,21 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { useNavigate } from "react-router-dom";
 
 function App() {
-    let navigate = useNavigate();
-    const [userInfo, setUserInfo] = useState(null);
-    const [openLoginNotify, setOpenLoginNotify] = useState(false);
+  let navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState(null);
+  const [openLoginNotify, setOpenLoginNotify] = useState(false);
 
-    const handleClose = () => {
-        setOpenLoginNotify(false);
-    };
+  const handleClose = () => {
+    setOpenLoginNotify(false);
+  };
 
-    const handleLDirectToLogin = () => {
-        setOpenLoginNotify(false);
-        navigate("/dang-nhap");
-    };
+  const handleLDirectToLogin = () => {
+    setOpenLoginNotify(false);
+    navigate("/dang-nhap");
+  };
 
-    const token = sessionStorage.getItem("token") || localStorage.getItem("token");
+  const token =
+    sessionStorage.getItem("token") || localStorage.getItem("token");
 
     useEffect(() => {
         if (token) {
@@ -52,58 +53,60 @@ function App() {
             .then((resJson) => {
                 setUserInfo(resJson.data);
             });
+        } else {
+            setUserInfo(null);
         }
     }, [token]);
 
-    return (
-        <div className="App">
-            <AppCtx.Provider
-                value={{
-                    userInfo: userInfo,
-                    setUserInfo: setUserInfo,
-                    openLoginNotify: openLoginNotify,
-                    setOpenLoginNotify: setOpenLoginNotify,
-                }}
-            >
-                <Menu />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/cong-thuc" element={<Recipes />} />
-                    <Route path="/cong-thuc/:page" element={<Recipes />} />
-                    <Route path="/dang-nhap" element={<Login />} />
-                    <Route path="/dang-ky" element={<Register />} />
-                    <Route path="/ho-so" element={<Profile />}>
-                        <Route path="/ho-so/thong-tin" element={<MyProfile />} />
-                        <Route path="/ho-so/bai-viet-cua-toi" element={<MyPost />} />
-                        <Route path="/ho-so/bai-viet-cua-toi/:page" element={<MyPost />} />
-                        <Route path="/ho-so/bai-viet-da-luu" element={<SavedPost />} />
-                    </Route>
-                    <Route path="/chi-tiet/:id" element={<Detail />} />
-                    <Route path="/tim-kiem" element={<Search />} />
-                    <Route path="*" element={<NotFound />} />
-                </Routes>
-                <Footer />
+  return (
+    <div className="App">
+      <AppCtx.Provider
+        value={{
+          userInfo: userInfo,
+          setUserInfo: setUserInfo,
+          openLoginNotify: openLoginNotify,
+          setOpenLoginNotify: setOpenLoginNotify,
+        }}
+      >
+        <Menu userInfo={userInfo}/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cong-thuc" element={<Recipes />} />
+          <Route path="/cong-thuc/:page" element={<Recipes />} />
+          <Route path="/dang-nhap" element={<Login />} />
+          <Route path="/dang-ky" element={<Register />} />
+          <Route path="/ho-so" element={<Profile />}>
+            <Route path="/ho-so/thong-tin" element={<MyProfile />} />
+            <Route path="/ho-so/bai-viet-cua-toi" element={<MyPost />} />
+            <Route path="/ho-so/bai-viet-cua-toi/:page" element={<MyPost />} />
+            <Route path="/ho-so/bai-viet-da-luu" element={<SavedPost />} />
+          </Route>
+          <Route path="/chi-tiet/:id" element={<Detail />} />
+          <Route path="/tim-kiem" element={<Search />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+        <Footer />
 
-                <Dialog
-                    open={openLoginNotify}
-                    onClose={handleClose}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">Yêu cầu đăng nhập</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            Đặng nhập ngay để thực hiện thao tác bạn muốn
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleClose}>Đóng</Button>
-                        <Button onClick={handleLDirectToLogin}>Đăng nhập</Button>
-                    </DialogActions>
-                </Dialog>
-            </AppCtx.Provider>
-        </div>
-    );
+        <Dialog
+          open={openLoginNotify}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">Yêu cầu đăng nhập</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Đặng nhập ngay để thực hiện thao tác bạn muốn
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Đóng</Button>
+            <Button onClick={handleLDirectToLogin}>Đăng nhập</Button>
+          </DialogActions>
+        </Dialog>
+      </AppCtx.Provider>
+    </div>
+  );
 }
 
 export default App;

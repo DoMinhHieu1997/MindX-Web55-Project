@@ -1,15 +1,32 @@
-import { AccountCircleOutlined, Logout } from "@mui/icons-material";
-import { Menu, MenuItem } from "@mui/material";
-import React, {  useState } from "react";
+import {
+  AccountCircleOutlined,
+  Logout,
+} from "@mui/icons-material";
+import { Avatar, Menu, MenuItem } from "@mui/material";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AppCtx from "../../appContext";
 import { isLogged } from "./config";
 import "./User.css";
 
 function Users({ onClick }) {
+  const authCtx = useContext(AppCtx);
   const [anchorEl, setAnchorEl] = useState(null);
   const isLogin = isLogged();
   const navigate = useNavigate();
-
+  const [avatar, setAvatar] = useState("");
+  const [nameAvatar, setNameAvatar] = useState("");
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+  const photo = authCtx.userInfo?.photoUrl;
+  const nameUser = authCtx.userInfo?.nameDisplay;
+  useEffect(() => {
+    let unmounted = false;
+    nameUser && setNameAvatar(nameUser[0]);
+    photo && setAvatar(photo);
+    return () => {
+      unmounted = true;
+    };
+  }, [photo,nameUser]);
   const options = !isLogin
     ? ["Đăng Nhập", "Đăng Ký"]
     : ["Thông Tin Tài Khoản", "Đăng Xuất"];
@@ -23,7 +40,7 @@ function Users({ onClick }) {
   };
 
   const handleClickMenuItem = (value) => {
-    onClick&&document.getElementById('test').click()
+    onClick && document.getElementById("test").click();
     value === "Đăng Nhập" && navigate("/dang-nhap");
     value === "Đăng Ký" && navigate("/dang-ky");
     value === "Thông Tin Tài Khoản" && navigate("/ho-so");
@@ -33,14 +50,16 @@ function Users({ onClick }) {
       navigate("/dang-nhap");
     }
   };
-
   return (
     <div>
-      <div className="user-menu desktop">
-        <AccountCircleOutlined
-          onClick={handleClick}
-          style={{ fontSize: 30, color: "#fff" }}
-        />
+      <div className="user-menu desktop" onClick={handleClick}>
+        {!isLogin && <Avatar width={30}></Avatar>}
+        {isLogin && photo && <Avatar src={avatar} alt="" width={30} />}
+        {isLogin && !photo && (
+          <Avatar width={30} sx={{ bgcolor: `${randomColor}` }}>
+            {nameAvatar}
+          </Avatar>
+        )}
         <Menu open={!!anchorEl} anchorEl={anchorEl} onClose={handleClose}>
           {options.map((value) => (
             <MenuItem key={value} onClick={() => handleClickMenuItem(value)}>
