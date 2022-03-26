@@ -198,7 +198,7 @@ const PostContent = (props) => {
               {transferDate(data.createdAt)}
             </div>
           </div>
-          <div className="d-flex">
+          <div className="d-flex cursor-pointer">
             {props?.postContent.data.userId === userId && (
               <Edit
                 className=" border rounded-circle p-1"
@@ -210,7 +210,7 @@ const PostContent = (props) => {
             {
               creator !== userId
                 && 
-                <div className="me-md-4 me-0 border rounded-circle p-1">  
+                <div className="me-md-4 me-0 border rounded-circle p-1  cursor-pointer">  
                   <Tooltip title="Lưu bài viết">
                     {isSaved ? (
                       <BookmarkIcon
