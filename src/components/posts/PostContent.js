@@ -36,7 +36,7 @@ const PostContent = (props) => {
 
   useEffect(() => {
     if (userLikeArr.indexOf(userId) > -1) setIsLove(true);
-  }, [userId]);
+  }, [userId,data]);
 
   useEffect(() => {
     if (bookmark)
@@ -44,7 +44,7 @@ const PostContent = (props) => {
         setIsSaved(true);
         setListBK(bookmark);
       }
-  }, [bookmark]);
+  }, [bookmark,data]);
 
   const handleLike = () => {
     if (token) {
