@@ -6,6 +6,7 @@ import MyProfile from "./MyProfile";
 import SavedPost from "./SavedPost";
 import MyPost from "./MyPost";
 import AppCtx from "../../appContext";
+
 const Profile = () => {
   const navigate = useNavigate();
   const appCtx = useContext(AppCtx);
