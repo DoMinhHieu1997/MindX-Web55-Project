@@ -36,8 +36,16 @@ const PostContent = (props) => {
   const handleOpen = () => setOpenModal(true);
 
   useEffect(() => {
-    if (userLikeArr.indexOf(userId) > -1) setIsLove(true);
-  }, [userId]);
+    if (userLikeArr.indexOf(userId) > -1) {
+      setIsLove(true);
+    } else {
+      setIsLove(false);
+    }
+  }, [userId,data,userLikeArr]);
+
+  useEffect(() => {
+    setCountLike(userLikeArr.length ? userLikeArr.length : 0);
+  },[userLikeArr]);
 
   useEffect(() => {
     if (bookmark)
@@ -45,7 +53,7 @@ const PostContent = (props) => {
         setIsSaved(true);
         setListBK(bookmark);
       }
-  }, [bookmark]);
+  }, [bookmark,data]);
 
   const handleLike = () => {
     if (token) {
@@ -78,7 +86,6 @@ const PostContent = (props) => {
   };
 
   const handleDisLiked = () => {
-    console.log("dislike");
     if (token) {
       setJustDisLiked(true);
       const index = userLikeArr.indexOf(userId);
@@ -171,7 +178,7 @@ const PostContent = (props) => {
 
   useEffect(() => {
     document.getElementById("html-content").innerHTML = data.content;
-  }, []);
+  }, [postId]);
 
   return (
     <>
@@ -186,8 +193,8 @@ const PostContent = (props) => {
           setOpen={setOpenModal}
         />
       </Modal>
-      <div className="post-content">
-        <h1>{data.title}</h1>
+      <div  className="post-content">
+        <h1 >{data.title}</h1>
         <div className="d-flex justify-content-between align-items-center mt-3">
           <div className="d-flex align-items-center flex-start">
             <AccessAlarmsOutlinedIcon
@@ -198,7 +205,7 @@ const PostContent = (props) => {
               {transferDate(data.createdAt)}
             </div>
           </div>
-          <div className="d-flex">
+          <div className="d-flex cursor-pointer">
             {props?.postContent.data.userId === userId && (
               <Edit
                 className=" border rounded-circle p-1"
@@ -210,7 +217,7 @@ const PostContent = (props) => {
             {
               creator !== userId
                 && 
-                <div className="me-md-4 me-0 border rounded-circle p-1">  
+                <div className="me-md-4 me-0 border rounded-circle p-1  cursor-pointer">  
                   <Tooltip title="Lưu bài viết">
                     {isSaved ? (
                       <BookmarkIcon

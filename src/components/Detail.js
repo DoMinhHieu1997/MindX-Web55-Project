@@ -5,8 +5,10 @@ import PostContent from "./posts/PostContent";
 import {COMMON} from "./Common";
 import { Skeleton } from "@mui/material";
 import FloatingAction from "./shared/FloatingAction";
+import { useNavigate } from "react-router-dom";
 
 const Detail = () => {
+    const navigate = useNavigate();
     const [postData, setPostData] = useState("");
     const postId = useParams();
 
@@ -14,9 +16,18 @@ const Detail = () => {
         fetch(`${COMMON.DOMAIN}posts/detail?id=`+postId.id)
         .then((res) => res.json())
         .then((resJson) => {
-            setPostData(resJson);
+            if (resJson.message === "success") {
+                if (resJson.data === null) {
+                    navigate('/*');
+                } else {
+                    setPostData(resJson);
+                }
+            } else {
+                navigate('/*');
+            }
         });
-    },[]);
+    },[postId.id]);
+
 
     return <>
         <FloatingAction />

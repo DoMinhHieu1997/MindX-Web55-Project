@@ -27,7 +27,7 @@ const CommentList = (props) => {
           setCommentList(resJson.data);
         }
       });
-  },[]);
+  },[props.postId]);
 
   const handleTextFieldChange = (event) => {
     if (event.target.value) {

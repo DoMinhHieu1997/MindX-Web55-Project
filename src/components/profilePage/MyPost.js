@@ -41,10 +41,7 @@ const MyPost = ({ userData }) => {
   const handleLoadMore = () => {
     setIsLoading(true);
     setLoadingPage((prev) => +prev + 1);
-    navigate(
-      `/ho-so/bai-viet-cua-toi/${+loadPage + 1}`
-      , { page: true }
-    );
+    navigate(`/ho-so/bai-viet-cua-toi/${+loadPage + 1}`, { page: true });
   };
   const handleEdit = (post) => {
     setDataEdit(post);
@@ -67,8 +64,8 @@ const MyPost = ({ userData }) => {
                     <Card
                       sx={{ pb: 2, cursor: "pointer" }}
                       onClick={() => {
-                        window.scroll(0, 0);
                         navigate(`/chi-tiet/${post._id}`);
+                        window.scroll(0, 0);
                       }}
                     >
                       <CardMedia
