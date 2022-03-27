@@ -1,4 +1,3 @@
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import WarningIcon from "@mui/icons-material/Warning";
 import { useState, useEffect, useRef, useContext } from "react";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
