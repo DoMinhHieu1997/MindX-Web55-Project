@@ -111,25 +111,25 @@ const PostItem = (props) => {
             )}
           </div>
         </div>
-        <div className="p-1 mt-2 ms-2 position-absolute top-0 bg-06a682 rounded text-white">
-          {!isLove ? (
-            <FavoriteBorderOutlinedIcon
-              style={{ color: "white" }}
-              className="d-inline-block"
-              onClick={!justLiked ? handleLike : null}
-            />
-          ) : (
-            <FavoriteIcon
-              className="d-inline-block"
-              style={{ color: "#d83737" }}
-              onClick={!justDisLiked ? handleDisLiked : null}
-            />
-          )}
-          <div className="ms-2 d-inline-block h6 mb-0">
-            {totalLike} Lượt thích
-          </div>
-        </div>
       </NavLink>
+      <div className="p-1 mt-2 ms-2 position-absolute top-0 bg-06a682 rounded text-white">
+        {!isLove ? (
+          <FavoriteBorderOutlinedIcon
+            style={{ color: "white" }}
+            className="d-inline-block"
+            onClick={!justLiked ? handleLike : null}
+          />
+        ) : (
+          <FavoriteIcon
+            className="d-inline-block"
+            style={{ color: "#d83737" }}
+            onClick={!justDisLiked ? handleDisLiked : null}
+          />
+        )}
+        <div className="ms-2 d-inline-block h6 mb-0">
+          {totalLike} Lượt thích
+        </div>
+      </div>
       <div
         className={
           props.isTopLikeItem
