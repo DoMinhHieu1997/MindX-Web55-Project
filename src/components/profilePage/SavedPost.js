@@ -4,6 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import { http } from "../profile/config";
 import { spliceString} from "../Common";
 import AppCtx from "../../appContext";
+import { NavLink } from "react-router-dom";
 const SavedPost = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [bookmarkPosts, setBookmarkPosts] = useState(null);
@@ -85,19 +86,19 @@ const SavedPost = () => {
                             <div className="col-12 m-2">
                                 <div className="row align-items-stretch">
                                     <div className="col-3">
-                                        <a href={"/chi-tiet/" + bookmark._id}>
+                                        <NavLink to={"/chi-tiet/" + bookmark._id}>
                                             <div
                                                 className="ratio ratio-1x1 border rounded image-background new-recipes-try"
                                                 style={{ backgroundImage: `url(${bookmark.avatar})` }}
                                             ></div>
-                                        </a>
+                                        </NavLink>
                                     </div>
                                     <div className="col-8 ps-0">
-                                        <a href={"/chi-tiet/" + bookmark._id}>
+                                        <NavLink to={"/chi-tiet/" + bookmark._id}>
                                             <h5 className="text-dark text-06a682-hover">
                                                 {bookmark.title}
                                             </h5>
-                                        </a>
+                                        </NavLink>
                                         
                                         <div className="d-none d-md-block">{spliceString(bookmark.description)}</div>
                                     </div>
