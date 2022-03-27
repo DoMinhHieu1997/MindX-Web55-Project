@@ -85,6 +85,7 @@ const Search = () => {
 
     const handleKeypress = (event) => {
         if(event.key === 'Enter'){
+            console.log('s');
             if (!searchValue) {
                 setIsError(true);
             } else {
