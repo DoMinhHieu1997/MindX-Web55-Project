@@ -1,17 +1,19 @@
 import BookmarkSharpIcon from "@mui/icons-material/BookmarkSharp";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { http } from "../profile/config";
-import { transferDate, spliceString} from "../Common";
-const SavedPost = ({ userData, setUserData }) => {
+import { spliceString} from "../Common";
+import AppCtx from "../../appContext";
+const SavedPost = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [bookmarkPosts, setBookmarkPosts] = useState(null);
     const [postLength, setPostLength] = useState(3);
+    const {userInfo, setUserInfo} = useContext(AppCtx)
     useEffect(() => {
-        if (userData) {
+        if (userInfo) {
             setIsLoading(true);
             http.post(`posts/bookmark`, {
-                bk: userData.listBookmark,
+                bk: userInfo.listBookmark,
                 p: "1",
                 s: `${postLength}`,
             }).then((res) => {
@@ -37,20 +39,21 @@ const SavedPost = ({ userData, setUserData }) => {
                 setIsLoading(false);
             });
         }
-    }, [userData, postLength]);
+    }, [userInfo, postLength]);
+    
     const handleUnsavePost = (idPost) => {
-        const bookmarkIndex = userData.listBookmark.indexOf(idPost);
+        const bookmarkIndex = userInfo.listBookmark.indexOf(idPost);
         const data = {
             listBookmark: [
-                ...userData.listBookmark.slice(0, bookmarkIndex),
-                ...userData.listBookmark.slice(bookmarkIndex + 1),
+                ...userInfo.listBookmark.slice(0, bookmarkIndex),
+                ...userInfo.listBookmark.slice(bookmarkIndex + 1),
             ],
             
         };
         
         http.patch("user/update", data).then((res) => {
             if (res.data.message === "success") {
-                setUserData(res.data.data);
+                setUserInfo(res.data.data);
             }
         });
 
@@ -59,12 +62,12 @@ const SavedPost = ({ userData, setUserData }) => {
     const handleSavePost = (idPost) => {
         const data = {
 
-            listBookmark: [...userData.listBookmark, idPost],
+            listBookmark: [...userInfo.listBookmark, idPost],
         };
 
         http.patch("user/update", data).then((res) => {
             if (res.data.message === "success") {
-                setUserData(res.data.data);
+                setUserInfo(res.data.data);
             }
         });
     };
@@ -95,9 +98,7 @@ const SavedPost = ({ userData, setUserData }) => {
                                                 {bookmark.title}
                                             </h5>
                                         </a>
-                                        {/* <h6 className="text-secondary mt-3 mt-md-2">
-                                            {transferDate(bookmark.updatedAt)}
-                                        </h6> */}
+                                        
                                         <div className="d-none d-md-block">{spliceString(bookmark.description)}</div>
                                     </div>
                                     <div className="col-1">
