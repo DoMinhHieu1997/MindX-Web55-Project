@@ -6,7 +6,7 @@ const BlogList = ({blog}) => {
     return (
         <div className="col-12 mb-3">
             <div className="row">
-                <div className="col-5">
+                <div className="col-lg-5">
                     <NavLink to={"/chi-tiet/"+blog._id}>
                         <div
                             className="ratio ratio-1x1 border rounded image-background new-recipes-try"
@@ -14,7 +14,7 @@ const BlogList = ({blog}) => {
                         ></div>
                     </NavLink>
                 </div>
-                <div className="col-7 ps-0">
+                <div className="col-lg-7 ps-lg-0 mt-3 mt-md-0">
                     <NavLink to={"/chi-tiet/"+blog._id}>
                         <h5 className="text-dark text-06a682-hover d-none d-md-block">{blog.title}</h5>
                         <h6 className="text-dark text-06a682-hover d-md-block d-md-none">{blog.title}</h6>

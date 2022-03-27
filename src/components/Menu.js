@@ -16,7 +16,7 @@ const Menu = ({userInfo}) => {
 
   const handleSearch = (type) => {
     setInputValue("");
-    type&& document.getElementById("test").click();
+    type && document.getElementById("test").click();
     navigate(`/tim-kiem?p=${inputValue.replace(" ", "-")}`);
   };
 
@@ -26,6 +26,14 @@ const Menu = ({userInfo}) => {
       navigate(`/tim-kiem?p=${inputValue.replace(" ", "-")}`);
     }
   };
+
+  const handleKeyPressMobile = (event) => {
+    if (event.key === "Enter") {
+      document.getElementById("test").click();
+      setInputValue("");
+      navigate(`/tim-kiem?p=${inputValue.replace(" ", "-")}`);
+    }
+  }
   
   const handleToggle = () => {
     document.getElementById("test").click();
@@ -114,7 +122,15 @@ const Menu = ({userInfo}) => {
                   type="text"
                   placeholder="Tìm kiếm..."
                   value={inputValue}
-                  className="rounded-pill border py-1 px-2 w-100"
+                  className="rounded-pill border py-1 px-2 w-100 d-block d-lg-none"
+                  onChange={handleInputChange}
+                  onKeyPress={handleKeyPressMobile}
+                />
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm..."
+                  value={inputValue}
+                  className="rounded-pill border py-1 px-2 w-100 d-none d-lg-block"
                   onChange={handleInputChange}
                   onKeyPress={handleKeyPress}
                 />
