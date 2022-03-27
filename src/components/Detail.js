@@ -43,9 +43,7 @@ const Detail = ({setBookmarkChange}) => {
                 </div>
             </div>
         </div>
-      </div>
     </>
-  );
 };
 
 const PostDetailSkeleton = () => {
