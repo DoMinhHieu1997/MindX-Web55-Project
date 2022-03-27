@@ -1,9 +1,11 @@
 import BookmarkSharpIcon from "@mui/icons-material/BookmarkSharp";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import { useState, useEffect } from "react";
 import { http } from "../profile/config";
-import { transferDate, spliceString, COMMON } from "../Common";
+import { transferDate, spliceString} from "../Common";
 const SavedPost = ({ userData, setUserData }) => {
-    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+    // const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+
 
     const [isLoading, setIsLoading] = useState(false);
     const [bookmarkPosts, setBookmarkPosts] = useState(null);
@@ -25,7 +27,9 @@ const SavedPost = ({ userData, setUserData }) => {
                 }
 
                 const bookmarkPostsNew = bookmarkPosts.map((bookmarkPost) => {
-                    const isSaved = bookmarks.findIndex((bookmark) => bookmark._id == bookmarkPost._id) > -1;
+
+                    const isSaved = bookmarks.findIndex((bookmark) => bookmark._id === bookmarkPost._id) > -1;
+
                     if (isSaved) bookmarkPost.isSaved = true;
                     else bookmarkPost.isSaved = false;
 
@@ -37,14 +41,6 @@ const SavedPost = ({ userData, setUserData }) => {
             });
         }
     }, [userData, postLength]);
-
-    // useEffect(() => {
-    //     if (savedPosts)
-    //       if (savedPosts.indexOf(postId) > -1) {
-    //         setIsSaved(true);
-    //         // setListBK(bookmark);
-    //       }
-    //   }, [savedPosts.listBookmark,data]);
     const handleUnsavePost = (idPost) => {
         const bookmarkIndex = userData.listBookmark.indexOf(idPost);
         const data = {
@@ -54,8 +50,8 @@ const SavedPost = ({ userData, setUserData }) => {
             ],
         };
 
-        http.patch("user/update", data)
-        .then((res) => {
+
+        http.patch("user/update", data).then((res) => {
             if (res.data.message === "success") {
                 setUserData(res.data.data);
             }
@@ -64,17 +60,16 @@ const SavedPost = ({ userData, setUserData }) => {
 
     const handleSavePost = (idPost) => {
         const data = {
-            listBookmark: [...userData.listBookmark, idPost]
-        }
 
-        http.patch("user/update", data)
-        .then((res) => {
+            listBookmark: [...userData.listBookmark, idPost],
+        };
+
+        http.patch("user/update", data).then((res) => {
             if (res.data.message === "success") {
                 setUserData(res.data.data);
             }
         });
-    }
-
+    };
     const loadMorePosts = () => {
         setPostLength((prev) => prev + 5);
     };
@@ -109,13 +104,22 @@ const SavedPost = ({ userData, setUserData }) => {
                                     </div>
                                     <div className="col-1">
                                         <div className="d-flex pe-5 h-100 justify-content-center align-items-center">
-                                            <BookmarkSharpIcon
-                                                sx={{ fontSize: 40, cursor: "pointer" }}
-                                                color={bookmark.isSaved ? "primary" : "grey.500"}
-                                                onClick={() => {
-                                                    bookmark.isSaved ? handleUnsavePost(bookmark._id) : handleSavePost(bookmark._id);
-                                                }}
-                                            />
+                                            {bookmark.isSaved ? (
+                                                <BookmarkSharpIcon
+                                                    sx={{ fontSize: 40, cursor: "pointer" }}
+                                                    color={"primary"}
+                                                    onClick={() => {
+                                                        handleUnsavePost(bookmark._id);
+                                                    }}
+                                                />
+                                            ) : (
+                                                <BookmarkAddIcon
+                                                    sx={{ fontSize: 40, cursor: "pointer" }}
+                                                    onClick={() => {
+                                                        handleSavePost(bookmark._id);
+                                                    }}
+                                                />
+                                            )}
                                         </div>
                                     </div>
                                 </div>
