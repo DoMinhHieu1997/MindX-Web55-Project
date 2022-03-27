@@ -23,6 +23,7 @@ const Detail = ({setBookmarkChange}) => {
                     navigate('/*');
                 } else {
                     setPostData(resJson);
+                    document.title=resJson.data.title
                 }
             } else {
                 navigate('/*');
