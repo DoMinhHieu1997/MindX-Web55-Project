@@ -70,7 +70,7 @@ useEffect(()=>{
       });
   };
   return (
-    <div className="py-5" style={{ backgroundImage: `url(${bglogin})` }}>
+    <div style={{ backgroundImage: `url(${bglogin})`, padding:"5rem 0 6rem 0" }}>
       <Container maxWidth="sm">
         <form onSubmit={handleSubmit(onSubmit)}>
           <Paper

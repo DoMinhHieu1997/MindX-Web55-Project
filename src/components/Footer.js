@@ -10,9 +10,11 @@ const Footer = () => {
             <div className="container">
                 <div className="row align-items-center justify-content-between">
                     <div className="col-12 col-md-5 col-lg-3 mb-4 mb-md-0 text-center">
-                        <div className="logo rounded p-2 d-inline-block">
-                            <h2 className="text-white mb-0">COOKING HOLICS</h2>
-                        </div>
+                        <NavLink to="/">
+                            <div className="logo rounded p-2 d-inline-block">
+                                <h2 className="text-white mb-0">COOKING HOLICS</h2>
+                            </div>
+                        </NavLink>
                     </div>
                     <div className="col-12 col-md-5 col-lg-3 text-center">
                         <ul className="list-unstyled d-flex justify-content-center">

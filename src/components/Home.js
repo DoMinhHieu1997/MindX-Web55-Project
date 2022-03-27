@@ -69,9 +69,7 @@ const Home = () => {
                     <div className="food-experiens col-md-8 col-lg-9">
                         <div className="d-flex align-items-center mb-3">
                             <RamenDiningIcon fontSize="large" style={{ color: "#c13a3a" }} />
-                            <NavLink to="/cong-thuc">
-                                <h3 className="mb-0 ms-2 text-dark">Trải nghiệm món ăn</h3>
-                            </NavLink>
+                            <h3 className="mb-0 ms-2 text-dark">Trải nghiệm món ăn</h3>
                         </div>
                         <div className="row">
                             {blogs &&
