@@ -132,25 +132,25 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
     };
 
     return (
-        <div className="my-profile col-md-8 border ml-2">
+        <div className="my-profile col-md-8 border ml-2 mt-4 mt-md-0">
             <div className="row">
-                <div className="col-12">
+                <div className="col-12 ps-4 ps-lg-4">
                     <div className="row">
                         <div className="col-12 h2 pb-4 pt-3">Tài khoản của tôi</div>
                     </div>
                     <div className="row">
-                        <div className="col-12 pb-2">Ảnh đại diện</div>
+                        <div className="col-12 pb-2 fw-bold">Ảnh đại diện</div>
                     </div>
                     <div className="row">
-                        <div className="col-12 pb-5">
+                        <div className="col-12 pb-4">
                             <input type="file" onChange={handleInputIMG} disabled={!isEditing} />
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-12 pb-2">Email</div>
+                        <div className="col-12 pb-2 fw-bold">Email</div>
                     </div>
                     <div className="row justify-content-between">
-                        <div className="col-6 pb-3">
+                        <div className="col-6 pb-3 ps-4">
                             {isLoading && (
                                 <div className="col-6 mb-4 col-sm-12">
                                     <div className="py-3 skeleton mt-2"></div>
@@ -170,10 +170,10 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-12 pb-3">Tên hiển thị</div>
+                        <div className="col-12 pb-3 fw-bold">Tên hiển thị</div>
                     </div>
                     <div className="row justify-content-between">
-                        <div className="col-6 pb-5">
+                        <div className="col-6 pb-3 ps-4">
                             {isLoading && (
                                 <div className="col-6 mb-4 col-sm-12">
                                     <div className="py-3 skeleton mt-2"></div>
@@ -198,7 +198,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                     <div className="col-auto mb-3 ">
                         {!isEditing ? (
                             <button
-                                className="btn btn-primary"
+                                className="btn btn-outline-secondary py-1 px-4"
                                 onClick={() => {
                                     setIsEditing(true);
                                 }}
@@ -208,7 +208,16 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                         ) : (
                             <>
                                 <button
-                                    className="btn btn-danger"
+                                    className="btn btn-success me-4 py-1 px-4"
+                                    onClick={() => {
+                                        setIsEditing(false);
+                                        EndEdit("Save");
+                                    }}
+                                >
+                                    Cập nhật
+                                </button>
+                                <button
+                                    className="btn btn-danger py-1 px-4"
                                     onClick={() => {
                                         setIsEditing(false);
                                         CancelEdit();
@@ -216,40 +225,26 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                                 >
                                     Hủy
                                 </button>
-                                <button
-                                    className="btn btn-success mr-3"
-                                    onClick={() => {
-                                        setIsEditing(false);
-                                        EndEdit("Save");
-                                    }}
-                                >
-                                    Lưu
-                                </button>
                             </>
                         )}
                     </div>
                 </div>
-                <div className="col-12">
-                    <div className="border mx-3 p-3">
-                        <div className="row justify-content-end">
-                            <div className="col-auto">
-                                <CloseOutlinedIcon />
-                            </div>
-                        </div>
+                <div className="col-12 mb-4">
+                    <div className="border mx-0 mx-lg-3 p-3">
                         <div className="row justify-content-start">
                             <h4 className="col-auto">Thay đổi mật khẩu</h4>
                         </div>
-                        <div className="row">
-                            <div className="col-12 pb-2">Mật khẩu cũ</div>
+                        <div className="row mt-3">
+                            <div className="col-12 pb-2 fw-bold">Mật khẩu cũ</div>
                         </div>
                         <div className="row ">
-                            <div className="col-6 pb-2">
-                                <div className="row">
+                            <div className="col-12 col-md-8 col-lg-6 pb-2">
+                                <div className="row align-items-center">
                                     <div className="col">
                                         <input
                                             type={showOldPassword ? "text" : "password"}
-                                            className={
-                                                isError === "oldPassError" ? "w-100 border border-danger" : "w-100"
+                                            className={ 
+                                                "p-2 w-100 " + (isError === "oldPassError" ? "border border-danger" : "border rounded")
                                             }
                                             onFocus={() => {
                                                 setPasswordMessage("");
@@ -282,17 +277,17 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-12 pb-2">Mật khẩu mới</div>
+                        <div className="row mt-3">
+                            <div className="col-12 pb-2 fw-bold">Mật khẩu mới</div>
                         </div>
                         <div className="row">
-                            <div className="col-6 pb-3 ">
-                                <div className="row">
+                            <div className="col-12 col-md-8 col-lg-6 pb-3 ">
+                                <div className="row align-items-center">
                                     <div className="col">
                                         <input
                                             type={showNewPassword ? "text" : "password"}
                                             className={
-                                                isError === "newPassError" ? "w-100 border border-danger" : "w-100"
+                                                "p-2 w-100 " + (isError === "newPassError" ? "border border-danger" : "border rounded")
                                             }
                                             onFocus={() => {
                                                 setPasswordMessage("");
@@ -325,17 +320,17 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                                 </div>
                             </div>
                         </div>
-                        <div className="row">
-                            <div className="col-12 pb-2">Nhập lại mật khẩu mới</div>
+                        <div className="row mt-3">
+                            <div className="col-12 pb-2 fw-bold">Nhập lại mật khẩu mới</div>
                         </div>
                         <div className="row">
-                            <div className="col-6 pb-3 ">
-                                <div className="row">
+                            <div className="col-12 col-md-8 col-lg-6 pb-3 ">
+                                <div className="row align-items-center">
                                     <div className="col">
                                         <input
                                             type={showRetypePassword ? "text" : "password"}
                                             className={
-                                                isError === "retypePassError" ? "w-100 border border-danger" : "w-100"
+                                                "p-2 w-100 " + (isError === "retypePassError" ? "border border-danger" : "border rounded")
                                             }
                                             onFocus={() => {
                                                 setPasswordMessage("");
@@ -374,7 +369,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                         <div className="row">
                             <div className="col-3 pb-2">
                                 <button
-                                    className="btn btn-primary"
+                                    className="btn  btn-outline-secondary py-1 px-4"
                                     onClick={() => {
                                         updatePassword();
                                     }}

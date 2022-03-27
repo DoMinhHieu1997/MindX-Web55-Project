@@ -73,12 +73,12 @@ const SavedPost = ({ userData, setUserData }) => {
     };
 
     return (
-        <div className="saved-post col-md-8 border ml-2">
+        <div className="saved-post col-md-8 border ml-2 mt-4 mt-md-0 pt-3">
             {!isLoading &&
                 bookmarkPosts &&
                 bookmarkPosts.map((bookmark, index) => {
                     return (
-                        <div className="row" index={index} key={bookmark._id}>
+                        <div className="row mb-3 mb-md-0" index={index} key={bookmark._id}>
                             <div className="col-12 m-2">
                                 <div className="row align-items-stretch">
                                     <div className="col-3">
@@ -91,20 +91,20 @@ const SavedPost = ({ userData, setUserData }) => {
                                     </div>
                                     <div className="col-8 ps-0">
                                         <a href={"/chi-tiet/" + bookmark._id}>
-                                            <h5 className="text-dark text-06a682-hover d-none d-md-block">
+                                            <h5 className="text-dark text-06a682-hover">
                                                 {bookmark.title}
                                             </h5>
                                         </a>
-                                        <h6 className="text-secondary mt-3 mt-md-2">
+                                        {/* <h6 className="text-secondary mt-3 mt-md-2">
                                             {transferDate(bookmark.updatedAt)}
-                                        </h6>
+                                        </h6> */}
                                         <div className="d-none d-md-block">{spliceString(bookmark.description)}</div>
                                     </div>
                                     <div className="col-1">
-                                        <div className="d-flex pe-5 h-100 justify-content-center align-items-center">
+                                        <div className="d-flex me-5 h-100 justify-content-center align-items-center">
                                             {bookmark.isSaved ? (
                                                 <BookmarkSharpIcon
-                                                    sx={{ fontSize: 40, cursor: "pointer" }}
+                                                    sx={{ fontSize: 30, cursor: "pointer" }}
                                                     color={"primary"}
                                                     onClick={() => {
                                                         handleUnsavePost(bookmark._id);

@@ -46,18 +46,18 @@ const Profile = () => {
   return (
     <div className="container py-5">
       <div className="position-fixed top-50 end-0"></div>
-      <div className="row  gx-3">
-        <div className="col-md-4 rounded-2">
+      <div className="row gx-3">
+        <div className="col-md-4 border">
           <div className="row">
             <div className="col-12">
-              <div className="border px-4 py-4">
+              <div className="px-4 py-4">
                 {isLoading && <SkeletonItem type="1" />}
                 {userData && !isLoading && (
                   <>
                     <div className="row justify-content-center">
                       <div className="col-10">
                         <div
-                          className="ratio ratio-1x1 bg-secondary"
+                          className="ratio ratio-1x1 bg-secondary rounded"
                           style={{
                             backgroundImage: `url(${viewAva})`,
                             backgroundPosition: "center",
@@ -76,7 +76,7 @@ const Profile = () => {
           </div>
           <div className="row">
             <div className="col-12">
-              <div className="nav nav-pills flex-column border px-4 py-4">
+              <div className="nav nav-pills flex-column border-top px-4 px-md-0 px-lg-4 py-4">
                 {isLoading && (
                   <div className="col-6 mb-4 col-sm-12">
                     <div className="py-3 skeleton mt-2"></div>
@@ -89,7 +89,7 @@ const Profile = () => {
                     <div className="nav-item">
                       <NavLink
                         to="/ho-so/thong-tin"
-                        className={matchThongTin||matchHoSo?"nav-link link-secondary active m-2":"nav-link link-secondary m-2"}
+                        className={matchThongTin||matchHoSo?"nav-link link-secondary active py-0 my-3 mx-3 mx-md-0 mx-lg-3 fs-5":"nav-link link-secondary py-0 mx-3 mx-md-0 mx-lg-3 fs-5"}
                       >
                         Tài khoản của tôi
                       </NavLink>
@@ -97,7 +97,7 @@ const Profile = () => {
                     <div className="nav-item">
                       <NavLink
                         to="/ho-so/bai-viet-da-luu"
-                        className="nav-link link-secondary m-2"
+                        className="nav-link link-secondary my-3 mx-3 mx-md-0 mx-lg-3 fs-5 py-0"
                       >
                         Tin đã lưu (
                         {userData.listBookmark && userData.listBookmark.length})
@@ -106,7 +106,7 @@ const Profile = () => {
                     <div className="nav-item">
                       <NavLink
                         to="/ho-so/bai-viet-cua-toi"
-                        className="nav-link link-secondary m-2"
+                        className="nav-link link-secondary my-3 mx-3 mx-md-0 mx-lg-3 fs-5 py-0"
                       >
                         Bài viết của tôi
                       </NavLink>
@@ -118,7 +118,7 @@ const Profile = () => {
           </div>
           <div className="row">
             <div className="col-12">
-              <div className="border px-4 py-4">
+              <div className="border-top px-4 py-4">
                 <div className="row">
                   <button
                     className="col-auto btn btn-warning"
