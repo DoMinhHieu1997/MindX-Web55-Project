@@ -92,11 +92,11 @@ const PostItem = (props) => {
     <div
       className="card overflow-hidden h-100"
       key={props.data._id}
-      onClick={() => window.scroll(0, 0)}
     >
       <NavLink
         to={`/chi-tiet/${props.data._id}/`}
         className="rounded oveflow-hidden"
+        onClick={() => window.scroll(0, 0)}
       >
         <div>
           <div
@@ -137,7 +137,7 @@ const PostItem = (props) => {
             : "mt-2 px-2"
         }
       >
-        <NavLink to={`/chi-tiet/${props.data._id}/`}>
+        <NavLink to={`/chi-tiet/${props.data._id}/`} onClick={() => window.scroll(0, 0)}>
           <h5
             className={
               "card-title " +
