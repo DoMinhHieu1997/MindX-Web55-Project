@@ -55,12 +55,12 @@ const Menu = ({userInfo}) => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <a
+          <NavLink 
             className="navbar-brand d-lg-none d-block logo p-2 rounded me-0"
-            href="/"
+            to="/"
           >
             <h6 className="text-white mb-0">COOKING HOLICS</h6>
-          </a>
+          </NavLink>
           <div
             className="collapse navbar-collapse mt-3 mt-lg-0"
             id="navbarTogglerDemo03"
@@ -109,9 +109,9 @@ const Menu = ({userInfo}) => {
               </li>
             </ul>
             <div className="logo position-absolute top-50 d-none d-lg-block start-50 translate-middle p-2 rounded">
-              <a href="/">
+              <NavLink to="/">
                 <h4 className="text-white mb-0">COOKING HOLICS</h4>
-              </a>
+              </NavLink>
             </div>
             <div className="d-block d-lg-none">
               <Users userInfo={{}} onClick={handleToggle} />
