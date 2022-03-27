@@ -142,7 +142,7 @@ const Profile = () => {
         )}
         
         {matchBaiVietDaLuu && userData && <SavedPost userData={userData} setUserData={setUserData} />}
-        {matchBaiVietCuaToi && userData && <MyPost userData={userData} />}
+        {matchBaiVietCuaToi && userData && <MyPost userData={userData}/>}
       </div>
     </div>
   );

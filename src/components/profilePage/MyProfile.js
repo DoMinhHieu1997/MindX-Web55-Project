@@ -5,6 +5,7 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/
 import { initializeApp } from "firebase/app";
 import { firebaseConfig, http } from "../profile/config";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva }) => {
     const [isEditing, setIsEditing] = useState(false);
@@ -21,6 +22,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
     const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     const firebaseApp = initializeApp(firebaseConfig);
     const storage = getStorage(firebaseApp);
+    const navigate = useNavigate();
     const imageInputRef = useRef();
 
     useEffect(() => {
@@ -30,6 +32,10 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
             setEditName(userData.nameDisplay);
         }
     }, [userData]);
+
+    if (!token) {
+        return <Navigate to="/dang-nhap" replace />;
+      }
 
     const editEmailHandler = (e) => {
         setEditEmail(e.target.value);
@@ -84,6 +90,9 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
             }).then((res) => {
                 setUserData(res.data.data);
                 setIsLoading(false);
+                localStorage.removeItem("token")
+                sessionStorage.removeItem("token");
+                navigate("/dang-nhap");
             });
         }
     };

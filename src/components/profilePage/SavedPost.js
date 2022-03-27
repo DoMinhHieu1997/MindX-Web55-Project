@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 import { http } from "../profile/config";
 import { transferDate, spliceString} from "../Common";
 const SavedPost = ({ userData, setUserData }) => {
-    // const token = localStorage.getItem("token") || sessionStorage.getItem("token");
-
-
     const [isLoading, setIsLoading] = useState(false);
     const [bookmarkPosts, setBookmarkPosts] = useState(null);
     const [postLength, setPostLength] = useState(3);
@@ -49,14 +46,15 @@ const SavedPost = ({ userData, setUserData }) => {
                 ...userData.listBookmark.slice(0, bookmarkIndex),
                 ...userData.listBookmark.slice(bookmarkIndex + 1),
             ],
+            
         };
-
-
+        
         http.patch("user/update", data).then((res) => {
             if (res.data.message === "success") {
                 setUserData(res.data.data);
             }
         });
+
     };
 
     const handleSavePost = (idPost) => {
