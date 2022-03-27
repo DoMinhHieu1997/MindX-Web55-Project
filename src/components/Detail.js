@@ -15,6 +15,7 @@ const Detail = ({setBookmarkChange}) => {
     const postId = useParams();
 
     useEffect(() => {
+        window.scroll(0,0);
         fetch(`${COMMON.DOMAIN}posts/detail?id=`+postId.id)
         .then((res) => res.json())
         .then((resJson) => {

@@ -22,7 +22,7 @@ const Recipes = () => {
       document.title='Công thức'
       getListRecipes(1);
     } else {
-      document.title='Công thức page '+paramPage.page
+      document.title='Công thức trang '+paramPage.page;
       getListRecipes(paramPage.page*1);
     }
   },[paramPage])
