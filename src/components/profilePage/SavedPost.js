@@ -131,10 +131,85 @@ const SavedPost = () => {
                 <div className="row">
                     <div className="col-12 m-2">
                         <div className="row">
-                            <div className="col-md-3">
+                            <div className="col-md-3 col-4">
                                 <div className="skeleton h-100"></div>
                             </div>
-                            <div className="col-md-9 px-4">
+                            <div className="col-md-9 col-8 px-4">
+                                <div className="d-flex flex-column h-100">
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 flex-grow-1" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-12 m-2">
+                        <div className="row">
+                            <div className="col-md-3 col-4">
+                                <div className="skeleton h-100"></div>
+                            </div>
+                            <div className="col-md-9 col-8 px-4">
+                                <div className="d-flex flex-column h-100">
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 flex-grow-1" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-12 m-2">
+                        <div className="row">
+                            <div className="col-md-3 col-4">
+                                <div className="skeleton h-100"></div>
+                            </div>
+                            <div className="col-md-9 col-8 px-4">
+                                <div className="d-flex flex-column h-100">
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 flex-grow-1" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-12 m-2">
+                        <div className="row">
+                            <div className="col-md-3 col-4">
+                                <div className="skeleton h-100"></div>
+                            </div>
+                            <div className="col-md-9 col-8 px-4">
+                                <div className="d-flex flex-column h-100">
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 flex-grow-1" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-12 m-2">
+                        <div className="row">
+                            <div className="col-md-3 col-4">
+                                <div className="skeleton h-100"></div>
+                            </div>
+                            <div className="col-md-9 col-8 px-4">
+                                <div className="d-flex flex-column h-100">
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 " />
+                                    <div className="pb-3 skeleton mt-2 flex-grow-1" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-12 m-2">
+                        <div className="row">
+                            <div className="col-md-3 col-4">
+                                <div className="skeleton h-100"></div>
+                            </div>
+                            <div className="col-md-9 col-8 px-4">
                                 <div className="d-flex flex-column h-100">
                                     <div className="pb-3 skeleton mt-2 " />
                                     <div className="pb-3 skeleton mt-2 " />
