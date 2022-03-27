@@ -98,6 +98,7 @@ const Search = () => {
         setSearchValue(searchKey.replace("-"," "));
         setIsLoading(true);
         getSearchValue();
+        document.title=`Tìm kiếm: ${searchKey}`
     },[page,searchKey]);
 
     return <>
