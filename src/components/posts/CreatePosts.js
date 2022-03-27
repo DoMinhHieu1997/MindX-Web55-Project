@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect,  useRef, useState } from "react";
 import {
   Backdrop,
   Button,
@@ -55,7 +55,6 @@ function CreatePosts({ onClose, dataEdit, SetClickEdit }, refChild) {
     language: "vi",
     image: {
       toolbar: [
-        // 'imageTextAlternative',
         "imageStyle:inline",
         "imageStyle:block",
         "imageStyle:side",
@@ -277,14 +276,14 @@ function CreatePosts({ onClose, dataEdit, SetClickEdit }, refChild) {
               })}
             />
           )}
-          <h5 className="mt-4 mb-2 text-secondary">Nội dung bài viết</h5>
           <Box
             sx={{
               height: "100%",
-              p: "10px 0",
+              m: "10px 0",
               border: "1px solid rgba(0, 0, 0, 0.23)",
             }}
           >
+            <h5 className="m-2 border-bottom text-secondary">Nội dung bài viết</h5>
             <CKEditor
               config={config}
               editor={Editor}
