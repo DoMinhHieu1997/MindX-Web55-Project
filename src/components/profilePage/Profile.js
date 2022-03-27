@@ -40,7 +40,7 @@ const Profile = () => {
   if (!token) {
     return <Navigate to="/dang-nhap" replace />;
   }
-  console.log(userData)
+
   return (
     <div className="container py-5">
       <div className="position-fixed top-50 end-0"></div>
@@ -142,7 +142,6 @@ const Profile = () => {
         
         {matchBaiVietDaLuu && userData && <SavedPost userData={userData} setUserData={setUserData} />}
         {matchBaiVietCuaToi && userData && <MyPost userData={userData} />}
-        {/* <Outlet /> */}
       </div>
     </div>
   );
