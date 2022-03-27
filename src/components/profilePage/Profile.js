@@ -16,6 +16,7 @@ const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [viewAva, setViewAva] = useState(null);
 
+  const matchHoSo = useMatch("/ho-so");
   const matchThongTin = useMatch("/ho-so/thong-tin");
   const matchPage = useMatch("/ho-so/bai-viet-cua-toi/:page");
   const matchProfile = useMatch("/ho-so/bai-viet-cua-toi");
@@ -41,6 +42,7 @@ const Profile = () => {
   if (!token) {
     return <Navigate to="/dang-nhap" replace />;
   }
+
   return (
     <div className="container py-5">
       <div className="position-fixed top-50 end-0"></div>
@@ -87,7 +89,7 @@ const Profile = () => {
                     <div className="nav-item">
                       <NavLink
                         to="/ho-so/thong-tin"
-                        className="nav-link link-secondary m-2"
+                        className={matchThongTin||matchHoSo?"nav-link link-secondary active m-2":"nav-link link-secondary m-2"}
                       >
                         Tài khoản của tôi
                       </NavLink>
@@ -129,7 +131,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        {matchThongTin && (
+        {(matchThongTin|| matchHoSo) && (
           <MyProfile
             userData={userData}
             setUserData={setUserData}
@@ -139,8 +141,7 @@ const Profile = () => {
             setViewAva={setViewAva}
           />
         )}
-        
-        {matchBaiVietDaLuu && userData && <SavedPost userData={userData} setUserData={setUserData} />}
+        {matchBaiVietDaLuu && userData && <SavedPost userData={userData} />}
         {matchBaiVietCuaToi && userData && <MyPost userData={userData} />}
         {/* <Outlet /> */}
       </div>
