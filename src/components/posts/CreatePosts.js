@@ -29,43 +29,44 @@ import { firebaseConfig } from "../profile/config";
 import uploadImageFirebase from "./uploadImageFirebase";
 
 function CreatePosts({ onClose, dataEdit, SetClickEdit }, refChild) {
-  const config ={
+  const config = {
     toolbar: {
       items: [
-        'heading',
-        'bold',
-        'italic',
-        'imageUpload',
-        'alignment',
-        '|',
-        'bulletedList',
-        'numberedList',
-        'outdent',
-        'indent',
-        '|',
-        'blockQuote',
-        'insertTable',
-        'link',
-        'undo',
-        'redo'
-      ]
+        "heading",
+        "bold",
+        "italic",
+        "imageUpload",
+        "alignment",
+        "bulletedList",
+        "numberedList",
+        "|",
+        "outdent",
+        "indent",
+        "|",
+        "link",
+        "blockQuote",
+        "insertTable",
+        "removeFormat",
+        "|",
+        "undo",
+        "redo",
+      ],
     },
-    language: 'vi',
+    language: "vi",
     image: {
       toolbar: [
-        'imageTextAlternative',
-        'imageStyle:inline',
-        'imageStyle:block',
-        'imageStyle:side'
-      ]
+        // 'imageTextAlternative',
+        "imageStyle:inline",
+        "imageStyle:block",
+        "imageStyle:side",
+        "resizeImage:50",
+        "resizeImage:75",
+        "resizeImage:original",
+      ],
     },
     table: {
-      contentToolbar: [
-        'tableColumn',
-        'tableRow',
-        'mergeTableCells'
-      ]
-    }
+      contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
+    },
   };
   const {
     formState: { errors },
@@ -277,7 +278,13 @@ function CreatePosts({ onClose, dataEdit, SetClickEdit }, refChild) {
             />
           )}
           <h5 className="mt-4 mb-2 text-secondary">Nội dung bài viết</h5>
-          <Box sx={{ height: "100%", p: "10px 0" }}>
+          <Box
+            sx={{
+              height: "100%",
+              p: "10px 0",
+              border: "1px solid rgba(0, 0, 0, 0.23)",
+            }}
+          >
             <CKEditor
               config={config}
               editor={Editor}

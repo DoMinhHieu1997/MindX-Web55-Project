@@ -16,7 +16,7 @@
     "@ckeditor/ckeditor5-cloud-services": "^33.0.0",
     "@ckeditor/ckeditor5-dev-utils": "^25.4.5",
     "@ckeditor/ckeditor5-dev-webpack-plugin": "^25.4.5",
-    "@ckeditor/ckeditor5-editor-classic": "^33.0.0",
+    "@ckeditor/ckeditor5-editor-inline": "^33.0.0",
     "@ckeditor/ckeditor5-essentials": "^33.0.0",
     "@ckeditor/ckeditor5-heading": "^33.0.0",
     "@ckeditor/ckeditor5-image": "^33.0.0",
