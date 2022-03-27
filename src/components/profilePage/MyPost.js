@@ -93,9 +93,7 @@ const MyPost = ({ userData }) => {
                           variant="p"
                           component="div"
                         >
-                          {post.title.length < 60
-                            ? post.title
-                            : post.title.slice(0, 59) + "..."}
+                          {spliceString(post.title, 50)}
                         </Typography>
                       </CardContent>
                       <Edit

@@ -129,7 +129,6 @@ function CreatePosts({ onClose, dataEdit ,SetClickEdit}, refChild) {
     setLoading(false);
     setLoadingPage(false);
     window.scroll(0, 0);
-    // navigate(`/ho-so/bai-viet-cua-toi`);
     navigate(`/chi-tiet/${id}`);
   };
   const onSubmit = (data) => {
