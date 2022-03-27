@@ -28,7 +28,7 @@ import {
 import { firebaseConfig } from "../profile/config";
 import uploadImageFirebase from "./uploadImageFirebase";
 
-function CreatePosts({ onClose, dataEdit ,SetClickEdit}, refChild) {
+function CreatePosts({ onClose, dataEdit, SetClickEdit }, refChild) {
   const config = {
     toolbar: {
       items: [
@@ -124,7 +124,7 @@ function CreatePosts({ onClose, dataEdit ,SetClickEdit}, refChild) {
 
   const endFetch = (res) => {
     const id = res.data.data._id.toString();
-    SetClickEdit&& SetClickEdit(prev=>!prev)
+    SetClickEdit && SetClickEdit((prev) => !prev);
     onClose();
     setLoading(false);
     setLoadingPage(false);

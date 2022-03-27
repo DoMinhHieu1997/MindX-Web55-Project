@@ -7,7 +7,6 @@ const SavedPost = ({ userData, setUserData }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [bookmarkPosts, setBookmarkPosts] = useState(null);
     const [postLength, setPostLength] = useState(3);
-
     useEffect(() => {
         if (userData) {
             setIsLoading(true);

@@ -132,18 +132,16 @@ const Search = () => {
             <div className="row mt-5">
                 {
                     searchResponse && searchResponse.map((item) => {
-                        return <div className="col-12 col-lg-3 mb-3"><PostItem data={item} isTopLikeItem={true}/></div>
+                        return <div className="col-12 col-md-6 col-lg-3 mb-3"><PostItem data={item} isTopLikeItem={true}/></div>
                     })
                 }
                 {
                     isLoading &&  <>
-                        <div className="row">
-                            {
-                                Array(8).fill(0).map((item,index) => {
-                                    return <SkeletonItem key={index}/>
-                                })
-                            }
-                        </div>
+                        {
+                            Array(8).fill(0).map((item,index) => {
+                                return <SkeletonItem key={index}/>
+                            })
+                        }
                     </>    
                 }
             </div>
