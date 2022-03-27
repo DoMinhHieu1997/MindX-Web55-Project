@@ -64,6 +64,7 @@ const PostContent = (props) => {
 
       const bodyData = {
         _id: postId,
+        countLike:userLikeArr.length+1,
         userLike: [...userLikeArr, userId],
       };
 
@@ -94,6 +95,7 @@ const PostContent = (props) => {
       const index = userLikeArr.indexOf(userId);
       const bodyData = {
         _id: postId,
+        countLike:userLikeArr.length-1,
         userLike:
           index > 0
             ? [...userLikeArr.slice(0, index), ...userLikeArr.slice(index)]
@@ -170,6 +172,7 @@ const PostContent = (props) => {
         .then((res) => res.json())
         .then((resJson) => {
           if (resJson.message === "success") {
+            
             setJustSave(false);
             setIsSaved(true);
             props.setBookmarkChange(prev => !prev);

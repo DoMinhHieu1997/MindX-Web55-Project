@@ -148,13 +148,13 @@ useEffect(()=>{
                 />
                 {errors.password && <Myp>{errors.password.message}</Myp>}
               </MyDiv>
-              {/* <FormGroup>
+              <FormGroup>
                 <FormControlLabel
                   {...register("keepLogin")}
                   control={<Checkbox />}
                   label="Duy trì đăng nhập"
                 />
-              </FormGroup> */}
+              </FormGroup>
               <MyDiv>
                 <Button
                   variant="contained"

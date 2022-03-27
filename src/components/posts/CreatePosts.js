@@ -107,6 +107,7 @@ function CreatePosts({ onClose, dataEdit, SetClickEdit }, refChild) {
     avatar && setvalueAvatar(avatar);
     totalCalories && setValueTotalCalo(totalCalories);
     description && setValueDescription(description);
+    console.log(dataEdit);
     return () => {
       unmounted = true;
     };

@@ -22,13 +22,14 @@ const PostItem = (props) => {
       if (props.data.usersLike.indexOf(userId) > -1) setIsLove(true);
     }
   }, [userId]);
-
   const handleLike = (event) => {
     if (token) {
       setJustLiked(true);
       const data = {
+        countLike: props.data.usersLike.length + 1,
         _id: props.data._id,
-        userLike: [...props.data.usersLike, userId],
+        usersLike: [...props.data.usersLike, userId],
+        
       };
 
       fetch(`${COMMON.DOMAIN}posts/like`, {
@@ -56,16 +57,21 @@ const PostItem = (props) => {
     if (token) {
       setJustDisLiked(true);
       const index = props.data.usersLike.indexOf(userId);
+      
       const data = {
         _id: props.data._id,
-        userLike:
+        countLike: props.data.usersLike.length - 1,
+        usersLike:
           index > 0
+
             ? [
                 ...props.data.usersLike.slice(0, index),
                 ...props.data.usersLike.slice(index),
               ]
             : [...props.data.usersLike],
+        
       };
+      console.log(data.usersLike?.length);
 
       fetch(`${COMMON.DOMAIN}posts/like`, {
         method: "PATCH",
@@ -92,11 +98,12 @@ const PostItem = (props) => {
     <div
       className="card overflow-hidden h-100"
       key={props.data._id}
-      onClick={() => window.scroll(0, 0)}
+      
     >
       <NavLink
         to={`/chi-tiet/${props.data._id}/`}
         className="rounded oveflow-hidden"
+        onClick={() => window.scroll(0, 0)}
       >
         <div>
           <div
@@ -112,7 +119,7 @@ const PostItem = (props) => {
           </div>
         </div>
       </NavLink>
-      <div className="p-1 mt-2 ms-2 position-absolute top-0 bg-06a682 rounded text-white">
+      <div className="p-1 mt-2 ms-2 position-absolute top-0 bg-06a682 rounded text-white" >
         {!isLove ? (
           <FavoriteBorderOutlinedIcon
             style={{ color: "white" }}
@@ -137,7 +144,7 @@ const PostItem = (props) => {
             : "mt-2 px-2"
         }
       >
-        <NavLink to={`/chi-tiet/${props.data._id}/`}>
+        <NavLink to={`/chi-tiet/${props.data._id}/` }onClick={() => window.scroll(0, 0)}>
           <h5
             className={
               "card-title " +
