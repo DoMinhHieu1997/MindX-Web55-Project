@@ -8,19 +8,21 @@ import {
   Skeleton,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import AppCtx from "../../appContext";
 import { spliceString } from "../Common";
 import CreatePosts from "../posts/CreatePosts";
 import { http } from "../profile/config";
 
-const MyPost = ({ userData }) => {
+const MyPost = () => {
   const [data, setData] = useState([]);
   const [loadPage, setLoadingPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [dataEdit, setDataEdit] = useState("");
+  const {userInfo} = useContext(AppCtx)
 
   const param = useParams();
   const handleClose = () => setOpen(false);
@@ -37,14 +39,14 @@ const MyPost = ({ userData }) => {
   }, [param.page]);
   useEffect(() => {
     document.title = "Bài viết của tôi trang " + param.page;
-    const id = userData._id;
+    const id = userInfo._id;
     http
       .get(`/posts/user?p=1&s=${6 * loadPage}&p=2&t=1&userId=${id}`)
       .then((res) => {
         setData(res.data.data);
         setIsLoading(false);
       });
-  }, [loadPage, userData]);
+  }, [loadPage, userInfo]);
 
   const handleLoadMore = () => {
     setIsLoading(true);

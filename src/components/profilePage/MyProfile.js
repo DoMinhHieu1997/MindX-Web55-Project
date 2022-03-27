@@ -1,13 +1,14 @@
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import WarningIcon from "@mui/icons-material/Warning";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig, http } from "../profile/config";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Navigate, useNavigate } from "react-router-dom";
+import AppCtx from "../../appContext";
 
-const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva }) => {
+const MyProfile = ({ isLoading, setIsLoading, setViewAva }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editEmail, setEditEmail] = useState("Loading...");
     const [editName, setEditName] = useState("Loading...");
@@ -24,14 +25,15 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
     const storage = getStorage(firebaseApp);
     const navigate = useNavigate();
     const imageInputRef = useRef();
+    const {setUserInfo, userInfo} = useContext(AppCtx)
 
     useEffect(() => {
         document.title='Tài khoản của tôi'
-        if (userData) {
-            setEditEmail(userData.email);
-            setEditName(userData.nameDisplay);
+        if (userInfo) {
+            setEditEmail(userInfo.email);
+            setEditName(userInfo.nameDisplay);
         }
-    }, [userData]);
+    }, [userInfo]);
 
     if (!token) {
         return <Navigate to="/dang-nhap" replace />;
@@ -58,7 +60,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                         });
                     })
                     .then((res) => {
-                        setUserData(res.data.data);
+                        setUserInfo(res.data.data);
                         setOldPassword("");
                         setNewPassword("");
                         setIsLoading(false);
@@ -68,7 +70,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
     };
     const CancelEdit = () => {
         setIsEditing(false);
-        setViewAva(userData.photoUrl);
+        setViewAva(userInfo.photoUrl);
     };
 
     const updatePassword = () => {
@@ -88,7 +90,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                 password: oldPassword,
                 passwordNew: newPassword,
             }).then((res) => {
-                setUserData(res.data.data);
+                setUserInfo(res.data.data);
                 setIsLoading(false);
                 localStorage.removeItem("token")
                 sessionStorage.removeItem("token");
@@ -127,6 +129,8 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
                         });
                     }
                 );
+            } else {
+                resolve(userInfo.photoUrl)
             }
         });
     };

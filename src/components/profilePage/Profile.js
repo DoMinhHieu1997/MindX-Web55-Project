@@ -10,10 +10,10 @@ import AppCtx from "../../appContext";
 const Profile = () => {
   const navigate = useNavigate();
   const appCtx = useContext(AppCtx);
+  const {userInfo, setUserInfo} = useContext(AppCtx);
   const token =
     localStorage.getItem("token") || sessionStorage.getItem("token");
   const [isLoading, setIsLoading] = useState(true);
-  const [userData, setUserData] = useState(null);
   const [viewAva, setViewAva] = useState(null);
 
   const matchHoSo = useMatch("/ho-so");
@@ -29,7 +29,7 @@ const Profile = () => {
       setIsLoading(true);
       return;
     }
-    setUserData(appCtx.userInfo);
+    setUserInfo(appCtx.userInfo);
     setIsLoading(false);
     setViewAva(appCtx.userInfo.photoUrl);
   }, [appCtx]);
@@ -52,7 +52,7 @@ const Profile = () => {
             <div className="col-12">
               <div className="px-4 py-4">
                 {isLoading && <SkeletonItem type="1" />}
-                {userData && !isLoading && (
+                {userInfo && !isLoading && (
                   <>
                     <div className="row justify-content-center">
                       <div className="col-10">
@@ -67,7 +67,7 @@ const Profile = () => {
                       </div>
                     </div>
                     <div className="row justify-content-center pt-3">
-                      <div className="col-auto h3">{userData.nameDisplay}</div>
+                      <div className="col-auto h3">{userInfo.nameDisplay}</div>
                     </div>
                   </>
                 )}
@@ -84,7 +84,7 @@ const Profile = () => {
                     <div className="py-3 skeleton mt-2"></div>
                   </div>
                 )}
-                {userData && !isLoading && (
+                {userInfo && !isLoading && (
                   <>
                     <div className="nav-item">
                       <NavLink
@@ -100,7 +100,7 @@ const Profile = () => {
                         className="nav-link link-secondary my-3 mx-3 mx-md-0 mx-lg-3 fs-5 py-0"
                       >
                         Tin đã lưu (
-                        {userData.listBookmark && userData.listBookmark.length})
+                        {userInfo.listBookmark && userInfo.listBookmark.length})
                       </NavLink>
                     </div>
                     <div className="nav-item">
@@ -133,17 +133,14 @@ const Profile = () => {
         </div>
         {(matchThongTin|| matchHoSo) && (
           <MyProfile
-            userData={userData}
-            setUserData={setUserData}
             isLoading={isLoading}
             setIsLoading={setIsLoading}
-            appCtx={appCtx}
             setViewAva={setViewAva}
           />
         )}
         
-        {matchBaiVietDaLuu && userData && <SavedPost userData={userData} setUserData={setUserData} />}
-        {matchBaiVietCuaToi && userData && <MyPost userData={userData}/>}
+        {matchBaiVietDaLuu && userInfo && <SavedPost />}
+        {matchBaiVietCuaToi && userInfo && <MyPost />}
       </div>
     </div>
   );
