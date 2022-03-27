@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 const Detail = ({setBookmarkChange}) => {
     const navigate = useNavigate();
     const [postData, setPostData] = useState("");
+    const [clickEdit, SetClickEdit] = useState(true);
+
     const postId = useParams();
 
     useEffect(() => {
@@ -26,7 +28,7 @@ const Detail = ({setBookmarkChange}) => {
                 navigate('/*');
             }
         });
-    },[postId.id]);
+    },[postId.id,clickEdit]);
 
 
     return <>
@@ -35,7 +37,7 @@ const Detail = ({setBookmarkChange}) => {
             <div className="row">
                 <div className="col-md-9">
                     {
-                        postData ? <PostContent postContent={postData} setBookmarkChange={setBookmarkChange}/> : <PostDetailSkeleton/>
+                        postData ? <PostContent postContent={postData} SetClickEdit={SetClickEdit} setBookmarkChange={setBookmarkChange}/> : <PostDetailSkeleton/>
                     }
                 </div>
                 <div className="col-md-3">
