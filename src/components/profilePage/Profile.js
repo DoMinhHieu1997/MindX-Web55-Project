@@ -23,6 +23,7 @@ const Profile = () => {
   const matchBaiVietDaLuu = useMatch("/ho-so/bai-viet-da-luu");
 
   useEffect(() => {
+    document.title='Hồ sơ'
     if (!appCtx.userInfo) {
       setIsLoading(true);
       return;
@@ -44,7 +45,7 @@ const Profile = () => {
   return (
     <div className="container py-5">
       <div className="position-fixed top-50 end-0"></div>
-      <div className="row mt-5 gx-3">
+      <div className="row  gx-3">
         <div className="col-md-4 rounded-2">
           <div className="row">
             <div className="col-12">

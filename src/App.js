@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 function App() {
   let navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
+  const [bookmarkChange, setBookmarkChange] = useState(false);
   const [openLoginNotify, setOpenLoginNotify] = useState(false);
 
   const handleClose = () => {
@@ -40,6 +41,7 @@ function App() {
   const token =
     sessionStorage.getItem("token") || localStorage.getItem("token");
 
+    console.log(userInfo);
     useEffect(() => {
         if (token) {
             fetch(`${COMMON.DOMAIN}user/info`, {
@@ -56,7 +58,7 @@ function App() {
         } else {
             setUserInfo(null);
         }
-    }, [token]);
+    }, [token,bookmarkChange]);
 
   return (
     <div className="App">
@@ -81,7 +83,7 @@ function App() {
             <Route path="/ho-so/bai-viet-cua-toi/:page" element={<MyPost />} />
             <Route path="/ho-so/bai-viet-da-luu" element={<SavedPost />} />
           </Route>
-          <Route path="/chi-tiet/:id" element={<Detail />} />
+          <Route path="/chi-tiet/:id" element={<Detail setBookmarkChange={setBookmarkChange}/>} />
           <Route path="/tim-kiem" element={<Search />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

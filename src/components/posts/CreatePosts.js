@@ -28,7 +28,7 @@ import {
 import { firebaseConfig } from "../profile/config";
 import uploadImageFirebase from "./uploadImageFirebase";
 
-function CreatePosts({ onClose, dataEdit }, refChild) {
+function CreatePosts({ onClose, dataEdit ,SetClickEdit}, refChild) {
   const config = {
     toolbar: {
       items: [
@@ -103,15 +103,15 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
     type === 1 && setToggle(false);
   }, [type]);
   useEffect(() => {
-    // let unmounted = false;
+    let unmounted = false;
     ingredients && setCardItem(ingredients);
     title && setValueTitle(title);
     avatar && setvalueAvatar(avatar);
     totalCalories && setValueTotalCalo(totalCalories);
     description && setValueDescription(description);
-    // return () => {
-    //   unmounted = true;
-    // };
+    return () => {
+      unmounted = true;
+    };
   }, [ingredients, title, avatar, totalCalories, description]);
   const navigate = useNavigate();
   const firebaseApp = initializeApp(firebaseConfig);
@@ -124,11 +124,11 @@ function CreatePosts({ onClose, dataEdit }, refChild) {
 
   const endFetch = (res) => {
     const id = res.data.data._id.toString();
+    SetClickEdit&& SetClickEdit(prev=>!prev)
     onClose();
     setLoading(false);
     setLoadingPage(false);
     window.scroll(0, 0);
-    navigate(`/ho-so/bai-viet-cua-toi`);
     navigate(`/chi-tiet/${id}`);
   };
   const onSubmit = (data) => {

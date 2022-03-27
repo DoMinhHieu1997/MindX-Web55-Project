@@ -6,6 +6,7 @@ import { transferDate, spliceString} from "../Common";
 const SavedPost = ({ userData, setUserData }) => {
     // const token = localStorage.getItem("token") || sessionStorage.getItem("token");
 
+
     const [isLoading, setIsLoading] = useState(false);
     const [bookmarkPosts, setBookmarkPosts] = useState(null);
     const [postLength, setPostLength] = useState(3);
@@ -27,7 +28,9 @@ const SavedPost = ({ userData, setUserData }) => {
                 }
 
                 const bookmarkPostsNew = bookmarkPosts.map((bookmarkPost) => {
+
                     const isSaved = bookmarks.findIndex((bookmark) => bookmark._id === bookmarkPost._id) > -1;
+
                     if (isSaved) bookmarkPost.isSaved = true;
                     else bookmarkPost.isSaved = false;
 
@@ -39,7 +42,6 @@ const SavedPost = ({ userData, setUserData }) => {
             });
         }
     }, [userData, postLength]);
-
     const handleUnsavePost = (idPost) => {
         const bookmarkIndex = userData.listBookmark.indexOf(idPost);
         const data = {
@@ -48,6 +50,7 @@ const SavedPost = ({ userData, setUserData }) => {
                 ...userData.listBookmark.slice(bookmarkIndex + 1),
             ],
         };
+
 
         http.patch("user/update", data).then((res) => {
             if (res.data.message === "success") {
@@ -58,6 +61,7 @@ const SavedPost = ({ userData, setUserData }) => {
 
     const handleSavePost = (idPost) => {
         const data = {
+
             listBookmark: [...userData.listBookmark, idPost],
         };
 
@@ -67,7 +71,6 @@ const SavedPost = ({ userData, setUserData }) => {
             }
         });
     };
-
     const loadMorePosts = () => {
         setPostLength((prev) => prev + 5);
     };
