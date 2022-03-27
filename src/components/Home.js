@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import FloatingAction from "./shared/FloatingAction";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import RamenDiningIcon from "@mui/icons-material/RamenDining";
+import { NavLink } from "react-router-dom";
 
 const Home = () => {
     const [isLoading, setIsloading] = useState(true);
@@ -33,7 +34,6 @@ const Home = () => {
             .then((resJson) => {
                 setBlogs(resJson);
                 setIsLoadingFE(false);
-                
             });
     }, [moreBlog]);
     return (
@@ -42,9 +42,9 @@ const Home = () => {
             <div className="container py-5">
                 <div className="d-flex align-items-center">
                     <LocalFireDepartmentIcon fontSize="large" style={{ color: "orange" }} />
-                    <a href="/cong-thuc">
+                    <NavLink to="/cong-thuc">
                         <h3 className="mb-0 text-dark">Công thức mới - thử ngay</h3>
-                    </a>
+                    </NavLink>
                 </div>
                 <div className="new-recipres row mt-4">
                     {isLoading && (
@@ -69,9 +69,9 @@ const Home = () => {
                     <div className="food-experiens col-md-9">
                         <div className="d-flex align-items-center mb-3">
                             <RamenDiningIcon fontSize="large" style={{ color: "#c13a3a" }} />
-                            <a href="/cong-thuc">
+                            <NavLink to="/cong-thuc">
                                 <h3 className="mb-0 ms-2 text-dark">Trải nghiệm món ăn</h3>
-                            </a>
+                            </NavLink>
                         </div>
                         <div className="row">
                             {blogs &&
@@ -97,7 +97,7 @@ const Home = () => {
                             <div className="col-12 mt-md-3 mt-0">
                                 <div className="row justify-content-center">
                                     <div className="col-auto">
-                                        {blogs && blogs.data.length === moreBlog  ? (
+                                        {blogs && blogs.data.length === moreBlog ? (
                                             <button
                                                 className="btn btn-primary px-5 bg-white border-secondary text-secondary"
                                                 onClick={() => {
@@ -106,7 +106,7 @@ const Home = () => {
                                             >
                                                 Xem thêm
                                             </button>
-                                        ):null}
+                                        ) : null}
                                     </div>
                                 </div>
                             </div>
@@ -123,12 +123,12 @@ const Home = () => {
 
 const FoodExSkeleton = () => {
     return (
-        <div className="col-md-6 mb-3  align-items-stretch">
+        <div className="col-md-6 col-12 mb-4  align-items-stretch">
             <div className="row">
-                <div className="col-md-5">
+                <div className="col-md-5 col-4">
                     <div className="skeleton h-100"></div>
                 </div>
-                <div className="col-md-7 px-0">
+                <div className="col-md-7 col-8 px-0">
                     <div className="d-flex flex-column h-100">
                         <div className="pb-3 skeleton mt-2" />
                         <div className="pb-3 skeleton mt-2" />
