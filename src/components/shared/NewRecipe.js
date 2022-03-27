@@ -3,6 +3,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState, useEffect, useContext } from "react";
 import AppCtx from "../../appContext";
 import { COMMON } from "../Common";
+import { NavLink } from "react-router-dom";
 
 const NewRecipe = ({ recipe }) => {
     const appCtx = useContext(AppCtx);
@@ -85,14 +86,14 @@ const NewRecipe = ({ recipe }) => {
         <>
             <div className="rounded h-100 new-recipes-try">
                 <div className="row">
-                    <a href={"/chi-tiet/" + recipe._id} className="link-dark">
+                    <NavLink to={"/chi-tiet/" + recipe._id} className="link-dark">
                         <div className="col-12">
                             <div
                                 className="ratio ratio-4x3 rounded border image-background"
                                 style={{ backgroundImage: `url(${recipe.avatar})` }}
                             ></div>
                         </div>
-                    </a>
+                    </NavLink>
                     <div className="py-2">
                         <div className="ps-2">
                             {!isLove ? (
@@ -112,9 +113,9 @@ const NewRecipe = ({ recipe }) => {
                     </div>
                     <hr className="w-25 ms-4 mb-3 mt-1 text-dark" />
                     <div className="col-12">
-                        <a href={"/chi-tiet/" + recipe._id} className="link-dark">
+                        <NavLink to={"/chi-tiet/" + recipe._id} className="link-dark">
                             <h5 className="ps-2">{recipe.title}</h5>
-                        </a>
+                        </NavLink>
                     </div>
                 </div>
             </div>
