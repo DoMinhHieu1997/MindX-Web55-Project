@@ -7,7 +7,7 @@ import { Skeleton } from "@mui/material";
 import FloatingAction from "./shared/FloatingAction";
 import { useNavigate } from "react-router-dom";
 
-const Detail = () => {
+const Detail = ({setBookmarkChange}) => {
     const navigate = useNavigate();
     const [postData, setPostData] = useState("");
     const postId = useParams();
@@ -35,7 +35,7 @@ const Detail = () => {
             <div className="row">
                 <div className="col-md-9">
                     {
-                        postData ? <PostContent postContent={postData}/> : <PostDetailSkeleton/>
+                        postData ? <PostContent postContent={postData} setBookmarkChange={setBookmarkChange}/> : <PostDetailSkeleton/>
                     }
                 </div>
                 <div className="col-md-3">

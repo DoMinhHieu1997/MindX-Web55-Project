@@ -54,6 +54,7 @@ const PostContent = (props) => {
         setListBK(bookmark);
       } else {
         setIsSaved(false);
+        setListBK(bookmark);
       }
     }
   }, [bookmark,data]);
@@ -142,7 +143,7 @@ const PostContent = (props) => {
           if (resJson.message === "success") {
             setJustUnsave(false);
             setIsSaved(false);
-            setListBK(resJson.data.listBookmark);
+            props.setBookmarkChange(prev => !prev);
           }
         });
     } else {
@@ -171,7 +172,7 @@ const PostContent = (props) => {
           if (resJson.message === "success") {
             setJustSave(false);
             setIsSaved(true);
-            setListBK(resJson.data.listBookmark);
+            props.setBookmarkChange(prev => !prev);
           }
         });
     } else {
