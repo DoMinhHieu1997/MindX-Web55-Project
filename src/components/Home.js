@@ -7,13 +7,16 @@ import { useState, useEffect } from "react";
 import FloatingAction from "./shared/FloatingAction";
 import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
 import RamenDiningIcon from "@mui/icons-material/RamenDining";
+import TimeTables from "./home/timeTables";
 
 const Home = () => {
-    const [isLoading, setIsloading] = useState(true);
-    const [isLoadingFE, setIsLoadingFE] = useState(true);
-    const [newRecipe, setNewRecipe] = useState("");
-    const [blogs, setBlogs] = useState("");
-    const [moreBlog, setMoreBlog] = useState(12);
+  const [isLoading, setIsloading] = useState(true);
+  const [isLoadingFE, setIsLoadingFE] = useState(true);
+  const [newRecipe, setNewRecipe] = useState("");
+  const [blogs, setBlogs] = useState("");
+  const [moreBlog, setMoreBlog] = useState(12);
+  const token =
+    localStorage.getItem("token") || sessionStorage.getItem("token");
 
   useEffect(() => {
     setIsloading(true);
@@ -34,7 +37,7 @@ const Home = () => {
         setIsLoadingFE(false);
       });
   }, [moreBlog]);
-
+  
   return (
     <>
       <FloatingAction />
@@ -66,7 +69,7 @@ const Home = () => {
               );
             })}
         </div>
-
+            { (token) ? <TimeTables /> : " " }
         <div className="row mt-5">
           <div className="food-experiens col-md-9">
             <div className="d-flex align-items-center mb-3">
@@ -76,27 +79,26 @@ const Home = () => {
               </a>
             </div>
             <div className="row">
-                {blogs &&
-                    blogs.data.map((blog, index) => {
-                        return (
-                            <div className="col-md-6 mb-3" key={index}>
-                            <BlogList blog={blog} />
-                            </div>
-                        );
-                    })
-                }
-                {isLoadingFE && (
-                    <>
-                        <FoodExSkeleton />
-                        <FoodExSkeleton />
-                        <FoodExSkeleton />
-                        <FoodExSkeleton />
-                        <FoodExSkeleton />
-                        <FoodExSkeleton />
-                        <FoodExSkeleton />
-                        <FoodExSkeleton />
-                    </>
-                )}
+              {blogs &&
+                blogs.data.map((blog, index) => {
+                  return (
+                    <div className="col-md-6 mb-3" key={index}>
+                      <BlogList blog={blog} />
+                    </div>
+                  );
+                })}
+              {isLoadingFE && (
+                <>
+                  <FoodExSkeleton />
+                  <FoodExSkeleton />
+                  <FoodExSkeleton />
+                  <FoodExSkeleton />
+                  <FoodExSkeleton />
+                  <FoodExSkeleton />
+                  <FoodExSkeleton />
+                  <FoodExSkeleton />
+                </>
+              )}
               <div className="col-12 mt-md-3 mt-0">
                 <div className="row justify-content-center">
                   <div className="col-auto">
