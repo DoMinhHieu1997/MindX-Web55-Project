@@ -7,46 +7,43 @@ import { Skeleton } from "@mui/material";
 import FloatingAction from "./shared/FloatingAction";
 import { useNavigate } from "react-router-dom";
 
-const Detail = () => {
-  const navigate = useNavigate();
-  const [postData, setPostData] = useState("");
-  const [clickEdit, SetClickEdit] = useState(true);
-  const postId = useParams();
+const Detail = ({setBookmarkChange}) => {
+    const navigate = useNavigate();
+    const [postData, setPostData] = useState("");
+    const postId = useParams();
 
-  useEffect(() => {
-    fetch(`${COMMON.DOMAIN}posts/detail?id=` + postId.id)
-      .then((res) => res.json())
-      .then((resJson) => {
-        if (resJson.message === "success") {
-          if (resJson.data === null) {
-            navigate("/*");
-          } else {
-            setPostData(resJson);
-          }
-        } else {
-          navigate("/*");
-        }
-      });
-  }, [postId.id, clickEdit]);
-  return (
-    <>
-      <FloatingAction />
-      <div className="container py-5">
-        <div className="row">
-          <div className="col-md-9">
-            {postData ? (
-              <PostContent postContent={postData} SetClickEdit={SetClickEdit} />
-            ) : (
-              <PostDetailSkeleton />
-            )}
-          </div>
-          <div className="col-md-3">
-            <MostFavorite />
-          </div>
+    useEffect(() => {
+        fetch(`${COMMON.DOMAIN}posts/detail?id=`+postId.id)
+        .then((res) => res.json())
+        .then((resJson) => {
+            if (resJson.message === "success") {
+                if (resJson.data === null) {
+                    navigate('/*');
+                } else {
+                    setPostData(resJson);
+                }
+            } else {
+                navigate('/*');
+            }
+        });
+    },[postId.id]);
+
+
+    return <>
+        <FloatingAction />
+        <div className="container py-5">
+            <div className="row">
+                <div className="col-md-9">
+                    {
+                        postData ? <PostContent postContent={postData} setBookmarkChange={setBookmarkChange}/> : <PostDetailSkeleton/>
+                    }
+                </div>
+                <div className="col-md-3">
+                    <MostFavorite />
+                </div>
+            </div>
         </div>
-      </div>
     </>
-  );
 };
 
 const PostDetailSkeleton = () => {
