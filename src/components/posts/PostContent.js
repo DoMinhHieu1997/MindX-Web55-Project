@@ -49,7 +49,6 @@ const PostContent = (props) => {
   useEffect(() => {
     if (bookmark) {
       if (bookmark.indexOf(postId) > -1) {
-        console.log(111);
         setIsSaved(true);
         setListBK(bookmark);
       } else {
