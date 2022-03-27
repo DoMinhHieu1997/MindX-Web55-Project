@@ -1,8 +1,8 @@
-import { useState,useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import MostFavorite from "./shared/MostFavorite";
 import PostContent from "./posts/PostContent";
-import {COMMON} from "./Common";
+import { COMMON } from "./Common";
 import { Skeleton } from "@mui/material";
 import FloatingAction from "./shared/FloatingAction";
 import { useNavigate } from "react-router-dom";
@@ -43,42 +43,46 @@ const Detail = ({setBookmarkChange}) => {
                 </div>
             </div>
         </div>
+      </div>
     </>
-}
+  );
+};
 
 const PostDetailSkeleton = () => {
-    return <div>
-        <Skeleton height={40}/>
-        <Skeleton height={40}/>
-        <Skeleton className="my-3" width="30%"/>
-        <Skeleton className="mt-4"/>
-        <Skeleton />
-        <Skeleton width="30%" className="mb-3"/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton width="85%"/>
-        <Skeleton className="mt-3"/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton width="90%"/>
-        <Skeleton className="mt-3"/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton/>
-        <Skeleton width="95%"/>
-        <Skeleton className="mt-3" width="20%"/>
+  return (
+    <div>
+      <Skeleton height={40} />
+      <Skeleton height={40} />
+      <Skeleton className="my-3" width="30%" />
+      <Skeleton className="mt-4" />
+      <Skeleton />
+      <Skeleton width="30%" className="mb-3" />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton width="85%" />
+      <Skeleton className="mt-3" />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton width="90%" />
+      <Skeleton className="mt-3" />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton />
+      <Skeleton width="95%" />
+      <Skeleton className="mt-3" width="20%" />
     </div>
-}
+  );
+};
 
 export default Detail;
