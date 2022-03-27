@@ -66,7 +66,7 @@ const Home = () => {
                 </div>
 
                 <div className="row mt-5">
-                    <div className="food-experiens col-md-9">
+                    <div className="food-experiens col-md-8 col-lg-9">
                         <div className="d-flex align-items-center mb-3">
                             <RamenDiningIcon fontSize="large" style={{ color: "#c13a3a" }} />
                             <a href="/cong-thuc">
@@ -112,7 +112,7 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="most-favourite-post col-md-3">
+                    <div className="most-favourite-post col-md-4 col-lg-3">
                         <MostFavorite />
                     </div>
                 </div>
