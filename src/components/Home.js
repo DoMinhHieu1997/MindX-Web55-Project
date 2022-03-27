@@ -16,6 +16,7 @@ const Home = () => {
     const [moreBlog, setMoreBlog] = useState(12);
 
   useEffect(() => {
+    document.title='Trang chủ'
     setIsloading(true);
     fetch(`${COMMON.DOMAIN}posts?t=1&p=1&s=4`)
       .then((res) => res.json())

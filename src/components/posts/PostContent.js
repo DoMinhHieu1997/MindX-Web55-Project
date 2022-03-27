@@ -16,6 +16,7 @@ const PostContent = (props) => {
   const userId = appCtx.userInfo?._id;
   const token =
     localStorage.getItem("token") || sessionStorage.getItem("token");
+    const  SetClickEdit=props.SetClickEdit
   const data = props.postContent.data;
   const creator = data.userId;
   const postId = data._id;
@@ -38,15 +39,13 @@ const PostContent = (props) => {
   useEffect(() => {
     if (userLikeArr.indexOf(userId) > -1) {
       setIsLove(true);
-    } else {
-      setIsLove(false);
+    }else{
+      setIsLove(false)
     }
-  }, [userId,data,userLikeArr]);
-
+  }, [userId, data, userLikeArr]);
   useEffect(() => {
     setCountLike(userLikeArr.length ? userLikeArr.length : 0);
   },[userLikeArr]);
-
   useEffect(() => {
     if (bookmark) {
       if (bookmark.indexOf(postId) > -1) {
@@ -94,32 +93,33 @@ const PostContent = (props) => {
       setJustDisLiked(true);
       const index = userLikeArr.indexOf(userId);
       const bodyData = {
-        "_id":postId,
-        "userLike": index > 0
-          ? [...userLikeArr.slice(0,index),...userLikeArr.slice(index)]
-          : [...userLikeArr]
-      }
-    
-      fetch(`${COMMON.DOMAIN}posts/like`,{
+        _id: postId,
+        userLike:
+          index > 0
+            ? [...userLikeArr.slice(0, index), ...userLikeArr.slice(index)]
+            : [...userLikeArr],
+      };
+
+      fetch(`${COMMON.DOMAIN}posts/like`, {
         method: "PATCH",
         headers: {
-          'Content-type':'application/json',
-          'Authorization':"Bearer "+token
+          "Content-type": "application/json",
+          Authorization: "Bearer " + token,
         },
-        body: JSON.stringify(bodyData)
+        body: JSON.stringify(bodyData),
       })
-      .then(res => res.json())
-      .then(resJson => {
-        if (resJson.message === "success") {
-          setCountLike(prev => prev - 1);
-          setIsLove(false);
-          setJustDisLiked(false);
-        }
-      });
+        .then((res) => res.json())
+        .then((resJson) => {
+          if (resJson.message === "success") {
+            setCountLike((prev) => prev - 1);
+            setIsLove(false);
+            setJustDisLiked(false);
+          }
+        });
     } else {
       appCtx.setOpenLoginNotify(true);
     }
-  }
+  };
 
   const handleUnsave = () => {
     if (token) {
@@ -184,7 +184,7 @@ const PostContent = (props) => {
 
   useEffect(() => {
     document.getElementById("html-content").innerHTML = data.content;
-  }, [postId]);
+  }, [data.content]);
 
   return (
     <>
@@ -195,12 +195,13 @@ const PostContent = (props) => {
       >
         <CreatePosts
           dataEdit={props.postContent.data}
+          SetClickEdit={SetClickEdit}
           onClose={handleClose}
           setOpen={setOpenModal}
         />
       </Modal>
-      <div  className="post-content">
-        <h1 >{data.title}</h1>
+      <div className="post-content">
+        <h1>{data.title}</h1>
         <div className="d-flex justify-content-between align-items-center mt-3">
           <div className="d-flex align-items-center flex-start">
             <AccessAlarmsOutlinedIcon
@@ -214,9 +215,9 @@ const PostContent = (props) => {
           <div className="d-flex cursor-pointer">
             {props?.postContent.data.userId === userId && (
               <Edit
-                className=" border rounded-circle p-1"
+                className=" border  border-2 rounded-circle p-1"
                 fontSize="large"
-                sx={{ color: "#1373b7" ,mr:2}}
+                sx={{ color: "#1373b7", mr: 2 }}
                 onClick={handleOpen}
               />
             )}
@@ -268,7 +269,7 @@ const PostContent = (props) => {
             <FavoriteIcon
               className="d-inline-block"
               style={{ color: "#d83737" }}
-              onClick = {!justDisLiked ? handleDisLiked : null}
+              onClick={!justDisLiked ? handleDisLiked : null}
             />
           ) : (
             <FavoriteBorderOutlinedIcon

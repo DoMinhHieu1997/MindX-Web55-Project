@@ -24,6 +24,7 @@ const MyProfile = ({ userData, setUserData, isLoading, setIsLoading, setViewAva 
     const imageInputRef = useRef();
 
     useEffect(() => {
+        document.title='Tài khoản của tôi'
         if (userData) {
             setEditEmail(userData.email);
             setEditName(userData.nameDisplay);
