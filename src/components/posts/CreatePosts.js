@@ -29,45 +29,43 @@ import { firebaseConfig } from "../profile/config";
 import uploadImageFirebase from "./uploadImageFirebase";
 
 function CreatePosts({ onClose, dataEdit, SetClickEdit }, refChild) {
-  const config = {
+  const config ={
     toolbar: {
       items: [
-        "heading",
-        "|",
-        "bold",
-        "italic",
-        "imageUpload",
-        "link",
-        "bulletedList",
-        "numberedList",
-        "|",
-        // 'outdent',
-        // 'indent',
-        // '|',
-        "blockQuote",
-        "insertTable",
-        "undo",
-        "redo",
-        // 	'CKFinder',
-        // 	'imageInsert'
-      ],
+        'heading',
+        'bold',
+        'italic',
+        'imageUpload',
+        'alignment',
+        '|',
+        'bulletedList',
+        'numberedList',
+        'outdent',
+        'indent',
+        '|',
+        'blockQuote',
+        'insertTable',
+        'link',
+        'undo',
+        'redo'
+      ]
     },
-    language: "vi",
-
+    language: 'vi',
     image: {
       toolbar: [
-        "imageTextAlternative",
-        "imageStyle:inline",
-        "imageStyle:block",
-        "imageStyle:side",
-        "resizeImage:50",
-        "resizeImage:75",
-        "resizeImage:original",
-      ],
+        'imageTextAlternative',
+        'imageStyle:inline',
+        'imageStyle:block',
+        'imageStyle:side'
+      ]
     },
     table: {
-      contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
-    },
+      contentToolbar: [
+        'tableColumn',
+        'tableRow',
+        'mergeTableCells'
+      ]
+    }
   };
   const {
     formState: { errors },
