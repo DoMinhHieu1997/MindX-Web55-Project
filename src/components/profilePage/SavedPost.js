@@ -1,12 +1,14 @@
 import BookmarkSharpIcon from "@mui/icons-material/BookmarkSharp";
 import { useState, useEffect } from "react";
 import { http } from "../profile/config";
-import { transferDate, spliceString } from "../Common";
-const SavedPost = ({ userData }) => {
+import { transferDate, spliceString, COMMON } from "../Common";
+const SavedPost = ({ userData, setUserData }) => {
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+
     const [isLoading, setIsLoading] = useState(false);
-    const [savedPosts, setSavedPosts] = useState(null);
-    const [isSaved, setIssaved]=useState(false);
+    const [bookmarkPosts, setBookmarkPosts] = useState(null);
     const [postLength, setPostLength] = useState(3);
+
     useEffect(() => {
         if (userData) {
             setIsLoading(true);
@@ -15,22 +17,65 @@ const SavedPost = ({ userData }) => {
                 p: "1",
                 s: `${postLength}`,
             }).then((res) => {
-                console.log(res.data.data);
-                setSavedPosts(res.data.data);
+                const bookmarks = res.data.data;
+
+                if (!bookmarkPosts) {
+                    setBookmarkPosts(bookmarks.map((bookmark) => ({ ...bookmark, isSaved: true })));
+                    setIsLoading(false);
+                    return;
+                }
+
+                const bookmarkPostsNew = bookmarkPosts.map((bookmarkPost) => {
+                    const isSaved = bookmarks.findIndex((bookmark) => bookmark._id == bookmarkPost._id) > -1;
+                    if (isSaved) bookmarkPost.isSaved = true;
+                    else bookmarkPost.isSaved = false;
+
+                    return bookmarkPost;
+                });
+
+                setBookmarkPosts(bookmarkPostsNew);
                 setIsLoading(false);
             });
         }
-    }, [userData, postLength, ]);
+    }, [userData, postLength]);
+
     // useEffect(() => {
-    //     if(userData){
+    //     if (savedPosts)
+    //       if (savedPosts.indexOf(postId) > -1) {
+    //         setIsSaved(true);
+    //         // setListBK(bookmark);
+    //       }
+    //   }, [savedPosts.listBookmark,data]);
+    const handleUnsavePost = (idPost) => {
+        const bookmarkIndex = userData.listBookmark.indexOf(idPost);
+        const data = {
+            listBookmark: [
+                ...userData.listBookmark.slice(0, bookmarkIndex),
+                ...userData.listBookmark.slice(bookmarkIndex + 1),
+            ],
+        };
 
-    //         setIssaved(indexOf() > -1 ? true : false);
-    //     }
-    // }, [recipe.usersLike,userId]);
+        http.patch("user/update", data)
+        .then((res) => {
+            if (res.data.message === "success") {
+                setUserData(res.data.data);
+            }
+        });
+    };
 
-    const handleSavePost = ()=>{
+    const handleSavePost = (idPost) => {
+        const data = {
+            listBookmark: [...userData.listBookmark, idPost]
+        }
 
+        http.patch("user/update", data)
+        .then((res) => {
+            if (res.data.message === "success") {
+                setUserData(res.data.data);
+            }
+        });
     }
+
     const loadMorePosts = () => {
         setPostLength((prev) => prev + 5);
     };
@@ -38,32 +83,40 @@ const SavedPost = ({ userData }) => {
     return (
         <div className="saved-post col-md-8 border ml-2">
             {!isLoading &&
-                savedPosts &&
-                savedPosts.map((post, index) => {
+                bookmarkPosts &&
+                bookmarkPosts.map((bookmark, index) => {
                     return (
-                        <div className="row" index={index}>
+                        <div className="row" index={index} key={bookmark._id}>
                             <div className="col-12 m-2">
                                 <div className="row align-items-stretch">
                                     <div className="col-3">
-                                        <a href={"/chi-tiet/" + post._id}>
+                                        <a href={"/chi-tiet/" + bookmark._id}>
                                             <div
                                                 className="ratio ratio-1x1 border rounded image-background new-recipes-try"
-                                                style={{ backgroundImage: `url(${post.avatar})` }}
+                                                style={{ backgroundImage: `url(${bookmark.avatar})` }}
                                             ></div>
                                         </a>
                                     </div>
                                     <div className="col-8 ps-0">
-                                        <a href={"/chi-tiet/" + post._id}>
+                                        <a href={"/chi-tiet/" + bookmark._id}>
                                             <h5 className="text-dark text-06a682-hover d-none d-md-block">
-                                                {post.title}
+                                                {bookmark.title}
                                             </h5>
                                         </a>
-                                        <h6 className="text-secondary mt-3 mt-md-2">{transferDate(post.updatedAt)}</h6>
-                                        <div className="d-none d-md-block">{spliceString(post.description)}</div>
+                                        <h6 className="text-secondary mt-3 mt-md-2">
+                                            {transferDate(bookmark.updatedAt)}
+                                        </h6>
+                                        <div className="d-none d-md-block">{spliceString(bookmark.description)}</div>
                                     </div>
                                     <div className="col-1">
                                         <div className="d-flex pe-5 h-100 justify-content-center align-items-center">
-                                            <BookmarkSharpIcon sx={{ fontSize: 40 }} color="primary" onClick={()=>{handleSavePost()}} />
+                                            <BookmarkSharpIcon
+                                                sx={{ fontSize: 40, cursor: "pointer" }}
+                                                color={bookmark.isSaved ? "primary" : "grey.500"}
+                                                onClick={() => {
+                                                    bookmark.isSaved ? handleUnsavePost(bookmark._id) : handleSavePost(bookmark._id);
+                                                }}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +144,7 @@ const SavedPost = ({ userData }) => {
                 </div>
             )}
             <div className="row justify-content-center">
-                {savedPosts && savedPosts.length === postLength && (
+                {bookmarkPosts && bookmarkPosts.length === postLength && (
                     <div
                         className="col-auto border border-dark rounded-pill lh-lg mt-4"
                         onClick={() => {
