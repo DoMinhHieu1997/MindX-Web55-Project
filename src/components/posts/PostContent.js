@@ -43,9 +43,11 @@ const PostContent = (props) => {
       setIsLove(false)
     }
   }, [userId, data, userLikeArr]);
+
   useEffect(() => {
     setCountLike(userLikeArr.length ? userLikeArr.length : 0);
   },[userLikeArr]);
+  
   useEffect(() => {
     if (bookmark) {
       if (bookmark.indexOf(postId) > -1) {

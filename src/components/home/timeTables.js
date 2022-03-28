@@ -22,7 +22,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import { http } from "../profile/config";
 import moment from "moment";
 import "./timeTables.css";
-import { BoltRounded } from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
 
 const TimeTables = () => {
   const [itemTimeTables, setItemTimeTables] = useState([]);
@@ -38,6 +38,7 @@ const TimeTables = () => {
     totalCalories: 0,
     dateEat: moment().format("YYYY-MM-DD")
   })
+  const [isloadingData, setIsLoadingData] = useState(true);
 
   const handleChangeSessionEat = (event) => {
     setSessionEat(event.target.value);
@@ -145,9 +146,11 @@ const TimeTables = () => {
     }
   }
   useEffect(() => {
+    setIsLoadingData(true);
     http.get("timetables").then((res) => {
       setReloadTimeTable(false)
       setItemTimeTables(res.data.data);
+      setIsLoadingData(false);
     });
   }, [reloadTimeTable]);
   return (
@@ -158,13 +161,13 @@ const TimeTables = () => {
       </Fab>
       <Grid className="timeTable-List " container alignItems="stretch" sx={{ flexWrap: 'nowrap'}} spacing={2}>
         {
-          itemTimeTables.length < 1
+          isloadingData
             ? 
               Array(6).fill(0).map((item,index) => {
-                return <DayCardSkeleton/>
+                return <DayCardSkeleton key={index}/>
               })
             : 
-              itemTimeTables.map((el) => {
+              itemTimeTables.length > 0 && itemTimeTables.map((el) => {
                 return (
                   <Grid key={el._id} item xs={6} md={2} sx={{mb: 2}}>
                     <Card className={`timeTable-Item ${el.today}`}  sx={{ height: '100%' }}>
@@ -183,7 +186,9 @@ const TimeTables = () => {
                         <div>
                           {el.breakfast ? el.breakfast.map((bf) => {
                             return (
-                              <Chip label={bf.title} key={bf.postId} sx={{ m: 0.5, backgroundColor:"#3d5885", color:"white" }} size="small"/>
+                              <NavLink className="timeTable-ItemDish" key={bf.postId} to={`/chi-tiet/${bf.postId}/`} >
+                                <Chip label={bf.title} key={bf.postId} sx={{ m: 0.5, backgroundColor:"#3d5885", color:"white" }} size="small"/>
+                              </NavLink>
                             )
                           }): "" }
                         </div>
@@ -193,7 +198,9 @@ const TimeTables = () => {
                         <div>
                         {el.lunch ? el.lunch.map((bf) => {
                             return (
-                              <Chip label={bf.title} key={bf.postId} sx={{ m:0.5, backgroundColor:"#d38f4f", color:"white" }} size="small"/>
+                              <NavLink className="timeTable-ItemDish" key={bf.postId} to={`/chi-tiet/${bf.postId}/`} >
+                                <Chip label={bf.title} key={bf.postId} sx={{ m:0.5, backgroundColor:"#d38f4f", color:"white" }} size="small"/>
+                              </NavLink>
                             )
                           }): "" }
                           </div>
@@ -203,7 +210,9 @@ const TimeTables = () => {
                         <div>
                         {el.dinner ? el.dinner.map((bf) => {
                             return (
-                              <Chip label={bf.title} key={bf.postId} sx={{ m:0.5, backgroundColor:"#06a682", color:"white" }} size="small"/>
+                              <NavLink className="timeTable-ItemDish" key={bf.postId} to={`/chi-tiet/${bf.postId}/`} >
+                                <Chip label={bf.title} key={bf.postId} sx={{ m:0.5, backgroundColor:"#06a682", color:"white" }} size="small"/>
+                              </NavLink>
                             )
                           }): "" }
                         </div>
