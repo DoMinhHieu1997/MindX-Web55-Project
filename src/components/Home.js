@@ -121,12 +121,12 @@ const Home = () => {
 
 const FoodExSkeleton = () => {
     return (
-        <div className="col-md-6 col-12 mb-4  align-items-stretch">
+        <div className="col-md-6 col-12 mb-4 align-items-stretch">
             <div className="row">
                 <div className="col-md-5 col-4">
                     <div className="skeleton h-100"></div>
                 </div>
-                <div className="col-md-7 col-8 px-0">
+                <div className="col-md-7 col-8 px-lg-0">
                     <div className="d-flex flex-column h-100">
                         <div className="pb-3 skeleton mt-2" />
                         <div className="pb-3 skeleton mt-2" />
