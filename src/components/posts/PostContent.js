@@ -64,6 +64,7 @@ const PostContent = (props) => {
 
       const bodyData = {
         _id: postId,
+        countLike: userLikeArr.length + 1,
         userLike: [...userLikeArr, userId],
       };
 
@@ -94,7 +95,8 @@ const PostContent = (props) => {
       const index = userLikeArr.indexOf(userId);
       const bodyData = {
         _id: postId,
-        userLike:
+        countLike: userLikeArr.length, 
+        userLike: 
           index > 0
             ? [...userLikeArr.slice(0, index), ...userLikeArr.slice(index)]
             : [...userLikeArr],
