@@ -39,6 +39,7 @@ const TimeTables = () => {
     dateEat: moment().format("YYYY-MM-DD")
   })
   const [isloadingData, setIsLoadingData] = useState(true);
+  const [isloadingDataSearch, setIsLoadingDataSearch] = useState(false);
 
   const handleChangeSessionEat = (event) => {
     setSessionEat(event.target.value);
@@ -58,9 +59,13 @@ const TimeTables = () => {
     }
   }
   const handelSearchDish = async () => {
+    setIsLoadingDataSearch(true);
     try {
       const response = await http.get("posts/searchtype2?k="+ txtSearchDish);
-      setDataSearchDish(response.data.data);
+      if (response.data.messageCode === 0) {
+        setDataSearchDish(response.data.data);
+        setIsLoadingDataSearch(false);
+      }
     } catch (err) {
         //show err
     }
@@ -229,30 +234,21 @@ const TimeTables = () => {
                 )
               })
         }
-        {/* <Grid item xs={6} md={2} sx={{mb: 2}}>
-          <Card sx={{ display: 'flex', height: '100%', bgcolor: 'text.disabled'}}>
-            <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-              <Button variant="contained" onClick={handleOpenCreateTimeTables} size="small" startIcon={<AddBoxIcon />}>
-                Tạo thời khóa biểu
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid> */}
       </Grid>
       <Dialog open={openCreateTimeTables} onClose={handleCloseCreateTimeTables} fullWidth maxWidth="md">
         <DialogTitle>Tạo thời khóa biểu</DialogTitle>
         <DialogContent>
           <Grid container sx={{my: 2}}>
-            <Grid item xs={12} md={4} sx={{ display:"flex", alignItems: "center", justifyContent: "center"}}>
-              <TextField label="Chọn ngày" type="date" defaultValue={dataTimetable.dateEat} sx={{ width: 220 }}
+            <Grid item xs={12} md={4} sx={{ px:2, display:"flex", alignItems: "center", justifyContent: "center"}}>
+              <TextField className="w-100" label="Chọn ngày" type="date" defaultValue={dataTimetable.dateEat} sx={{ width: 220 }}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 onChange={handelChangeDateEat}
               />
             </Grid>
-            <Grid item xs={12} md={4} sx={{ display:"flex", alignItems: "center", justifyContent: "center"}}>
-              <TextField select label="Chọn bữa" value={sessionEat} onChange={handleChangeSessionEat}>
+            <Grid item xs={12} md={4} className="mt-3 mt-lg-0" sx={{ px:2, display:"flex", alignItems: "center", justifyContent: "center"}}>
+              <TextField className="w-100" select label="Chọn bữa" value={sessionEat} onChange={handleChangeSessionEat}>
                 <MenuItem value="breakfast">
                   Bữa sáng
                 </MenuItem>
@@ -264,8 +260,8 @@ const TimeTables = () => {
                 </MenuItem>
               </TextField>
             </Grid>
-            <Grid item xs={12} md={4} sx={{ display:"flex", alignItems: "center", justifyContent: "center"}}>
-              <TextField label="Tìm kiếm món ăn" name="txtSearchDish" variant="outlined" value={txtSearchDish} onKeyPress={handelChangeTxtSearchDish} onChange={handelChangeTxtSearchDish}/>
+            <Grid item xs={12} md={4} className="mt-3 mt-lg-0" sx={{ px:2, display:"flex", alignItems: "center", justifyContent: "center"}}>
+              <TextField className="w-100" label="Tìm kiếm món ăn" name="txtSearchDish" variant="outlined" value={txtSearchDish} onKeyPress={handelChangeTxtSearchDish} onChange={handelChangeTxtSearchDish}/>
               <IconButton type="submit" sx={{ p: '10px' }} aria-label="search" onClick={handelSearchDish}>
                 <SearchIcon />
               </IconButton>
@@ -307,20 +303,28 @@ const TimeTables = () => {
             </Grid>
             <Grid item xs={12} md={8}>
               <Grid container spacing={2} alignItems="stretch"> 
-                {dataSearchDish ? dataSearchDish.map((el)=> {
-                  return (
-                    <Grid item xs={12} md={6} key={el._id} onClick={() => {handelClickAddDish({postId: el._id, title: el.title, totalCalories: el.totalCalories})}}> 
-                      <Card sx={{ display: 'flex', height: '100%'}}>
-                        <CardMedia component="img" sx={{ width: '35%' }} image= {el.avatar} alt={el.title}/>
-                        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                          <CardContent sx={{ flex: '1 0 auto' }}>
-                            <Typography component="div" variant="subtitle2">{el.title}</Typography>
-                          </CardContent>
-                        </Box>
-                      </Card>
-                    </Grid>
-                  )
-                }): "" }
+                {
+                  isloadingDataSearch 
+                    ? 
+                      Array(4).fill(0).map((item,index) => {
+                        return <SearchResultSkeleton key={index}/>
+                      })
+                    :
+                      dataSearchDish && dataSearchDish.map((el)=> {
+                        return (
+                          <Grid item xs={12} md={6} key={el._id} onClick={() => {handelClickAddDish({postId: el._id, title: el.title, totalCalories: el.totalCalories})}}> 
+                            <Card sx={{ display: 'flex', height: '100%'}}>
+                              <CardMedia component="img" sx={{ width: '35%' }} image= {el.avatar} alt={el.title}/>
+                              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                                <CardContent sx={{ flex: '1 0 auto' }}>
+                                  <Typography component="div" variant="subtitle2">{el.title}</Typography>
+                                </CardContent>
+                              </Box>
+                            </Card>
+                          </Grid>
+                        )
+                      })
+                }
               </Grid>
             </Grid>
           </Grid>
@@ -334,14 +338,31 @@ const DayCardSkeleton = () => {
   return <Grid item xs={6} md={2} sx={{mb: 2}}>
     <Card sx={{p:2}}>
       <Skeleton width="80%"/>
-      <Skeleton height={30} sx={{mt:1}} width="60%"/>
+      <Skeleton height={30} sx={{mt:1}} width={130}/>
       <Skeleton height={30}/>
-      <Skeleton height={30} sx={{mt:1}} width="60%"/>
+      <Skeleton height={30} sx={{mt:1}} width={130}/>
       <Skeleton height={30}/>
-      <Skeleton height={30} sx={{mt:1}} width="60%"/>
+      <Skeleton height={30} sx={{mt:1}} width={130}/>
       <Skeleton height={30}/>
       <Skeleton sx={{mt:3}} height={30}/>
     </Card>
+  </Grid>
+}
+
+const SearchResultSkeleton = () => {
+  return <Grid item xs={12} md={6}>
+    <div className="row align-items-center">
+      <div className="col-4">
+        <Skeleton height={150}/>
+      </div>
+      <div class="col">
+        <Skeleton/>
+        <Skeleton/>
+        <Skeleton/>
+      </div>
+    </div>
+    
+    
   </Grid>
 }
 

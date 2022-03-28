@@ -40,7 +40,7 @@ const Menu = ({userInfo}) => {
   };
 
   return (
-    <div className="bg-06a682 py-2 py-md-2">
+    <div className="bg-06a682 py-2 py-md-1">
       <nav className="navbar navbar-expand-lg navbar-dark">
         <div className="container">
           <button
@@ -110,7 +110,7 @@ const Menu = ({userInfo}) => {
             </ul>
             <div className="logo position-absolute top-50 d-none d-lg-block start-50 translate-middle p-2 rounded">
               <NavLink to="/">
-                <h4 className="text-white mb-0">COOKING HOLICS</h4>
+                <h5 className="text-white mb-0">COOKING HOLICS</h5>
               </NavLink>
             </div>
             <div className="d-block d-lg-none">
