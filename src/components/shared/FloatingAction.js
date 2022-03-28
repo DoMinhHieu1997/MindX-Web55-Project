@@ -33,11 +33,11 @@ const FloatingAction = () => {
             />
           </Tooltip>
         </div>
-        <div className="mt-4">
+        {/* <div className="mt-4">
           <Tooltip title="Thời khóa biểu">
             <DeveloperBoardIcon fontSize="large" style={{ color: "#6c757d" }} />
           </Tooltip>
-        </div>
+        </div> */}
       </div>
       <Modal
         open={openModal}
