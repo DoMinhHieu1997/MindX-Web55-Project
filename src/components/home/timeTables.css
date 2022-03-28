@@ -8,12 +8,31 @@
     background-color: rgb(207, 207, 207);
 }
 .timeTable .timeTable-Item {
-    background-color: cadetblue;
+    background-color: #f0f9d9;
 }
-*:not(.no-custom-scrollbar)::-webkit-scrollbar{width:14px;height:14px;}
-*:not(.no-custom-scrollbar)::-webkit-scrollbar:horizontal{width:9px;height:9px;}
-*:not(.no-custom-scrollbar)::-webkit-scrollbar-track{background-color:#e2e2e2;}
-*:not(.no-custom-scrollbar)::-webkit-scrollbar-track:horizontal{border-radius:8px;}
-*:not(.no-custom-scrollbar)::-webkit-scrollbar-thumb{border-radius:8px;border:3px solid #e2e2e2; background-color: #b9b9b9;}
-*:not(.no-custom-scrollbar)::-webkit-scrollbar-thumb:horizontal{border:0;}
-*:not(.no-custom-scrollbar)::-webkit-scrollbar-corner{border-radius:8px;background-color:#e2e2e2;}
+*:not(.no-custom-scrollbar)::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+*:not(.no-custom-scrollbar)::-webkit-scrollbar:horizontal {
+    width: 9px;
+    height: 9px;
+}
+*:not(.no-custom-scrollbar)::-webkit-scrollbar-track {
+    background-color: #e2e2e2;
+}
+*:not(.no-custom-scrollbar)::-webkit-scrollbar-track:horizontal {
+    border-radius: 8px;
+}
+*:not(.no-custom-scrollbar)::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 3px solid #e2e2e2;
+    background-color: #b9b9b9;
+}
+*:not(.no-custom-scrollbar)::-webkit-scrollbar-thumb:horizontal {
+    border: 0;
+}
+*:not(.no-custom-scrollbar)::-webkit-scrollbar-corner {
+    border-radius: 8px;
+    background-color: #e2e2e2;
+}

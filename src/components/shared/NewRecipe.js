@@ -25,6 +25,7 @@ const NewRecipe = ({ recipe }) => {
             setJustLiked(true)
             const data = {
                 _id: recipe._id,
+                countLike: recipe.usersLike.length + 1,
                 userLike: [...recipe.usersLike, userId],
             };
 
@@ -55,6 +56,7 @@ const NewRecipe = ({ recipe }) => {
             let index = recipe.usersLike.indexOf(userId);
             const data = {
                 _id: recipe._id,
+                countLike: recipe.usersLike.length,
                 userLike:
                     index > 0
                         ? [...recipe.usersLike.slice(0, index), ...recipe.usersLike.slice(index)]

@@ -28,6 +28,7 @@ const PostItem = (props) => {
       setJustLiked(true);
       const data = {
         _id: props.data._id,
+        countLike: props.data.usersLike.length + 1,
         userLike: [...props.data.usersLike, userId],
       };
 
@@ -58,6 +59,7 @@ const PostItem = (props) => {
       const index = props.data.usersLike.indexOf(userId);
       const data = {
         _id: props.data._id,
+        countLike: props.data.usersLike.length,
         userLike:
           index > 0
             ? [

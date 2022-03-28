@@ -13,13 +13,16 @@ import {
   MenuItem,
   CardMedia,
   Box,
-  TextField
+  TextField,
+  Fab,
+  Skeleton
 } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { http } from "../profile/config";
 import moment from "moment";
 import "./timeTables.css";
+import { BoltRounded } from "@mui/icons-material";
 
 const TimeTables = () => {
   const [itemTimeTables, setItemTimeTables] = useState([]);
@@ -149,8 +152,71 @@ const TimeTables = () => {
   }, [reloadTimeTable]);
   return (
     <div className="timeTable mt-4">
+      <Fab color="primary" sx={{mb:3}} variant="extended" onClick={handleOpenCreateTimeTables}>
+        <AddBoxIcon sx={{ mr: 2 }}/>
+        Tạo thời khóa biểu
+      </Fab>
       <Grid className="timeTable-List " container alignItems="stretch" sx={{ flexWrap: 'nowrap'}} spacing={2}>
-        <Grid item xs={6} md={2} sx={{mb: 2}}>
+        {
+          itemTimeTables.length < 1
+            ? 
+              Array(6).fill(0).map((item,index) => {
+                return <DayCardSkeleton/>
+              })
+            : 
+              itemTimeTables.map((el) => {
+                return (
+                  <Grid key={el._id} item xs={6} md={2} sx={{mb: 2}}>
+                    <Card className={`timeTable-Item ${el.today}`}  sx={{ height: '100%' }}>
+                      <CardContent>
+                        <Typography
+                          component="div"
+                          color="text.secondary"
+                          textAlign="center"
+                          sx={{ fontSize: 14, fontWeight:"bold", borderBottom:"1px solid #7a7a7a", marginBottom:".5rem", paddingBottom:".2rem" }}
+                        >
+                          {moment(el.dateEat).format('DD/MM/YYYY')}
+                        </Typography>
+                        <Typography variant="button" component="div" sx={{fontWeight:"bold"}}>
+                          Bữa sáng
+                        </Typography>
+                        <div>
+                          {el.breakfast ? el.breakfast.map((bf) => {
+                            return (
+                              <Chip label={bf.title} key={bf.postId} sx={{ m: 0.5, backgroundColor:"#3d5885", color:"white" }} size="small"/>
+                            )
+                          }): "" }
+                        </div>
+                        <Typography variant="button" component="div" sx={{fontWeight:"bold", marginTop:".5rem"}}>
+                          Bữa trưa
+                        </Typography>
+                        <div>
+                        {el.lunch ? el.lunch.map((bf) => {
+                            return (
+                              <Chip label={bf.title} key={bf.postId} sx={{ m:0.5, backgroundColor:"#d38f4f", color:"white" }} size="small"/>
+                            )
+                          }): "" }
+                          </div>
+                        <Typography variant="button" component="div" sx={{fontWeight:"bold", marginTop:".5rem"}}>
+                          Bữa tối
+                        </Typography>
+                        <div>
+                        {el.dinner ? el.dinner.map((bf) => {
+                            return (
+                              <Chip label={bf.title} key={bf.postId} sx={{ m:0.5, backgroundColor:"#06a682", color:"white" }} size="small"/>
+                            )
+                          }): "" }
+                        </div>
+                        <Typography variant="button" component="div" sx={{marginTop:".8rem", fontWeight:"bold", textAlign:"center"}}>
+                          Tổng calo: {el.totalCalories}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                )
+              })
+        }
+        {/* <Grid item xs={6} md={2} sx={{mb: 2}}>
           <Card sx={{ display: 'flex', height: '100%', bgcolor: 'text.disabled'}}>
             <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
               <Button variant="contained" onClick={handleOpenCreateTimeTables} size="small" startIcon={<AddBoxIcon />}>
@@ -158,58 +224,7 @@ const TimeTables = () => {
               </Button>
             </CardContent>
           </Card>
-        </Grid>
-        {itemTimeTables.map((el) => {
-          return (
-            <Grid key={el._id} item xs={6} md={2} sx={{mb: 2}}>
-              <Card className={`timeTable-Item ${el.today}`}  sx={{ height: '100%' }}>
-                <CardContent>
-                  <Typography
-                    component="div"
-                    color="text.secondary"
-                    textAlign="center"
-                    sx={{ fontSize: 14 }}
-                  >
-                    {moment(el.dateEat).format('DD/MM/YYYY')}
-                  </Typography>
-                  <Typography variant="button" component="div">
-                    Bữa sáng
-                  </Typography>
-                  <div>
-                    {el.breakfast ? el.breakfast.map((bf) => {
-                      return (
-                        <Chip label={bf.title} key={bf.postId} sx={{ mx: 0.5 }} size="small" color="primary"/>
-                      )
-                    }): "" }
-                  </div>
-                  <Typography variant="button" component="div">
-                    Bữa trưa
-                  </Typography>
-                  <div>
-                  {el.lunch ? el.lunch.map((bf) => {
-                      return (
-                        <Chip label={bf.title} key={bf.postId} sx={{ mx: 0.5 }} size="small" color="success"/>
-                      )
-                    }): "" }
-                    </div>
-                  <Typography variant="button" component="div">
-                    Bữa tối
-                  </Typography>
-                  <div>
-                  {el.dinner ? el.dinner.map((bf) => {
-                      return (
-                        <Chip label={bf.title} key={bf.postId} sx={{ mx: 0.5 }} size="small" color="warning"/>
-                      )
-                    }): "" }
-                    </div>
-                    <Typography variant="button" component="div">
-                    Tổng calo: {el.totalCalories}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          );
-        })}
+        </Grid> */}
       </Grid>
       <Dialog open={openCreateTimeTables} onClose={handleCloseCreateTimeTables} fullWidth maxWidth="md">
         <DialogTitle>Tạo thời khóa biểu</DialogTitle>
@@ -301,4 +316,20 @@ const TimeTables = () => {
     </div>
   );
 };
+
+const DayCardSkeleton = () => {
+  return <Grid item xs={6} md={2} sx={{mb: 2}}>
+    <Card sx={{p:2}}>
+      <Skeleton width="80%"/>
+      <Skeleton height={30} sx={{mt:1}} width="60%"/>
+      <Skeleton height={30}/>
+      <Skeleton height={30} sx={{mt:1}} width="60%"/>
+      <Skeleton height={30}/>
+      <Skeleton height={30} sx={{mt:1}} width="60%"/>
+      <Skeleton height={30}/>
+      <Skeleton sx={{mt:3}} height={30}/>
+    </Card>
+  </Grid>
+}
+
 export default TimeTables;
