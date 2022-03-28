@@ -16,6 +16,7 @@ import {
   TextField
 } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import { http } from "../profile/config";
 import moment from "moment";
 import "./timeTables.css";
@@ -148,11 +149,20 @@ const TimeTables = () => {
   }, [reloadTimeTable]);
   return (
     <div className="timeTable mt-4">
-      <Grid container alignItems="stretch" spacing={2}>
+      <Grid className="timeTable-List " container alignItems="stretch" sx={{ flexWrap: 'nowrap'}} spacing={2}>
+        <Grid item xs={6} md={2} sx={{mb: 2}}>
+          <Card sx={{ display: 'flex', height: '100%', bgcolor: 'text.disabled'}}>
+            <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+              <Button variant="contained" onClick={handleOpenCreateTimeTables} size="small" startIcon={<AddBoxIcon />}>
+                Tạo thời khóa biểu
+              </Button>
+            </CardContent>
+          </Card>
+        </Grid>
         {itemTimeTables.map((el) => {
           return (
-            <Grid key={el._id} item xs={6} md={2}>
-              <Card className={el.today}>
+            <Grid key={el._id} item xs={6} md={2} sx={{mb: 2}}>
+              <Card className={`timeTable-Item ${el.today}`}  sx={{ height: '100%' }}>
                 <CardContent>
                   <Typography
                     component="div"
@@ -200,38 +210,13 @@ const TimeTables = () => {
             </Grid>
           );
         })}
-        <Grid item xs={6} md={2}>
-          <Card sx={{ display: 'flex', height: '100%'}}>
-            <CardContent sx={{ display: 'flex',  alignItems: 'center', justifyContent: 'center'}}>
-              <Button
-                variant="contained"
-                onClick={handleOpenCreateTimeTables}
-                size="small"
-              >
-                Tạo thời khóa biểu
-              </Button>
-            </CardContent>
-          </Card>
-        </Grid>
       </Grid>
-      <Dialog
-        open={openCreateTimeTables}
-        onClose={handleCloseCreateTimeTables}
-        fullWidth
-        maxWidth="md"
-      >
-        <DialogTitle>
-          Tạo thời khóa biểu
-        </DialogTitle>
+      <Dialog open={openCreateTimeTables} onClose={handleCloseCreateTimeTables} fullWidth maxWidth="md">
+        <DialogTitle>Tạo thời khóa biểu</DialogTitle>
         <DialogContent>
           <Grid container sx={{my: 2}}>
             <Grid item xs={12} md={4} sx={{ display:"flex", alignItems: "center", justifyContent: "center"}}>
-              <TextField
-                id="date"
-                label="Chọn ngày"
-                type="date"
-                defaultValue={dataTimetable.dateEat}
-                sx={{ width: 220 }}
+              <TextField label="Chọn ngày" type="date" defaultValue={dataTimetable.dateEat} sx={{ width: 220 }}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -239,12 +224,7 @@ const TimeTables = () => {
               />
             </Grid>
             <Grid item xs={12} md={4} sx={{ display:"flex", alignItems: "center", justifyContent: "center"}}>
-              <TextField
-                select
-                label="Chọn bữa"
-                value={sessionEat}
-                onChange={handleChangeSessionEat}
-              >
+              <TextField select label="Chọn bữa" value={sessionEat} onChange={handleChangeSessionEat}>
                 <MenuItem value="breakfast">
                   Bữa sáng
                 </MenuItem>
@@ -303,17 +283,10 @@ const TimeTables = () => {
                   return (
                     <Grid item xs={12} md={6} key={el._id} onClick={() => {handelClickAddDish({postId: el._id, title: el.title, totalCalories: el.totalCalories})}}> 
                       <Card sx={{ display: 'flex', height: '100%'}}>
-                        <CardMedia
-                            component="img"
-                            sx={{ width: '35%' }}
-                            image= {el.avatar}
-                            alt={el.title}
-                        />
+                        <CardMedia component="img" sx={{ width: '35%' }} image= {el.avatar} alt={el.title}/>
                         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                           <CardContent sx={{ flex: '1 0 auto' }}>
-                            <Typography component="div" variant="subtitle2">
-                              {el.title}
-                            </Typography>
+                            <Typography component="div" variant="subtitle2">{el.title}</Typography>
                           </CardContent>
                         </Box>
                       </Card>
