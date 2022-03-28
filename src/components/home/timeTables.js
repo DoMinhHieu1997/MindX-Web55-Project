@@ -145,6 +145,10 @@ const TimeTables = () => {
           totalCalories: 0,
           dateEat: moment().format("YYYY-MM-DD")
         })
+        setTxtSearchDish('');
+        setSessionEat('breakfast');
+        setDataSearchDish();
+        handleCloseCreateTimeTables();
       }
     } catch (err) {
         //show err
