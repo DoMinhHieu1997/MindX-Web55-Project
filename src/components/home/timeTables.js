@@ -355,7 +355,7 @@ const SearchResultSkeleton = () => {
       <div className="col-4">
         <Skeleton height={150}/>
       </div>
-      <div class="col">
+      <div className="col">
         <Skeleton/>
         <Skeleton/>
         <Skeleton/>
