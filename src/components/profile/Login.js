@@ -10,7 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import { styled } from "@mui/system";
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { http, Logo } from "./config";
@@ -20,7 +20,9 @@ function Login() {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-
+useEffect(()=>{
+  document.title='Đăng nhập'
+})
   const {
     formState: { errors },
     handleSubmit,
@@ -68,7 +70,7 @@ function Login() {
       });
   };
   return (
-    <div className="py-5" style={{ backgroundImage: `url(${bglogin})` }}>
+    <div style={{ backgroundImage: `url(${bglogin})`, padding:"5rem 0 6rem 0" }}>
       <Container maxWidth="sm">
         <form onSubmit={handleSubmit(onSubmit)}>
           <Paper
@@ -85,8 +87,9 @@ function Login() {
                 margin: 15,
               }}
             >
+                
               <Logo />
-              <MyDiv>
+              <MyDiv style={{marginTop:55}}>
                 <TextField
                   error={!!errors.email}
                   type="text"
@@ -145,13 +148,13 @@ function Login() {
                 />
                 {errors.password && <Myp>{errors.password.message}</Myp>}
               </MyDiv>
-              <FormGroup>
+              {/* <FormGroup>
                 <FormControlLabel
                   {...register("keepLogin")}
                   control={<Checkbox />}
                   label="Duy trì đăng nhập"
                 />
-              </FormGroup>
+              </FormGroup> */}
               <MyDiv>
                 <Button
                   variant="contained"

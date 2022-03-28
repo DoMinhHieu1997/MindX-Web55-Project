@@ -20,6 +20,7 @@ const Search = () => {
     const [searchResponse, setSearchResponse] = useState([]);
     const [displayLoadMore, setDisplayLoadMore] = useState(true);
     const [page, setPage] = useState(1);
+    const [changeSearchValue, setChangeSearchValue] = useState(false);
 
     function removeAccents(str) {
         str = str.replace("-"," ");
@@ -52,12 +53,13 @@ const Search = () => {
         .then(res => res.json())
         .then(resJson => {
             if (resJson.message === "success") {
-                if (resJson.data.length) {
-                    if (resJson.data.length < 8) setDisplayLoadMore(false);
-                    setSearchResponse(resJson.data);
+                if (resJson.data.length > 0) {
+                    resJson.data.length < 8 ?  setDisplayLoadMore(false) : setDisplayLoadMore(true);
+                    setSearchResponse(prev => [...prev,...resJson.data]);
                 } else {
                     setDisplayLoadMore(false);
-                    setSearchResponse("");
+                    setSearchResponse([]);
+                    setChangeSearchValue(true);
                 }
                 setIsLoading(false);
             } else {
@@ -69,6 +71,8 @@ const Search = () => {
 
     const handleTextFieldChange = (event) => {
         setSearchValue(event.target.value);
+        setChangeSearchValue(true);
+        setPage(1);
     }
 
     const handleClick = () => {
@@ -91,13 +95,16 @@ const Search = () => {
 
     const handleLoadMoreClick = () => {
         setPage(prev => prev + 1);
+        setChangeSearchValue(false);
     }
 
     useEffect(() => {
-        setSearchResponse([]);
+        if (changeSearchValue) 
+            setSearchResponse([]);
         setSearchValue(searchKey.replace("-"," "));
         setIsLoading(true);
         getSearchValue();
+        document.title=`Tìm kiếm: ${searchKey}`
     },[page,searchKey]);
 
     return <>
@@ -108,10 +115,10 @@ const Search = () => {
             }
             <h3 className="text-center mb-4 text-uppercase fw-normal">Tìm kiếm</h3>
             <div className="p-3 mb-5 bg-body mx-auto text-center">
-                <div className="w-75 d-inline-block align-middle me-4">
+                <div className="col-lg-8 col-12 d-inline-block align-middle me-4">
                     <TextField id="filled-basic" variant="filled" fullWidth label="Nhập từ khóa..." className="rounded" onChange={handleTextFieldChange} onKeyPress={handleKeypress} value={searchValue}/>
                 </div>
-                <div className="d-inline-block align-middle">
+                <div className="d-inline-block align-middle mt-3 mt-lg-0">
                     <Button onClick={handleClick} variant="outlined" startIcon={<SearchIcon />}>
                     Tìm kiếm
                     </Button>
@@ -119,7 +126,7 @@ const Search = () => {
             </div>
             <div>
                 {
-                    searchResponse 
+                    searchResponse.length > 0 
                     ? (!isLoading && <div className="text-center fs-4">Kết quả tìm kiếm cho từ khóa: <strong>{searchKey.replace("-"," ")}</strong></div>)
                     : (!isLoading && <>
                         <div className="text-center fs-4">Không tìm thấy kết quả cho từ khóa: <strong>{searchKey.replace("-"," ")}</strong></div>
@@ -131,22 +138,17 @@ const Search = () => {
             </div>
             <div className="row mt-5">
                 {
-                    searchResponse && searchResponse.map((item) => {
-                        return <div className="col-2 col-md-3 mb-3"><PostItem data={item} isTopLikeItem={true}/></div>
+                    searchResponse.length > 0 && searchResponse.map((item,index) => {
+                        return <div key={index} className="col-12 col-md-6 col-lg-3 mb-3"><PostItem data={item} isTopLikeItem={true}/></div>
                     })
                 }
                 {
                     isLoading &&  <>
-                        <div className="col-12 row">
-                            <SkeletonItem />
-                            <SkeletonItem />
-                            <SkeletonItem />
-                            <SkeletonItem />
-                            <SkeletonItem />
-                            <SkeletonItem />
-                            <SkeletonItem />
-                            <SkeletonItem />
-                        </div>
+                        {
+                            Array(8).fill(0).map((item,index) => {
+                                return <SkeletonItem key={index}/>
+                            })
+                        }
                     </>    
                 }
             </div>

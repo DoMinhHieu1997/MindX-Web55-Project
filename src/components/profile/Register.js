@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import bglogin from '../../assets/bglogin.jpg'
 
 
@@ -18,7 +18,9 @@ const Register = () => {
   } = useForm();
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-
+  useEffect(()=>{
+    document.title='Đăng ký'
+  })
   const handleClick = () => {
     setShow((prev) => !prev);
   };
@@ -50,7 +52,7 @@ const Register = () => {
 
   return (
     <MyContainer style={{backgroundImage:`url(${bglogin})`}}>
-      <Container maxWidth="sm" className="py-5">
+      <Container maxWidth="sm" style={{padding:"5rem 0 6rem 0"}}>
         <Paper
           elevation={12}
           style={{

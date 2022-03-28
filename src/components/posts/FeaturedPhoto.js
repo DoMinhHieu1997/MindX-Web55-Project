@@ -1,9 +1,9 @@
 import { Add } from "@mui/icons-material";
-import { Box, Button,  Paper } from "@mui/material";
+import { Box, Button, Paper, Skeleton } from "@mui/material";
 import React from "react";
 
 function FeaturedPhoto(
-  { onChangeFile, label, imgPreview, setImgPreview },
+  { onChangeFile, label, imgPreview, setImgPreview, loading },
   ref
 ) {
   const handleInputIMG = (e) => {
@@ -20,7 +20,7 @@ function FeaturedPhoto(
       setImgPreview(null);
     }
   };
- 
+
   return (
     <div className="mt-4">
       <Box
@@ -33,12 +33,22 @@ function FeaturedPhoto(
           },
         }}
       >
-        <Paper elevation={3}>
-          <img src={imgPreview} alt="" width={imgPreview || 128} height={128} />
-        </Paper>
+        {loading && <Skeleton variant="rectangular" width={128} height={128} />}
+        {!loading && (
+          <Paper elevation={3}>
+            {
+              <img
+                src={imgPreview}
+                alt=""
+                width={imgPreview || 128}
+                height={128}
+              />
+            }
+          </Paper>
+        )}
         <div>
           <Button variant="contained" component="label" size="small">
-            <Add fontSize="small" className="mb-1"/> Chọn ảnh
+            <Add fontSize="small" className="mb-1" /> Chọn ảnh
             <input
               ref={ref}
               accept="image/png, image/gif, image/jpeg"

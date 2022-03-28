@@ -3,18 +3,26 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useState, useEffect, useContext } from "react";
 import AppCtx from "../../appContext";
 import { COMMON } from "../Common";
+import { NavLink } from "react-router-dom";
+
 const NewRecipe = ({ recipe }) => {
     const appCtx = useContext(AppCtx);
     const token = localStorage.getItem("token") || sessionStorage.getItem("token");
     const userId = appCtx.userInfo?._id;
     const [isLove, setIsLove] = useState(false);
     const [totalLike, setTotalLike] = useState(recipe.usersLike.length ? recipe.usersLike.length : 0);
+    const [justLiked, setJustLiked] = useState(false);
+    const [justDisliked, setJustDisliked] = useState(false);
 
     useEffect(() => {
-        setIsLove(recipe.usersLike.indexOf(userId) > -1 ? true : false);
+        if(token){
+
+            setIsLove(recipe.usersLike.indexOf(userId) > -1 ? true : false);
+        }
     }, [recipe.usersLike,userId]);
     const handleLike = () => {
         if (token) {
+            setJustLiked(true)
             const data = {
                 _id: recipe._id,
                 userLike: [...recipe.usersLike, userId],
@@ -33,6 +41,7 @@ const NewRecipe = ({ recipe }) => {
                     if (resJson.message === "success") {
                         setTotalLike((prev) => prev + 1);
                         setIsLove(true);
+                        setJustLiked(false)
                     }
                 });
         } else {
@@ -42,6 +51,7 @@ const NewRecipe = ({ recipe }) => {
 
     const handleDisLike = () => {
         if (token) {
+            setJustDisliked(true)
             let index = recipe.usersLike.indexOf(userId);
             const data = {
                 _id: recipe._id,
@@ -64,6 +74,7 @@ const NewRecipe = ({ recipe }) => {
                     if (resJson.message === "success") {
                         setTotalLike((prev) => prev - 1);
                         setIsLove(false);
+                        setJustDisliked(false)
                     }
                 });
         } else {
@@ -75,26 +86,26 @@ const NewRecipe = ({ recipe }) => {
         <>
             <div className="rounded h-100 new-recipes-try">
                 <div className="row">
-                    <a href={"/chi-tiet/" + recipe._id} className="link-dark">
+                    <NavLink to={"/chi-tiet/" + recipe._id} className="link-dark">
                         <div className="col-12">
                             <div
                                 className="ratio ratio-4x3 rounded border image-background"
                                 style={{ backgroundImage: `url(${recipe.avatar})` }}
                             ></div>
                         </div>
-                    </a>
+                    </NavLink>
                     <div className="py-2">
                         <div className="ps-2">
                             {!isLove ? (
                                 <FavoriteBorderOutlinedIcon
                                     className="ms-2 d-inline-block h6 mb-0"
-                                    onClick={handleLike}
+                                    onClick={!justLiked ? handleLike:null}
                                 />
                             ) : (
                                 <FavoriteIcon
                                     className="d-inline-block me-1"
                                     style={{ color: "#d83737" }}
-                                    onClick={handleDisLike}
+                                    onClick={!justDisliked ? handleDisLike: null}
                                 />
                             )}
                             <div className="ms-2 d-inline-block h6 mb-0">{totalLike} Lượt thích</div>
@@ -102,9 +113,9 @@ const NewRecipe = ({ recipe }) => {
                     </div>
                     <hr className="w-25 ms-4 mb-3 mt-1 text-dark" />
                     <div className="col-12">
-                        <a href={"/chi-tiet/" + recipe._id} className="link-dark">
+                        <NavLink to={"/chi-tiet/" + recipe._id} className="link-dark">
                             <h5 className="ps-2">{recipe.title}</h5>
-                        </a>
+                        </NavLink>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import AccessAlarmsOutlinedIcon from "@mui/icons-material/AccessAlarmsOutlined"; 
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import {transferDate} from "../Common";
-import { useState,useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import AppCtx from "../../appContext";
 import { Button, TextField } from "@mui/material";
 import { COMMON } from "../Common";
@@ -10,12 +10,21 @@ const CommentItem = (props) => {
   const appCtx = useContext(AppCtx);
   const userId = appCtx.userInfo?._id;
   const token = sessionStorage.getItem("token") || localStorage.getItem("token");
-  const [canUpdate, setCanUpdate] = useState(props.data.userId.indexOf(userId) > -1 ? true : false);
+  const [canUpdate, setCanUpdate] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [content, setContent] = useState(props.data.content);
   const [contentForUpdate, setContentForUpdate] = useState(props.data.content);
   const [isError, setIsError] = useState(false);
   const [disableUpdate, setDisableUpdate] = useState(false);
+
+  useEffect(() => {
+    if (props.data.userId.indexOf(userId) > -1) {
+      setCanUpdate(true);
+    } else {
+      setCanUpdate(false);
+    }
+    setContent(props.data.content);
+  },[userId,props])
 
   const toggleUpdate = () => {
     setIsUpdating(!isUpdating);

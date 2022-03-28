@@ -1,22 +1,28 @@
 import { NavLink } from "react-router-dom";
 
 const Footer = () => {
+    const scrollTop = () => {
+        window.scroll(0,0);
+    }
+
     return <div>
         <div className="bg-06a682 py-4">
             <div className="container">
                 <div className="row align-items-center justify-content-between">
-                    <div className="col-12 col-md-3 mb-4 mb-md-0">
-                        <div className="logo rounded p-2 d-inline-block">
-                            <h2 className="text-white mb-0">COOKING HOLICS</h2>
-                        </div>
+                    <div className="col-12 col-md-5 col-lg-3 mb-4 mb-md-0 text-center">
+                        <NavLink to="/">
+                            <div className="logo rounded p-2 d-inline-block">
+                                <h2 className="text-white mb-0">COOKING HOLICS</h2>
+                            </div>
+                        </NavLink>
                     </div>
-                    <div className="col-12 col-md-3 text-center">
+                    <div className="col-12 col-md-5 col-lg-3 text-center">
                         <ul className="list-unstyled d-flex justify-content-center">
                             <li className="me-4">
-                                <NavLink className="text-white fs-5" to="/">Trang chủ</NavLink>
+                                <NavLink className="text-white fs-5" to="/" onClick={scrollTop}>Trang chủ</NavLink>
                             </li>
                             <li className="me-0 me-md-4">
-                                <NavLink className="text-white fs-5" to="/cong-thuc">Công thức</NavLink>
+                                <NavLink className="text-white fs-5" to="/cong-thuc" onClick={scrollTop}>Công thức</NavLink>
                             </li>
                         </ul>
                     </div>
