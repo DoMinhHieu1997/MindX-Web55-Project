@@ -11,13 +11,12 @@ import TimeTables from "./home/timeTables";
 import { NavLink } from "react-router-dom";
 
 const Home = () => {
-  const [isLoading, setIsloading] = useState(true);
-  const [isLoadingFE, setIsLoadingFE] = useState(true);
-  const [newRecipe, setNewRecipe] = useState("");
-  const [blogs, setBlogs] = useState("");
-  const [moreBlog, setMoreBlog] = useState(12);
-  const token =
-    localStorage.getItem("token") || sessionStorage.getItem("token");
+    const [isLoading, setIsloading] = useState(true);
+    const [isLoadingFE, setIsLoadingFE] = useState(true);
+    const [newRecipe, setNewRecipe] = useState("");
+    const [blogs, setBlogs] = useState("");
+    const [moreBlog, setMoreBlog] = useState(12);
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
 
     useEffect(() => {
         document.title = "Trang chủ";
@@ -67,7 +66,7 @@ const Home = () => {
                             );
                         })}
                 </div>
-                { (token) ? <TimeTables /> : " " }
+                {token ? <TimeTables /> : " "}
                 <div className="row mt-5">
                     <div className="food-experiens col-md-8 col-lg-9">
                         <div className="d-flex align-items-center mb-3">
